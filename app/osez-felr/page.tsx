@@ -1,12 +1,10 @@
-import { Button } from "@/src/components/ui/button";
-import { Card, CardTitle } from "@/src/components/ui/card";
+import SlidingForms from "@/src/components/slidingForm";
 
 export default function page() {
     return (
-        <Card>
-            <CardTitle className="font-script text-4xl">Devenez</CardTitle>
-            <Button>Partenaire</Button>
-            <Button>Membre</Button>
-        </Card>
+        <div>
+            
+            <SlidingForms />
+        </div>
     );
 }
