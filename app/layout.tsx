@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${greatVibes.variable} antialiased h-full max-w-lg p-4`}
+        className={`${geistSans.variable} ${geistMono.variable} ${greatVibes.variable} antialiased h-full p-4`}
       >
         <div className="flex flex-col gap-4">
           <Header />
