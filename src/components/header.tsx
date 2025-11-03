@@ -1,10 +1,37 @@
-import { Card, CardHeader, CardTitle } from "./ui/card";
+"use client"
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const LINKS = [
+    { href:"/", label:"Accueil"},
+    { href: "/evenements", label: "Évènements"},
+    { href: "/osez-felr", label: "Osez Felr"},
+    { href: "/notre-histoire", label: "Notre Histoire"},
+    { href: "/collectif-felr", label: "Collectif Felr"},
+];
 
 export function Header() {
-    return (<Card>
-        <CardHeader className="p-4">
-            <CardTitle className="font-script text-4xl">Titre</CardTitle>
-        </CardHeader>
-    </Card>
+
+    const pathname = usePathname();
+
+    return (
+        <nav className="flex justify-end items-center w-full gap-x-8">
+            {
+                LINKS.map(({href, label}) => {
+                    const isActive = pathname === href || pathname.startsWith(`${href}/`);
+                    return (
+                        <Link
+                        key={href}
+                        href={href}
+                        aria-current={isActive ? "page" : undefined}
+                        className={`font-script text-4xl pb-1 border-b-2
+                            ${isActive ? "border-amber-400" : "border-transparent hover:border-amber-400/70"}`}
+                        >
+                            {label}
+                        </Link>
+                        );
+                })
+            }
+        </nav>
     );
 }
