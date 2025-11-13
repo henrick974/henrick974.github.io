@@ -147,3 +147,136 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Background */
+/* FOND ARGENTÉ + ÉTOILES TYPE CIEL */
+.sparkle-bg {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+
+  /* argent plus foncé, sans effet quadrillage */
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.55) 0, transparent 55%),
+    radial-gradient(circle at 80% 15%, rgba(255, 255, 255, 0.4) 0, transparent 55%),
+    radial-gradient(circle at 10% 80%, rgba(255, 255, 255, 0.35) 0, transparent 55%),
+    radial-gradient(circle at 80% 85%, rgba(255, 255, 255, 0.25) 0, transparent 55%),
+    linear-gradient(
+      135deg,
+      #e5e5e7 0%,
+      #c0c2c8 30%,
+      #8c8f96 65%,
+      #7a7d84 100%
+    );
+  background-attachment: fixed;
+}
+
+/* étoiles fixes à positions "aléatoires" */
+.sparkle-bg::before,
+.sparkle-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+/* première couche d'étoiles, nettes */
+.sparkle-bg::before {
+  width: 2px;
+  height: 2px;
+  background: #ffffff;
+  opacity: 0.8;
+  box-shadow:
+    4vw 5vh #ffffff,
+    15vw 18vh #ffffff,
+    32vw 10vh #ffffff,
+    55vw 22vh #ffffff,
+    70vw 8vh #ffffff,
+    85vw 16vh #ffffff,
+    10vw 40vh #ffffff,
+    28vw 35vh #ffffff,
+    48vw 45vh #ffffff,
+    65vw 38vh #ffffff,
+    82vw 50vh #ffffff,
+    20vw 60vh #ffffff,
+    36vw 72vh #ffffff,
+    58vw 68vh #ffffff,
+    76vw 60vh #ffffff,
+    92vw 72vh #ffffff,
+    8vw 85vh #ffffff,
+    27vw 88vh #ffffff,
+    44vw 80vh #ffffff,
+    63vw 90vh #ffffff,
+    78vw 82vh #ffffff,
+    95vw 88vh #ffffff;
+  animation: twinkleA 3.5s ease-in-out infinite alternate;
+}
+
+/* deuxième couche, un peu floue, autres étoiles */
+.sparkle-bg::after {
+  width: 2px;
+  height: 2px;
+  background: #ffffff;
+  opacity: 0.5;
+  filter: blur(1px);
+  box-shadow:
+    8vw 12vh #ffffff,
+    22vw 8vh #ffffff,
+    40vw 18vh #ffffff,
+    60vw 6vh #ffffff,
+    78vw 20vh #ffffff,
+    90vw 12vh #ffffff,
+    6vw 32vh #ffffff,
+    24vw 28vh #ffffff,
+    42vw 36vh #ffffff,
+    62vw 30vh #ffffff,
+    80vw 40vh #ffffff,
+    14vw 52vh #ffffff,
+    30vw 56vh #ffffff,
+    50vw 52vh #ffffff,
+    72vw 48vh #ffffff,
+    88vw 58vh #ffffff,
+    12vw 70vh #ffffff,
+    34vw 82vh #ffffff,
+    52vw 76vh #ffffff,
+    68vw 86vh #ffffff,
+    86vw 78vh #ffffff;
+  animation: twinkleB 5s ease-in-out infinite alternate;
+}
+
+/* que ton contenu reste au-dessus du décor */
+.sparkle-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes twinkleA {
+  0% {
+    opacity: 0.3;
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.4;
+    transform: translate3d(-3px, -3px, 0);
+  }
+}
+
+@keyframes twinkleB {
+  0% {
+    opacity: 0.2;
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.3;
+    transform: translate3d(2px, -2px, 0);
+  }
+}
+

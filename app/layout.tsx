@@ -26,15 +26,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${greatVibes.variable} antialiased h-full p-4`}
+        className={`${geistSans.variable} ${geistMono.variable} ${greatVibes.variable} antialiased h-full`}
       >
-        <div className="flex flex-col gap-4">
+        <div className="min-h-screen flex flex-col gap-4 sparkle-bg p-4">
           <Header />
           {children}
         </div>
@@ -42,3 +42,4 @@ export default function RootLayout({
     </html>
   );
 }
+
