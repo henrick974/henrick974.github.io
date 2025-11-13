@@ -3,11 +3,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const LINKS = [
-    { href:"/", label:"Accueil"},
-    { href: "/evenements", label: "Évènements"},
-    { href: "/osez-felr", label: "Osez Felr"},
-    { href: "/notre-histoire", label: "Notre Histoire"},
+    { href:"/", label:"Notre Histoire"},
     { href: "/collectif-felr", label: "Collectif Felr"},
+    { href: "/osez-felr", label: "Osez Felr"},
 ];
 
 export function Header() {
@@ -24,7 +22,7 @@ export function Header() {
                         key={href}
                         href={href}
                         aria-current={isActive ? "page" : undefined}
-                        className={`font-script text-4xl pb-1 border-b-2
+                        className={`text-4xl pb-1 border-b-2 --font-mono
                             ${isActive ? "border-amber-400" : "border-transparent hover:border-amber-400/70"}`}
                         >
                             {label}

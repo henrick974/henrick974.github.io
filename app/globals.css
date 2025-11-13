@@ -4,6 +4,12 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  /* FELR WALK */
+  --felr-frames: 8;
+  --felr-frame-w: 60px;   /* largeur d'une frame */
+  --felr-frame-h: 100px;   /* hauteur d'une frame */
+  --felr-sheet-w: calc(var(--felr-frames) * var(--felr-frame-w));
+  /* FELR WALK*/
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --radius: 0.625rem;
@@ -115,6 +121,23 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* Taille native 512x512 — change l’échelle si tu veux plus petit */
+.felrWalk{
+  width: var(--felr-frame-w);
+  height: var(--felr-frame-h);
+  background-image: url("/felr_walk_sprite.png");
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: var(--felr-sheet-w) var(--felr-frame-h);
+  animation: felrWalk 1.2s steps(var(--felr-frames)) infinite;
+  /* Option: réduire visuellement sans casser l’alignement des frames */
+  transform: scale(var(--felr-scale, 1));
+  transform-origin: top left;
+}
+
+@keyframes felrWalk{
+  to { background-position: calc(var(--felr-sheet-w) * -1) 0; }
+}
 
 @layer base {
   * {
