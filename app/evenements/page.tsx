@@ -1,9 +1,9 @@
-// app/evenement/page.tsx
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+
 
 /* =========================================================
    TYPES
@@ -23,26 +23,24 @@ type YearData = {
   chiffres: { label: string; valeur: number }[]; // uniquement lié aux ÉVÈNEMENTS
   momentsForts: Media[]; // carrousel
   galerie: Media[];      // masonry + filtres
-  replays: Media[];      // vidéos majeures
 };
 
 /* =========================================================
-   DONNÉES EXEMPLE 2024/2025
-   (remplace ou complète avec tes fichiers)
+   DONNÉES
    ========================================================= */
-const DATA: Record<"2025" | "2024", YearData> = {
+const DATA: Record<"2025" | "2024" | "2023", YearData> = {
   "2025": {
     hero: {
-      titre: "Évènements 2025",
+      titre: "Notre Histoire en 2025",
       accroche:
-        "Cérémonies, conférences, rencontres publiques et soirées de prestige : une année rythmée par des temps forts mémorables.",
+        "Atelier, Cérémonies, conférences, rencontres publiques, soirées de prestige : Une association rythmée par des évènements marquants.",
     },
-    chiffres: [
-      { label: "Évènements", valeur: 26 },
-      { label: "Jours d’animation", valeur: 41 },
-      { label: "Villes", valeur: 7 },
-      { label: "Replays", valeur: 9 },
-    ],
+chiffres: [
+  { label: "Ateliers", valeur: 179 },
+  { label: "Membres", valeur: 106 },
+  { label: "Soutien et Partenaires", valeur: 21 },
+],
+
 
     /* MOMENTS FORTS — carrousel */
     momentsForts: [
@@ -195,64 +193,20 @@ const DATA: Record<"2025" | "2024", YearData> = {
         tags: ["highlights", "final"],
       },
     ],
-
-    /* REPLAYS — vidéos longues */
-    replays: [
-      {
-        id: "25-r1",
-        type: "video",
-        src: "/medias/2025/replay-ouverture.mp4",
-        titre: "Replay — Ouverture officielle",
-        texte: "Version intégrale, introduction et annonces.",
-        tags: ["replay", "ouverture"],
-      },
-      {
-        id: "25-r2",
-        type: "video",
-        src: "/medias/2025/replay-presse.mp4",
-        titre: "Replay — Point presse",
-        texte: "Questions-réponses et précisions sur la programmation.",
-        tags: ["replay", "presse"],
-      },
-      {
-        id: "25-r3",
-        type: "video",
-        src: "/medias/2025/replay-conference.mp4",
-        titre: "Replay — Conférence",
-        texte: "Perspectives 2025 et feuille de route des évènements.",
-        tags: ["replay", "conference"],
-      },
-      {
-        id: "25-r4",
-        type: "video",
-        src: "/medias/2025/replay-rencontre.mp4",
-        titre: "Replay — Rencontre publique",
-        texte: "Captation intégrale et annonces complémentaires.",
-        tags: ["replay", "rencontre"],
-      },
-      {
-        id: "25-r5",
-        type: "video",
-        src: "/medias/2025/replay-gala.mp4",
-        titre: "Replay — Soirée de distinction",
-        texte: "Conclusion élégante et annonces finales.",
-        tags: ["replay", "gala"],
-      },
-    ],
   },
 
   "2024": {
     hero: {
-      titre: "Évènements 2024",
+      titre: "Notre histoire en 2024",
       accroche:
         "Premières éditions et premières scènes : les fondations d’un rendez-vous qui compte.",
     },
-    chiffres: [
-      { label: "Évènements", valeur: 18 },
-      { label: "Jours d’animation", valeur: 27 },
-      { label: "Villes", valeur: 5 },
-      { label: "Replays", valeur: 5 },
-    ],
+chiffres: [
+  { label: "Ateliers", valeur: 192 },
+  { label: "Membres", valeur: 95 },
+  { label: "Soutien et partenaire", valeur: 28 },
+],
+
 
     momentsForts: [
       {
@@ -355,31 +309,80 @@ const DATA: Record<"2025" | "2024", YearData> = {
         tags: ["scene"],
       },
     ],
+  },
 
-    replays: [
+  "2023": {
+    hero: {
+      titre: "Notre histoire en 2023",
+      accroche:
+        "Les premières pierres : rencontres fondatrices et formats testés grandeur nature.",
+    },
+chiffres: [
+  { label: "Ateliers", valeur: 15 },
+  { label: "Membres", valeur: 17 },
+  { label: "Soutien et partenaire", valeur: 5 },
+],
+
+
+    momentsForts: [
+{
+  id: "23-m1",
+  type: "image",
+  src: "/medias/2023/1.jpeg", // <= fichier placé dans public/medias/2023/1.jpeg
+  titre: "Premiers pas",
+  texte: "Une équipe, une vision, un public curieux.",
+  tags: ["lancement"],
+},
       {
-        id: "24-r1",
+        id: "23-m2",
         type: "video",
-        src: "/medias/2024/replay-lancement.mp4",
-        titre: "Replay — Lancement 2024",
-        texte: "Annonce officielle et présentation du format.",
-        tags: ["replay", "lancement"],
+        src: "/medias/2023/teaser.mp4",
+        titre: "Teaser 2023",
+        texte: "Un format court pour poser l’intention.",
+        tags: ["teaser"],
       },
       {
-        id: "24-r2",
-        type: "video",
-        src: "/medias/2024/replay-conference.mp4",
-        titre: "Replay — Conférence",
-        texte: "Informations pratiques et calendrier détaillé.",
-        tags: ["replay", "conference"],
+        id: "23-m3",
+        type: "image",
+        src: "/medias/2023/rencontre.jpg",
+        titre: "Rencontre locale",
+        texte: "Échanges directs et retours à chaud.",
+        tags: ["rencontre"],
+      },
+    ],
+
+    galerie: [
+      {
+        id: "23-g1",
+        type: "image",
+        src: "/medias/2023/affiche.jpg",
+        titre: "Affiche 2023",
+        texte: "Première identité, premiers codes visuels.",
+        tags: ["affiche"],
       },
       {
-        id: "24-r3",
+        id: "23-g2",
+        type: "image",
+        src: "/medias/2023/installation.jpg",
+        titre: "Installation",
+        texte: "Montage simple et efficace.",
+        tags: ["logistique"],
+      },
+      {
+        id: "23-g3",
         type: "video",
-        src: "/medias/2024/replay-rencontre.mp4",
-        titre: "Replay — Rencontre régionale",
-        texte: "Captation intégrale et ambiance des premières éditions.",
-        tags: ["replay", "rencontre"],
+        src: "/medias/2023/highlights.mp4",
+        titre: "Highlights 2023",
+        texte: "Un condensé des temps forts.",
+        tags: ["highlights"],
+      },
+      {
+        id: "23-g4",
+        type: "image",
+        src: "/medias/2023/ambiance.jpg",
+        titre: "Ambiance",
+        texte: "Convivialité et proximité.",
+        tags: ["soiree"],
       },
     ],
   },
@@ -410,7 +413,7 @@ function useCounter(n: number, duration = 1200) {
    PAGE
    ========================================================= */
 export default function PageEvenement() {
-  const [year, setYear] = useState<"2025" | "2024">("2025");
+  const [year, setYear] = useState<"2025" | "2024" | "2023">("2025");
   const data = DATA[year];
 
   return (
@@ -430,7 +433,7 @@ export default function PageEvenement() {
 
         {/* Switch Année */}
         <div className="mt-8 inline-flex rounded-full border bg-white overflow-hidden shadow">
-          {(["2025", "2024"] as const).map((y) => (
+          {(["2025", "2024", "2023"] as const).map((y) => (
             <button
               key={y}
               onClick={() => setYear(y)}
@@ -445,17 +448,14 @@ export default function PageEvenement() {
         </div>
       </section>
 
-      {/* CHIFFRES CLÉS (purement ÉVÈNEMENTS) */}
+      {/* CHIFFRES CLÉS */}
       <SectionChiffres data={data.chiffres} />
 
       {/* MOMENTS FORTS */}
       <SectionMomentsForts items={data.momentsForts} />
 
-      {/* GALERIE (filtres + masonry + lightbox) */}
+      {/* GALERIE */}
       <SectionGalerie items={data.galerie} />
-
-      {/* REPLAYS VIDÉO */}
-      <SectionReplays items={data.replays} />
     </main>
   );
 }
@@ -466,7 +466,7 @@ export default function PageEvenement() {
 function SectionChiffres({ data }: { data: { label: string; valeur: number }[] }) {
   return (
     <section className="mx-auto max-w-7xl px-6 pb-6">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {data.map((c) => (
           <motion.div
             key={c.label}
@@ -494,7 +494,7 @@ function SectionMomentsForts({ items }: { items: Media[] }) {
   };
   return (
     <section className="mx-auto max-w-7xl px-6 py-14">
-      <h2 className="text-3xl md:text-4xl font-serif mb-6 text-center">Moments forts</h2>
+      <h2 className="text-3xl md:text-4xl font-serif mb-6 text-center">Au coeur de nos actions</h2>
       <div className="relative">
         <div ref={ref} className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2">
           {items.map((m) => (
@@ -685,35 +685,6 @@ function SectionGalerie({ items }: { items: Media[] }) {
   );
 }
 
-function SectionReplays({ items }: { items: Media[] }) {
-  if (!items.length) return null;
-  return (
-    <section className="mx-auto max-w-7xl px-6 pb-24">
-      <h2 className="text-3xl md:text-4xl font-serif mb-6 text-center">Replays</h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {items.map((m) => (
-          <article key={m.id} className="rounded-2xl overflow-hidden border bg-white shadow-sm">
-            <MediaPreview m={m} ratio="aspect-[16/9]" />
-            <div className="p-4">
-              {m.titre && <h3 className="font-semibold">{m.titre}</h3>}
-              {m.texte && <p className="text-sm text-gray-600 mt-1">{m.texte}</p>}
-              {m.tags && (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {m.tags.map((t) => (
-                    <span key={t} className="text-xs rounded-full bg-gray-100 px-2 py-1">
-                      #{t}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 /* =========================================================
    RENDUS MEDIA
    ========================================================= */
@@ -734,9 +705,7 @@ function MediaPreview({
           alt={m.alt ?? m.titre ?? "image"}
           fill
           sizes="(max-width: 1024px) 100vw, 33vw"
-          className={`object-cover ${
-            hoverZoom ? "transition-transform duration-300 group-hover:scale-[1.02]" : ""
-          }`}
+          className={`object-cover ${hoverZoom ? "transition-transform duration-300 group-hover:scale-[1.02]" : ""}`}
         />
       ) : (
         <video
