@@ -4,26 +4,1023 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-
 /* =========================================================
    TYPES
    ========================================================= */
 type Media = {
   id: string;
   type: "image" | "video";
-  src: string;        // ex: "/medias/2025/evenement1.jpg"
+  src: string; // ex: "/medias/2025/evenement1.jpg"
   alt?: string;
-  titre?: string;     // ex: "Ouverture 2025"
-  texte?: string;     // ex: "Soirée d’ouverture au Parc des Expos"
-  tags?: string[];    // ex: ["ouverture", "ceremonie"]
+  titre?: string; // ex: "Ouverture 2025"
+  texte?: string; // ex: "Soirée d’ouverture au Parc des Expos"
+  tags?: string[]; // ex: ["ouverture", "ceremonie"]
 };
 
 type YearData = {
   hero: { titre: string; accroche: string };
   chiffres: { label: string; valeur: number }[]; // uniquement lié aux ÉVÈNEMENTS
   momentsForts: Media[]; // carrousel
-  galerie: Media[];      // masonry + filtres
+  galerie: Media[]; // masonry + filtres
 };
+
+/* =========================================================
+   DONNÉES COMMUNES (2024 & 2023)
+   ========================================================= */
+const MEDIAS_2024: Media[] = [
+  // Tu peux garder ou enlever les anciens éléments au-dessus si tu en as
+
+  // -------- Fichiers 1 à 26 --------
+  {
+    id: "24-img-1",
+    type: "image",
+    src: "/medias/2024/1.jpeg",
+    titre: "Souvenir 2024 #1",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-2",
+    type: "image",
+    src: "/medias/2024/2.jpg",
+    titre: "Souvenir 2024 #2",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-3",
+    type: "image",
+    src: "/medias/2024/4.jpg",
+    titre: "Souvenir 2024 #3",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-4",
+    type: "image",
+    src: "/medias/2024/5.jpg",
+    titre: "Souvenir 2024 #4",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-5",
+    type: "image",
+    src: "/medias/2024/6.jpg",
+    titre: "Souvenir 2024 #5",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-6",
+    type: "image",
+    src: "/medias/2024/7.png",
+    titre: "Souvenir 2024 #6",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-7",
+    type: "image",
+    src: "/medias/2024/8.jpg",
+    titre: "Souvenir 2024 #7",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-8",
+    type: "image",
+    src: "/medias/2024/9.jpg",
+    titre: "Souvenir 2024 #8",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-9",
+    type: "image",
+    src: "/medias/2024/10.JPG",
+    titre: "Souvenir 2024 #9",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-10",
+    type: "image",
+    src: "/medias/2024/11.JPG",
+    titre: "Souvenir 2024 #10",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-11",
+    type: "image",
+    src: "/medias/2024/12.jpg",
+    titre: "Souvenir 2024 #11",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-12",
+    type: "image",
+    src: "/medias/2024/13.jpg",
+    titre: "Souvenir 2024 #12",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-13",
+    type: "image",
+    src: "/medias/2024/14.jpg",
+    titre: "Souvenir 2024 #13",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-14",
+    type: "image",
+    src: "/medias/2024/15.jpg",
+    titre: "Souvenir 2024 #14",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-15",
+    type: "image",
+    src: "/medias/2024/16.jpg",
+    titre: "Souvenir 2024 #15",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-16",
+    type: "image",
+    src: "/medias/2024/17.jpg",
+    titre: "Souvenir 2024 #16",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-17",
+    type: "image",
+    src: "/medias/2024/18.jpg",
+    titre: "Souvenir 2024 #17",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-18",
+    type: "image",
+    src: "/medias/2024/19.jpg",
+    titre: "Souvenir 2024 #18",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-19",
+    type: "image",
+    src: "/medias/2024/20.jpg",
+    titre: "Souvenir 2024 #19",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-20",
+    type: "image",
+    src: "/medias/2024/21.jpg",
+    titre: "Souvenir 2024 #20",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-21",
+    type: "image",
+    src: "/medias/2024/22.jpg",
+    titre: "Souvenir 2024 #21",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-22",
+    type: "image",
+    src: "/medias/2024/23.jpg",
+    titre: "Souvenir 2024 #22",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-23",
+    type: "image",
+    src: "/medias/2024/24.jpg",
+    titre: "Souvenir 2024 #23",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-24",
+    type: "image",
+    src: "/medias/2024/25.jpg",
+    titre: "Souvenir 2024 #24",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-25",
+    type: "image",
+    src: "/medias/2024/26.jpg",
+    titre: "Souvenir 2024 #25",
+    tags: ["2024"],
+  },
+
+  // -------- 27 à 53 copy --------
+  {
+    id: "24-img-26",
+    type: "image",
+    src: "/medias/2024/27.jpg",
+    titre: "Souvenir 2024 #26",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-27",
+    type: "image",
+    src: "/medias/2024/28.JPG",
+    titre: "Souvenir 2024 #27",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-28",
+    type: "image",
+    src: "/medias/2024/29.JPG",
+    titre: "Souvenir 2024 #28",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-29",
+    type: "image",
+    src: "/medias/2024/30.JPG",
+    titre: "Souvenir 2024 #29",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-30",
+    type: "image",
+    src: "/medias/2024/31.JPG",
+    titre: "Souvenir 2024 #30",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-31",
+    type: "image",
+    src: "/medias/2024/32.JPG",
+    titre: "Souvenir 2024 #31",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-32",
+    type: "image",
+    src: "/medias/2024/33.JPG",
+    titre: "Souvenir 2024 #32",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-33",
+    type: "image",
+    src: "/medias/2024/35.JPG",
+    titre: "Souvenir 2024 #33",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-34",
+    type: "image",
+    src: "/medias/2024/36.jpg",
+    titre: "Souvenir 2024 #34",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-35",
+    type: "image",
+    src: "/medias/2024/37.jpg",
+    titre: "Souvenir 2024 #35",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-36",
+    type: "image",
+    src: "/medias/2024/38.jpg",
+    titre: "Souvenir 2024 #36",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-37",
+    type: "image",
+    src: "/medias/2024/39.JPG",
+    titre: "Souvenir 2024 #37",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-38",
+    type: "image",
+    src: "/medias/2024/40.JPG",
+    titre: "Souvenir 2024 #38",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-39",
+    type: "image",
+    src: "/medias/2024/41.JPG",
+    titre: "Souvenir 2024 #39",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-40",
+    type: "image",
+    src: "/medias/2024/42.JPG",
+    titre: "Souvenir 2024 #40",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-41",
+    type: "image",
+    src: "/medias/2024/43.JPG",
+    titre: "Souvenir 2024 #41",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-42",
+    type: "image",
+    src: "/medias/2024/44.JPG",
+    titre: "Souvenir 2024 #42",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-43",
+    type: "image",
+    src: "/medias/2024/45.JPG",
+    titre: "Souvenir 2024 #43",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-44",
+    type: "image",
+    src: "/medias/2024/46.JPG",
+    titre: "Souvenir 2024 #44",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-45",
+    type: "image",
+    src: "/medias/2024/47.JPG",
+    titre: "Souvenir 2024 #45",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-46",
+    type: "image",
+    src: "/medias/2024/48.JPG",
+    titre: "Souvenir 2024 #46",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-47",
+    type: "image",
+    src: "/medias/2024/49.JPG",
+    titre: "Souvenir 2024 #47",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-48",
+    type: "image",
+    src: "/medias/2024/50.JPG",
+    titre: "Souvenir 2024 #48",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-49",
+    type: "image",
+    src: "/medias/2024/51.JPG",
+    titre: "Souvenir 2024 #49",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-50",
+    type: "image",
+    src: "/medias/2024/52.JPG",
+    titre: "Souvenir 2024 #50",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-51",
+    type: "image",
+    src: "/medias/2024/53 copy.jpg",
+    titre: "Souvenir 2024 #51",
+    tags: ["2024"],
+  },
+
+  // -------- 54 à 75 + fichiers divers --------
+  {
+    id: "24-img-52",
+    type: "image",
+    src: "/medias/2024/54.jpg",
+    titre: "Souvenir 2024 #52",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-53",
+    type: "image",
+    src: "/medias/2024/55.jpg",
+    titre: "Souvenir 2024 #53",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-54",
+    type: "image",
+    src: "/medias/2024/56.jpg",
+    titre: "Souvenir 2024 #54",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-55",
+    type: "image",
+    src: "/medias/2024/57.jpg",
+    titre: "Souvenir 2024 #55",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-56",
+    type: "image",
+    src: "/medias/2024/58.jpg",
+    titre: "Souvenir 2024 #56",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-57",
+    type: "image",
+    src: "/medias/2024/59.jpg",
+    titre: "Souvenir 2024 #57",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-58",
+    type: "image",
+    src: "/medias/2024/60.jpg",
+    titre: "Souvenir 2024 #58",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-59",
+    type: "image",
+    src: "/medias/2024/61.jpg",
+    titre: "Souvenir 2024 #59",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-60",
+    type: "image",
+    src: "/medias/2024/62.jpg",
+    titre: "Souvenir 2024 #60",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-61",
+    type: "image",
+    src: "/medias/2024/63.jpg",
+    titre: "Souvenir 2024 #61",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-62",
+    type: "image",
+    src: "/medias/2024/64.jpg",
+    titre: "Souvenir 2024 #62",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-63",
+    type: "image",
+    src: "/medias/2024/65.jpg",
+    titre: "Souvenir 2024 #63",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-64",
+    type: "image",
+    src: "/medias/2024/66.jpg",
+    titre: "Souvenir 2024 #64",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-65",
+    type: "image",
+    src: "/medias/2024/67.jpg",
+    titre: "Souvenir 2024 #65",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-66",
+    type: "image",
+    src: "/medias/2024/68.jpg",
+    titre: "Souvenir 2024 #66",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-67",
+    type: "image",
+    src: "/medias/2024/69.jpg",
+    titre: "Souvenir 2024 #67",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-68",
+    type: "image",
+    src: "/medias/2024/70.jpg",
+    titre: "Souvenir 2024 #68",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-69",
+    type: "image",
+    src: "/medias/2024/71.jpg",
+    titre: "Souvenir 2024 #69",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-70",
+    type: "image",
+    src: "/medias/2024/72.jpg",
+    titre: "Souvenir 2024 #70",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-71",
+    type: "image",
+    src: "/medias/2024/73.JPG",
+    titre: "Souvenir 2024 #71",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-72",
+    type: "image",
+    src: "/medias/2024/74.JPG",
+    titre: "Souvenir 2024 #72",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-73",
+    type: "image",
+    src: "/medias/2024/75.JPG",
+    titre: "Souvenir 2024 #73",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-74",
+    type: "image",
+    src: "/medias/2024/780d2047-050a-460d-9d22-84e4188d6212.JPG",
+    titre: "Souvenir 2024 #74",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-75",
+    type: "image",
+    src: "/medias/2024/20240320_181836 copie.jpg",
+    titre: "Souvenir 2024 #75",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-76",
+    type: "image",
+    src: "/medias/2024/Capture d’écran 2024-04-03 à 13.38.40.jpg",
+    titre: "Souvenir 2024 #76",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-77",
+    type: "image",
+    src: "/medias/2024/Capture d’écran 2024-04-24 à 18.44.08.jpg",
+    titre: "Souvenir 2024 #77",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-78",
+    type: "image",
+    src: "/medias/2024/Gala-3.jpg",
+    titre: "Soirée de gala #3",
+    tags: ["2024", "gala"],
+  },
+
+  // -------- Série Gala + quelques IMG_ --------
+  {
+    id: "24-img-79",
+    type: "image",
+    src: "/medias/2024/Gala-4.jpg",
+    titre: "Soirée de gala #4",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-80",
+    type: "image",
+    src: "/medias/2024/Gala-5.jpg",
+    titre: "Soirée de gala #5",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-81",
+    type: "image",
+    src: "/medias/2024/Gala-6.jpg",
+    titre: "Soirée de gala #6",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-82",
+    type: "image",
+    src: "/medias/2024/Gala-7.jpg",
+    titre: "Soirée de gala #7",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-83",
+    type: "image",
+    src: "/medias/2024/Gala-8.jpg",
+    titre: "Soirée de gala #8",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-84",
+    type: "image",
+    src: "/medias/2024/Gala-9.jpg",
+    titre: "Soirée de gala #9",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-85",
+    type: "image",
+    src: "/medias/2024/Gala-10.jpg",
+    titre: "Soirée de gala #10",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-86",
+    type: "image",
+    src: "/medias/2024/Gala-11.jpg",
+    titre: "Soirée de gala #11",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-87",
+    type: "image",
+    src: "/medias/2024/Gala-12.jpg",
+    titre: "Soirée de gala #12",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-88",
+    type: "image",
+    src: "/medias/2024/Gala-13.jpg",
+    titre: "Soirée de gala #13",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-89",
+    type: "image",
+    src: "/medias/2024/Gala-14.jpg",
+    titre: "Soirée de gala #14",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-90",
+    type: "image",
+    src: "/medias/2024/Gala-15.jpg",
+    titre: "Soirée de gala #15",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-91",
+    type: "image",
+    src: "/medias/2024/Gala-18.jpg",
+    titre: "Soirée de gala #18",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-92",
+    type: "image",
+    src: "/medias/2024/Gala-39.jpg",
+    titre: "Soirée de gala #39",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-93",
+    type: "image",
+    src: "/medias/2024/Gala-44.jpg",
+    titre: "Soirée de gala #44",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-94",
+    type: "image",
+    src: "/medias/2024/Gala-121.jpg",
+    titre: "Soirée de gala #121",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-95",
+    type: "image",
+    src: "/medias/2024/Gala-122 copie.jpg",
+    titre: "Soirée de gala #122",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-96",
+    type: "image",
+    src: "/medias/2024/Gala-128.jpg",
+    titre: "Soirée de gala #128",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-97",
+    type: "image",
+    src: "/medias/2024/Gala-130.jpg",
+    titre: "Soirée de gala #130",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-98",
+    type: "image",
+    src: "/medias/2024/Gala-147.jpg",
+    titre: "Soirée de gala #147",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-99",
+    type: "image",
+    src: "/medias/2024/Gala-153.jpg",
+    titre: "Soirée de gala #153",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-100",
+    type: "image",
+    src: "/medias/2024/Gala-161.jpg",
+    titre: "Soirée de gala #161",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-101",
+    type: "image",
+    src: "/medias/2024/Gala-166.jpg",
+    titre: "Soirée de gala #166",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-102",
+    type: "image",
+    src: "/medias/2024/Gala-179.jpg",
+    titre: "Soirée de gala #179",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-103",
+    type: "image",
+    src: "/medias/2024/IMG_0013.jpeg",
+    titre: "Souvenir 2024 #78",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-104",
+    type: "image",
+    src: "/medias/2024/IMG_0022.jpeg",
+    titre: "Souvenir 2024 #79",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-105",
+    type: "image",
+    src: "/medias/2024/IMG_0034.jpeg",
+    titre: "Souvenir 2024 #80",
+    tags: ["2024"],
+  },
+
+  // -------- Série IMG_* --------
+  {
+    id: "24-img-106",
+    type: "image",
+    src: "/medias/2024/IMG_0150.jpeg",
+    titre: "Souvenir 2024 #81",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-107",
+    type: "image",
+    src: "/medias/2024/IMG_0195.jpeg",
+    titre: "Souvenir 2024 #82",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-108",
+    type: "image",
+    src: "/medias/2024/IMG_1139.jpeg",
+    titre: "Souvenir 2024 #83",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-109",
+    type: "image",
+    src: "/medias/2024/IMG_4578.jpeg",
+    titre: "Souvenir 2024 #84",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-110",
+    type: "image",
+    src: "/medias/2024/IMG_4585.jpeg",
+    titre: "Souvenir 2024 #85",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-111",
+    type: "image",
+    src: "/medias/2024/IMG_4586.jpeg",
+    titre: "Souvenir 2024 #86",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-112",
+    type: "image",
+    src: "/medias/2024/IMG_4592.jpeg",
+    titre: "Souvenir 2024 #87",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-113",
+    type: "image",
+    src: "/medias/2024/IMG_4615.jpeg",
+    titre: "Souvenir 2024 #88",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-114",
+    type: "image",
+    src: "/medias/2024/IMG_9025.jpeg",
+    titre: "Souvenir 2024 #89",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-115",
+    type: "image",
+    src: "/medias/2024/IMG_9034.jpeg",
+    titre: "Souvenir 2024 #90",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-116",
+    type: "image",
+    src: "/medias/2024/IMG_9046.jpeg",
+    titre: "Souvenir 2024 #91",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-117",
+    type: "image",
+    src: "/medias/2024/IMG_9055.jpeg",
+    titre: "Souvenir 2024 #92",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-118",
+    type: "image",
+    src: "/medias/2024/IMG_9077.jpeg",
+    titre: "Souvenir 2024 #93",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-119",
+    type: "image",
+    src: "/medias/2024/IMG_9090.jpeg",
+    titre: "Souvenir 2024 #94",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-120",
+    type: "image",
+    src: "/medias/2024/IMG_9100.JPG",
+    titre: "Souvenir 2024 #95",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-121",
+    type: "image",
+    src: "/medias/2024/IMG_9120.JPG",
+    titre: "Souvenir 2024 #96",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-122",
+    type: "image",
+    src: "/medias/2024/IMG_9130.jpeg",
+    titre: "Souvenir 2024 #97",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-123",
+    type: "image",
+    src: "/medias/2024/IMG_9227.jpeg",
+    titre: "Souvenir 2024 #98",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-124",
+    type: "image",
+    src: "/medias/2024/IMG_9280.jpeg",
+    titre: "Souvenir 2024 #99",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-125",
+    type: "image",
+    src: "/medias/2024/IMG_9321.jpeg",
+    titre: "Souvenir 2024 #100",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-126",
+    type: "image",
+    src: "/medias/2024/IMG_9328.jpeg",
+    titre: "Souvenir 2024 #101",
+    tags: ["2024"],
+  },
+  {
+    id: "24-img-127",
+    type: "image",
+    src: "/medias/2024/IMG_9349.jpeg",
+    titre: "Souvenir 2024 #102",
+    tags: ["2024"],
+  },
+
+  // -------- Photos "Photo Gala" --------
+  {
+    id: "24-img-128",
+    type: "image",
+    src: "/medias/2024/Photo Gala 32.jpg",
+    titre: "Photo gala 32",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-129",
+    type: "image",
+    src: "/medias/2024/Photo Gala 33.jpg",
+    titre: "Photo gala 33",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-130",
+    type: "image",
+    src: "/medias/2024/Photo Gala 43.jpg",
+    titre: "Photo gala 43",
+    tags: ["2024", "gala"],
+  },
+  {
+    id: "24-img-131",
+    type: "image",
+    src: "/medias/2024/Photo Gala 55.jpg",
+    titre: "Photo gala 55",
+    tags: ["2024", "gala"],
+  },
+];
+
+
+
+
+const MEDIAS_2023: Media[] = [
+  {
+    id: "23-m1",
+    type: "image",
+    src: "/medias/2023/1.jpeg", // <= fichier placé dans public/medias/2023/1.jpeg
+    titre: "Premiers pas",
+    texte: "Une équipe, une vision, un public curieux.",
+    tags: ["lancement"],
+  },
+  {
+    id: "23-m2",
+    type: "video",
+    src: "/medias/2023/teaser.mp4",
+    titre: "Teaser 2023",
+    texte: "Un format court pour poser l’intention.",
+    tags: ["teaser"],
+  },
+  {
+    id: "23-m3",
+    type: "image",
+    src: "/medias/2023/rencontre.jpg",
+    titre: "Rencontre locale",
+    texte: "Échanges directs et retours à chaud.",
+    tags: ["rencontre"],
+  },
+  {
+    id: "23-g1",
+    type: "image",
+    src: "/medias/2023/affiche.jpg",
+    titre: "Affiche 2023",
+    texte: "Première identité, premiers codes visuels.",
+    tags: ["affiche"],
+  },
+  {
+    id: "23-g2",
+    type: "image",
+    src: "/medias/2023/installation.jpg",
+    titre: "Installation",
+    texte: "Montage simple et efficace.",
+    tags: ["logistique"],
+  },
+  {
+    id: "23-g3",
+    type: "video",
+    src: "/medias/2023/highlights.mp4",
+    titre: "Highlights 2023",
+    texte: "Un condensé des temps forts.",
+    tags: ["highlights"],
+  },
+  {
+    id: "23-g4",
+    type: "image",
+    src: "/medias/2023/ambiance.jpg",
+    titre: "Ambiance",
+    texte: "Convivialité et proximité.",
+    tags: ["soiree"],
+  },
+];
 
 /* =========================================================
    DONNÉES
@@ -35,12 +1032,11 @@ const DATA: Record<"2025" | "2024" | "2023", YearData> = {
       accroche:
         "Atelier, Cérémonies, conférences, rencontres publiques, soirées de prestige : Une association rythmée par des évènements marquants.",
     },
-chiffres: [
-  { label: "Ateliers", valeur: 179 },
-  { label: "Membres", valeur: 106 },
-  { label: "Soutien et Partenaires", valeur: 21 },
-],
-
+    chiffres: [
+      { label: "Ateliers", valeur: 179 },
+      { label: "Membres", valeur: 106 },
+      { label: "Soutien et Partenaires", valeur: 21 },
+    ],
 
     /* MOMENTS FORTS — carrousel */
     momentsForts: [
@@ -201,114 +1197,15 @@ chiffres: [
       accroche:
         "Premières éditions et premières scènes : les fondations d’un rendez-vous qui compte.",
     },
-chiffres: [
-  { label: "Ateliers", valeur: 192 },
-  { label: "Membres", valeur: 95 },
-  { label: "Soutien et partenaire", valeur: 28 },
-],
-
-
-    momentsForts: [
-      {
-        id: "24-m1",
-        type: "image",
-        src: "/medias/2024/lancement.jpg",
-        titre: "Lancement 2024",
-        texte: "Décor sobre, messages forts, cap défini.",
-        tags: ["lancement", "ceremonie"],
-      },
-      {
-        id: "24-m2",
-        type: "video",
-        src: "/medias/2024/teaser.mp4",
-        titre: "Teaser d’annonce",
-        texte: "Un format court pour donner envie de venir.",
-        tags: ["teaser"],
-      },
-      {
-        id: "24-m3",
-        type: "image",
-        src: "/medias/2024/rencontre.jpg",
-        titre: "Rencontre régionale",
-        texte: "Premières captations et premières scènes.",
-        tags: ["rencontre"],
-      },
-      {
-        id: "24-m4",
-        type: "image",
-        src: "/medias/2024/scene.jpg",
-        titre: "Première scène",
-        texte: "Lumières, son et entrée en matière efficace.",
-        tags: ["scene"],
-      },
+    chiffres: [
+      { label: "Ateliers", valeur: 192 },
+      { label: "Membres", valeur: 95 },
+      { label: "Soutien et partenaire", valeur: 28 },
     ],
 
-    galerie: [
-      {
-        id: "24-g1",
-        type: "image",
-        src: "/medias/2024/affiche.jpg",
-        titre: "Affiche 2024",
-        texte: "Identité visuelle et ton de l’édition.",
-        tags: ["affiche"],
-      },
-      {
-        id: "24-g2",
-        type: "image",
-        src: "/medias/2024/installation.jpg",
-        titre: "Installation",
-        texte: "Mise en place rigoureuse avant ouverture des portes.",
-        tags: ["logistique"],
-      },
-      {
-        id: "24-g3",
-        type: "video",
-        src: "/medias/2024/highlights.mp4",
-        titre: "Highlights",
-        texte: "Best-of de la saison inaugurale.",
-        tags: ["highlights"],
-      },
-      {
-        id: "24-g4",
-        type: "image",
-        src: "/medias/2024/ambiance.jpg",
-        titre: "Ambiance",
-        texte: "Un rythme posé, une atmosphère accueillante.",
-        tags: ["soiree"],
-      },
-      {
-        id: "24-g5",
-        type: "image",
-        src: "/medias/2024/ceremonie.jpg",
-        titre: "Cérémonie",
-        texte: "Annonces structurées, déroulé précis.",
-        tags: ["ceremonie"],
-      },
-      {
-        id: "24-g6",
-        type: "image",
-        src: "/medias/2024/exterieur.jpg",
-        titre: "Extérieur",
-        texte: "Signalétique claire et repères visibles.",
-        tags: ["exterieur"],
-      },
-      {
-        id: "24-g7",
-        type: "video",
-        src: "/medias/2024/recap-final.mp4",
-        titre: "Récap’ final",
-        texte: "Clap de fin et rendez-vous pris pour l’année suivante.",
-        tags: ["final"],
-      },
-      {
-        id: "24-g8",
-        type: "image",
-        src: "/medias/2024/podium.jpg",
-        titre: "Podium",
-        texte: "Instants capturés sous les projecteurs.",
-        tags: ["scene"],
-      },
-    ],
+    // Même médias pour "Au coeur de nos actions" et "Galerie"
+    momentsForts: MEDIAS_2024,
+    galerie: MEDIAS_2024,
   },
 
   "2023": {
@@ -317,74 +1214,15 @@ chiffres: [
       accroche:
         "Les premières pierres : rencontres fondatrices et formats testés grandeur nature.",
     },
-chiffres: [
-  { label: "Ateliers", valeur: 15 },
-  { label: "Membres", valeur: 17 },
-  { label: "Soutien et partenaire", valeur: 5 },
-],
-
-
-    momentsForts: [
-{
-  id: "23-m1",
-  type: "image",
-  src: "/medias/2023/1.jpeg", // <= fichier placé dans public/medias/2023/1.jpeg
-  titre: "Premiers pas",
-  texte: "Une équipe, une vision, un public curieux.",
-  tags: ["lancement"],
-},
-      {
-        id: "23-m2",
-        type: "video",
-        src: "/medias/2023/teaser.mp4",
-        titre: "Teaser 2023",
-        texte: "Un format court pour poser l’intention.",
-        tags: ["teaser"],
-      },
-      {
-        id: "23-m3",
-        type: "image",
-        src: "/medias/2023/rencontre.jpg",
-        titre: "Rencontre locale",
-        texte: "Échanges directs et retours à chaud.",
-        tags: ["rencontre"],
-      },
+    chiffres: [
+      { label: "Ateliers", valeur: 15 },
+      { label: "Membres", valeur: 17 },
+      { label: "Soutien et partenaire", valeur: 5 },
     ],
 
-    galerie: [
-      {
-        id: "23-g1",
-        type: "image",
-        src: "/medias/2023/affiche.jpg",
-        titre: "Affiche 2023",
-        texte: "Première identité, premiers codes visuels.",
-        tags: ["affiche"],
-      },
-      {
-        id: "23-g2",
-        type: "image",
-        src: "/medias/2023/installation.jpg",
-        titre: "Installation",
-        texte: "Montage simple et efficace.",
-        tags: ["logistique"],
-      },
-      {
-        id: "23-g3",
-        type: "video",
-        src: "/medias/2023/highlights.mp4",
-        titre: "Highlights 2023",
-        texte: "Un condensé des temps forts.",
-        tags: ["highlights"],
-      },
-      {
-        id: "23-g4",
-        type: "image",
-        src: "/medias/2023/ambiance.jpg",
-        titre: "Ambiance",
-        texte: "Convivialité et proximité.",
-        tags: ["soiree"],
-      },
-    ],
+    // Même médias pour "Au coeur de nos actions" et "Galerie"
+    momentsForts: MEDIAS_2023,
+    galerie: MEDIAS_2023,
   },
 };
 
@@ -673,8 +1511,12 @@ function SectionGalerie({ items }: { items: Media[] }) {
 
               {(lightbox.titre || lightbox.texte) && (
                 <div className="mt-4 rounded-xl bg-white p-5 shadow">
-                  {lightbox.titre && <h3 className="text-xl font-semibold mb-1">{lightbox.titre}</h3>}
-                  {lightbox.texte && <p className="text-gray-700 leading-relaxed">{lightbox.texte}</p>}
+                  {lightbox.titre && (
+                    <h3 className="text-xl font-semibold mb-1">{lightbox.titre}</h3>
+                  )}
+                  {lightbox.texte && (
+                    <p className="text-gray-700 leading-relaxed">{lightbox.texte}</p>
+                  )}
                 </div>
               )}
             </motion.div>
@@ -705,7 +1547,9 @@ function MediaPreview({
           alt={m.alt ?? m.titre ?? "image"}
           fill
           sizes="(max-width: 1024px) 100vw, 33vw"
-          className={`object-cover ${hoverZoom ? "transition-transform duration-300 group-hover:scale-[1.02]" : ""}`}
+          className={`object-cover ${
+            hoverZoom ? "transition-transform duration-300 group-hover:scale-[1.02]" : ""
+          }`}
         />
       ) : (
         <video
@@ -739,5 +1583,7 @@ function MediaView({ m }: { m: Media }) {
       />
     );
   }
-  return <video src={m.src} controls autoPlay className="w-full h-auto object-contain bg-black" />;
+  return (
+    <video src={m.src} controls autoPlay className="w-full h-auto object-contain bg-black" />
+  );
 }
