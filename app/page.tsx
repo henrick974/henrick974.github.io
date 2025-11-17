@@ -3,26 +3,28 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { MEDIAS_2024 } from "./medias2024"; // adapte le chemin si ta page n'est pas dans le même dossier
 
+import { MEDIAS_2025 } from "./medias2025"; // adapte le chemin si ta page n'est pas dans le même dossier
 
 /* =========================================================
    TYPES
    ========================================================= */
-type Media = {
+export type Media = {
   id: string;
   type: "image" | "video";
-  src: string;        // ex: "/medias/2025/evenement1.jpg"
+  src: string;
   alt?: string;
-  titre?: string;     // ex: "Ouverture 2025"
-  texte?: string;     // ex: "Soirée d’ouverture au Parc des Expos"
-  tags?: string[];    // ex: ["ouverture", "ceremonie"]
+  titre?: string;
+  texte?: string;
+  tags?: string[];
 };
 
 type YearData = {
   hero: { titre: string; accroche: string };
   chiffres: { label: string; valeur: number }[]; // uniquement lié aux ÉVÈNEMENTS
   momentsForts: Media[]; // carrousel
-  galerie: Media[];      // masonry + filtres
+  galerie: Media[]; // masonry + filtres
 };
 
 /* =========================================================
@@ -39,165 +41,15 @@ const DATA: Record<"2025" | "2024" | "2023", YearData> = {
         "Atelier, Cérémonies, conférences, rencontres publiques, soirées de prestige : Une association rythmée par des évènements marquants.",
     },
 
-    /* Chiffres de 2025 */
     chiffres: [
       { label: "Ateliers", valeur: 179 },
       { label: "Membres", valeur: 106 },
       { label: "Soutien et Partenaires", valeur: 21 },
     ],
 
-
-    /* MOMENTS FORTS — carrousel */
-    momentsForts: [
-      {
-        id: "25-m1",
-        type: "image",
-        src: "/medias/2025/ouverture.jpg",
-        titre: "Cérémonie d’ouverture",
-        texte: "Rideau levé, annonces majeures et lancement officiel.",
-        tags: ["ouverture", "ceremonie"],
-      },
-      {
-        id: "25-m2",
-        type: "video",
-        src: "/medias/2025/point-presse.mp4",
-        titre: "Point presse",
-        texte: "Calendrier dévoilé et temps forts présentés à la presse.",
-        tags: ["presse"],
-      },
-      {
-        id: "25-m3",
-        type: "image",
-        src: "/medias/2025/conference.jpg",
-        titre: "Conférence inaugurale",
-        texte: "Une vision claire et un cap assumé pour l’année.",
-        tags: ["conference"],
-      },
-      {
-        id: "25-m4",
-        type: "image",
-        src: "/medias/2025/rencontre-publique.jpg",
-        titre: "Rencontre publique",
-        texte: "Échanges en salle et annonces complémentaires.",
-        tags: ["rencontre"],
-      },
-      {
-        id: "25-m5",
-        type: "video",
-        src: "/medias/2025/highlights-early.mp4",
-        titre: "Highlights — 1er trimestre",
-        texte: "Un condensé d’émotion et d’intensité.",
-        tags: ["highlights"],
-      },
-      {
-        id: "25-m6",
-        type: "image",
-        src: "/medias/2025/gala.jpg",
-        titre: "Soirée de distinction",
-        texte: "Clôture d’étape, mise à l’honneur et moments d’exception.",
-        tags: ["gala"],
-      },
-    ],
-
-    /* GALERIE — masonry + filtres */
-    galerie: [
-      {
-        id: "25-g1",
-        type: "image",
-        src: "/medias/2025/scene-centrale.jpg",
-        titre: "Scène centrale",
-        texte: "Lumières, scénographie et ambiance soignée.",
-        tags: ["scene", "ceremonie"],
-      },
-      {
-        id: "25-g2",
-        type: "image",
-        src: "/medias/2025/affluence.jpg",
-        titre: "Affluence",
-        texte: "Un public au rendez-vous pour les annonces clés.",
-        tags: ["rencontre"],
-      },
-      {
-        id: "25-g3",
-        type: "video",
-        src: "/medias/2025/mini-after.mp4",
-        titre: "Aftermovie express",
-        texte: "Les temps forts d’une soirée en rythme.",
-        tags: ["aftermovie"],
-      },
-      {
-        id: "25-g4",
-        type: "image",
-        src: "/medias/2025/coulisses.jpg",
-        titre: "Coulisses",
-        texte: "Réglages, derniers briefings et mise au point technique.",
-        tags: ["backstage", "logistique"],
-      },
-      {
-        id: "25-g5",
-        type: "image",
-        src: "/medias/2025/installation.jpg",
-        titre: "Installation",
-        texte: "Montage précis pour une expérience fluide et agréable.",
-        tags: ["logistique"],
-      },
-      {
-        id: "25-g6",
-        type: "video",
-        src: "/medias/2025/highlights-2.mp4",
-        titre: "Highlights — mi-saison",
-        texte: "Nouveau chapitre, nouveaux décors, même intensité.",
-        tags: ["highlights"],
-      },
-      {
-        id: "25-g7",
-        type: "image",
-        src: "/medias/2025/ceremonie.jpg",
-        titre: "Cérémonie",
-        texte: "Remise de distinctions et annonces intermédiaires.",
-        tags: ["ceremonie"],
-      },
-      {
-        id: "25-g8",
-        type: "image",
-        src: "/medias/2025/exposition.jpg",
-        titre: "Espace exposition",
-        texte: "Parcours visuel pensé pour guider le regard.",
-        tags: ["exposition"],
-      },
-      {
-        id: "25-g9",
-        type: "video",
-        src: "/medias/2025/spot-annonce.mp4",
-        titre: "Spot d’annonce",
-        texte: "Prochain rendez-vous à ne pas manquer.",
-        tags: ["annonce"],
-      },
-      {
-        id: "25-g10",
-        type: "image",
-        src: "/medias/2025/soiree.jpg",
-        titre: "Soirée signature",
-        texte: "Décor épuré, tempo élégant, instants à part.",
-        tags: ["soiree"],
-      },
-      {
-        id: "25-g11",
-        type: "image",
-        src: "/medias/2025/village.jpg",
-        titre: "Village éphémère",
-        texte: "Parcours libre et découverte au fil des allées.",
-        tags: ["exterieur"],
-      },
-      {
-        id: "25-g12",
-        type: "video",
-        src: "/medias/2025/highlights-final.mp4",
-        titre: "Highlights — final",
-        texte: "Clôture sur une note forte et lumineuse.",
-        tags: ["highlights", "final"],
-      },
-    ],
+        // Même médias pour "Au coeur de nos actions" et "Galerie"
+    momentsForts: MEDIAS_2025,
+    galerie: MEDIAS_2025,
   },
 
   "2024": {
@@ -208,116 +60,15 @@ const DATA: Record<"2025" | "2024" | "2023", YearData> = {
         "Premières éditions et premières scènes : les fondations d’un rendez-vous qui compte.",
     },
 
-    /* chiffres de 2024 */
     chiffres: [
       { label: "Ateliers", valeur: 192 },
       { label: "Membres", valeur: 95 },
       { label: "Soutien et partenaire", valeur: 28 },
     ],
 
-    /* moments fort de 2024 */
-    momentsForts: [
-      {
-        id: "24-m1",
-        type: "image",
-        src: "/medias/2024/lancement.jpg",
-        titre: "Lancement 2024",
-        texte: "Décor sobre, messages forts, cap défini.",
-        tags: ["lancement", "ceremonie"],
-      },
-      {
-        id: "24-m2",
-        type: "video",
-        src: "/medias/2024/teaser.mp4",
-        titre: "Teaser d’annonce",
-        texte: "Un format court pour donner envie de venir.",
-        tags: ["teaser"],
-      },
-      {
-        id: "24-m3",
-        type: "image",
-        src: "/medias/2024/rencontre.jpg",
-        titre: "Rencontre régionale",
-        texte: "Premières captations et premières scènes.",
-        tags: ["rencontre"],
-      },
-      {
-        id: "24-m4",
-        type: "image",
-        src: "/medias/2024/scene.jpg",
-        titre: "Première scène",
-        texte: "Lumières, son et entrée en matière efficace.",
-        tags: ["scene"],
-      },
-    ],
-
-    /* galerie de 2024 */
-    galerie: [
-      {
-        id: "24-g1",
-        type: "image",
-        src: "/medias/2024/affiche.jpg",
-        titre: "Affiche 2024",
-        texte: "Identité visuelle et ton de l’édition.",
-        tags: ["affiche"],
-      },
-      {
-        id: "24-g2",
-        type: "image",
-        src: "/medias/2024/installation.jpg",
-        titre: "Installation",
-        texte: "Mise en place rigoureuse avant ouverture des portes.",
-        tags: ["logistique"],
-      },
-      {
-        id: "24-g3",
-        type: "video",
-        src: "/medias/2024/highlights.mp4",
-        titre: "Highlights",
-        texte: "Best-of de la saison inaugurale.",
-        tags: ["highlights"],
-      },
-      {
-        id: "24-g4",
-        type: "image",
-        src: "/medias/2024/ambiance.jpg",
-        titre: "Ambiance",
-        texte: "Un rythme posé, une atmosphère accueillante.",
-        tags: ["soiree"],
-      },
-      {
-        id: "24-g5",
-        type: "image",
-        src: "/medias/2024/ceremonie.jpg",
-        titre: "Cérémonie",
-        texte: "Annonces structurées, déroulé précis.",
-        tags: ["ceremonie"],
-      },
-      {
-        id: "24-g6",
-        type: "image",
-        src: "/medias/2024/exterieur.jpg",
-        titre: "Extérieur",
-        texte: "Signalétique claire et repères visibles.",
-        tags: ["exterieur"],
-      },
-      {
-        id: "24-g7",
-        type: "video",
-        src: "/medias/2024/recap-final.mp4",
-        titre: "Récap’ final",
-        texte: "Clap de fin et rendez-vous pris pour l’année suivante.",
-        tags: ["final"],
-      },
-      {
-        id: "24-g8",
-        type: "image",
-        src: "/medias/2024/podium.jpg",
-        titre: "Podium",
-        texte: "Instants capturés sous les projecteurs.",
-        tags: ["scene"],
-      },
-    ],
+    // Même médias pour "Au coeur de nos actions" et "Galerie"
+    momentsForts: MEDIAS_2024,
+    galerie: MEDIAS_2024,
   },
 
   "2023": {
@@ -329,76 +80,15 @@ const DATA: Record<"2025" | "2024" | "2023", YearData> = {
         "Les premières pierres : rencontres fondatrices et formats testés grandeur nature.",
     },
 
-    /* chiffres de 2023 */
     chiffres: [
       { label: "Ateliers", valeur: 15 },
       { label: "Membres", valeur: 17 },
       { label: "Soutien et partenaire", valeur: 5 },
     ],
 
-    /* Moments fort_de 2023*/
-    momentsForts: [
-      {
-        id: "23-m1",
-        type: "image",
-        src: "/medias/2023/1.jpeg", // <= fichier placé dans public/medias/2023/1.jpeg
-        titre: "Premiers pas",
-        texte: "Une équipe, une vision, un public curieux.",
-        tags: ["lancement"],
-      },
-      {
-        id: "23-m2",
-        type: "video",
-        src: "/medias/2023/teaser.mp4",
-        titre: "Teaser 2023",
-        texte: "Un format court pour poser l’intention.",
-        tags: ["teaser"],
-      },
-      {
-        id: "23-m3",
-        type: "image",
-        src: "/medias/2023/rencontre.jpg",
-        titre: "Rencontre locale",
-        texte: "Échanges directs et retours à chaud.",
-        tags: ["rencontre"],
-      },
-    ],
-
-    /* Galerie de 2023 */
-    galerie: [
-      {
-        id: "23-g1",
-        type: "image",
-        src: "/medias/2023/affiche.jpg",
-        titre: "Affiche 2023",
-        texte: "Première identité, premiers codes visuels.",
-        tags: ["affiche"],
-      },
-      {
-        id: "23-g2",
-        type: "image",
-        src: "/medias/2023/installation.jpg",
-        titre: "Installation",
-        texte: "Montage simple et efficace.",
-        tags: ["logistique"],
-      },
-      {
-        id: "23-g3",
-        type: "video",
-        src: "/medias/2023/highlights.mp4",
-        titre: "Highlights 2023",
-        texte: "Un condensé des temps forts.",
-        tags: ["highlights"],
-      },
-      {
-        id: "23-g4",
-        type: "image",
-        src: "/medias/2023/ambiance.jpg",
-        titre: "Ambiance",
-        texte: "Convivialité et proximité.",
-        tags: ["soiree"],
-      },
-    ],
+    // Même médias pour "Au coeur de nos actions" et "Galerie"
+    momentsForts: MEDIAS_2024,
+    galerie: MEDIAS_2024,
   },
 };
 
@@ -739,8 +429,12 @@ function SectionGalerie({ items }: { items: Media[] }) {
 
               {(lightbox.titre || lightbox.texte) && (
                 <div className="mt-4 rounded-xl bg-white p-5 shadow">
-                  {lightbox.titre && <h3 className="text-xl font-semibold mb-1">{lightbox.titre}</h3>}
-                  {lightbox.texte && <p className="text-gray-700 leading-relaxed">{lightbox.texte}</p>}
+                  {lightbox.titre && (
+                    <h3 className="text-xl font-semibold mb-1">{lightbox.titre}</h3>
+                  )}
+                  {lightbox.texte && (
+                    <p className="text-gray-700 leading-relaxed">{lightbox.texte}</p>
+                  )}
                 </div>
               )}
             </motion.div>
@@ -771,7 +465,9 @@ function MediaPreview({
           alt={m.alt ?? m.titre ?? "image"}
           fill
           sizes="(max-width: 1024px) 100vw, 33vw"
-          className={`object-cover ${hoverZoom ? "transition-transform duration-300 group-hover:scale-[1.02]" : ""}`}
+          className={`object-cover ${
+            hoverZoom ? "transition-transform duration-300 group-hover:scale-[1.02]" : ""
+          }`}
         />
       ) : (
         <video
@@ -805,5 +501,7 @@ function MediaView({ m }: { m: Media }) {
       />
     );
   }
-  return <video src={m.src} controls autoPlay className="w-full h-auto object-contain bg-black" />;
+  return (
+    <video src={m.src} controls autoPlay className="w-full h-auto object-contain bg-black" />
+  );
 }
