@@ -28,18 +28,23 @@ type YearData = {
 /* =========================================================
    DONNÉES
    ========================================================= */
+
+   /* 2025 & 2024 & 2023 sont des YearData et on les initialises ci-dessous */
 const DATA: Record<"2025" | "2024" | "2023", YearData> = {
   "2025": {
+    /* HERO de 2025 */
     hero: {
       titre: "Notre Histoire en 2025",
       accroche:
         "Atelier, Cérémonies, conférences, rencontres publiques, soirées de prestige : Une association rythmée par des évènements marquants.",
     },
-chiffres: [
-  { label: "Ateliers", valeur: 179 },
-  { label: "Membres", valeur: 106 },
-  { label: "Soutien et Partenaires", valeur: 21 },
-],
+
+    /* Chiffres de 2025 */
+    chiffres: [
+      { label: "Ateliers", valeur: 179 },
+      { label: "Membres", valeur: 106 },
+      { label: "Soutien et Partenaires", valeur: 21 },
+    ],
 
 
     /* MOMENTS FORTS — carrousel */
@@ -196,18 +201,21 @@ chiffres: [
   },
 
   "2024": {
+    /*Hero de 2024 */
     hero: {
       titre: "Notre histoire en 2024",
       accroche:
         "Premières éditions et premières scènes : les fondations d’un rendez-vous qui compte.",
     },
-chiffres: [
-  { label: "Ateliers", valeur: 192 },
-  { label: "Membres", valeur: 95 },
-  { label: "Soutien et partenaire", valeur: 28 },
-],
 
+    /* chiffres de 2024 */
+    chiffres: [
+      { label: "Ateliers", valeur: 192 },
+      { label: "Membres", valeur: 95 },
+      { label: "Soutien et partenaire", valeur: 28 },
+    ],
 
+    /* moments fort de 2024 */
     momentsForts: [
       {
         id: "24-m1",
@@ -243,6 +251,7 @@ chiffres: [
       },
     ],
 
+    /* galerie de 2024 */
     galerie: [
       {
         id: "24-g1",
@@ -312,27 +321,31 @@ chiffres: [
   },
 
   "2023": {
+
+    /* HERO 2023 */
     hero: {
       titre: "Notre histoire en 2023",
       accroche:
         "Les premières pierres : rencontres fondatrices et formats testés grandeur nature.",
     },
-chiffres: [
-  { label: "Ateliers", valeur: 15 },
-  { label: "Membres", valeur: 17 },
-  { label: "Soutien et partenaire", valeur: 5 },
-],
 
+    /* chiffres de 2023 */
+    chiffres: [
+      { label: "Ateliers", valeur: 15 },
+      { label: "Membres", valeur: 17 },
+      { label: "Soutien et partenaire", valeur: 5 },
+    ],
 
+    /* Moments fort_de 2023*/
     momentsForts: [
-{
-  id: "23-m1",
-  type: "image",
-  src: "/medias/2023/1.jpeg", // <= fichier placé dans public/medias/2023/1.jpeg
-  titre: "Premiers pas",
-  texte: "Une équipe, une vision, un public curieux.",
-  tags: ["lancement"],
-},
+      {
+        id: "23-m1",
+        type: "image",
+        src: "/medias/2023/1.jpeg", // <= fichier placé dans public/medias/2023/1.jpeg
+        titre: "Premiers pas",
+        texte: "Une équipe, une vision, un public curieux.",
+        tags: ["lancement"],
+      },
       {
         id: "23-m2",
         type: "video",
@@ -351,6 +364,7 @@ chiffres: [
       },
     ],
 
+    /* Galerie de 2023 */
     galerie: [
       {
         id: "23-g1",
@@ -413,11 +427,63 @@ function useCounter(n: number, duration = 1200) {
    PAGE
    ========================================================= */
 export default function PageEvenement() {
-  const [year, setYear] = useState<"2025" | "2024" | "2023">("2025");
-  const data = DATA[year];
+  const [year, setYear] = useState<"2025" | "2024" | "2023">("2025"); // utilise 2025 par defaut
+  const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque année juste en haut
+
+  // 👉 état pour activer / désactiver le scroll auto
+  const [autoScroll, setAutoScroll] = useState(false); // scroll off a la base
+
+  // 👉 effet qui gère le défilement automatique
+  useEffect(() => {
+    if (!autoScroll) return; // si désactivé, on ne fait rien
+
+    let frameId: number;
+    let lastTime: number | null = null;
+    const speed = 70; // pixels par seconde (tu peux augmenter ou diminuer)
+
+    const step = (time: number) => {
+      if (!autoScroll) return; // garde-fou si l’état change en cours de route
+
+      if (lastTime === null) {
+        lastTime = time;
+      }
+      const delta = time - lastTime;
+      lastTime = time;
+
+      const distance = (speed * delta) / 1000; // conversion ms → s
+      const scrollTop =
+        window.scrollY || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = window.innerHeight;
+
+      // si on est en bas de page → on arrête le scroll auto
+      if (scrollTop + clientHeight >= scrollHeight) {
+        setAutoScroll(false);
+        return;
+      }
+
+      window.scrollBy(0, distance);
+      frameId = requestAnimationFrame(step);
+    };
+
+    frameId = requestAnimationFrame(step);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+    };
+  }, [autoScroll, setAutoScroll]);
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#fff7ed] to-white">
+      {/* Bouton toggle défilement auto */}
+      <button
+        type="button"
+        onClick={() => setAutoScroll((prev) => !prev)}
+        className="fixed bottom-6 right-6 z-50 rounded-full bg-black text-white px-4 py-2 text-sm shadow-lg hover:bg-gray-900 active:scale-95 transition"
+      >
+        {autoScroll ? "Désactiver le défilement auto" : "Activer le défilement auto"}
+      </button>
+
       {/* HERO */}
       <section className="mx-auto max-w-7xl px-6 pt-16 md:pt-24 pb-8 text-center">
         <motion.h1
