@@ -1,5 +1,7 @@
 "use client";
 
+
+
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -210,8 +212,6 @@ export default function PageEvenement() {
       {/* MOMENTS FORTS */}
       <SectionMomentsForts items={data.momentsForts} />
 
-      {/* GALERIE */}
-      <SectionGalerie items={data.galerie} />
     </main>
   );
 }
