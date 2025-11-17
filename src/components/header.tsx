@@ -20,9 +20,9 @@ export function Header() {
         <Image
           src="/felr_logo.png"   // car il est dans /public
           alt="Logo FELR"
-          width={120}
-          height={120}
-          className="h-20 w-auto"
+          width={60}
+          height={60}
+          className="h-40 w-auto"
           priority
         />
         {/* Si tu veux un texte à côté du logo, tu peux le décommenter */}
