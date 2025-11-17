@@ -212,8 +212,6 @@ export default function PageEvenement() {
       {/* MOMENTS FORTS */}
       <SectionMomentsForts items={data.momentsForts} />
 
-      {/* GALERIE */}
-      <SectionGalerie items={data.galerie} />
     </main>
   );
 }
