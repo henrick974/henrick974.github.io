@@ -9,7 +9,7 @@ export default function Page() {
       <iframe
         src={SPHINX_URL}
         title="Formulaire d'inscription FELR"
-        className="w-full h-[90vh] border-0 rounded-xl bg-white"
+        className="w-[80vh] h-[90vh] border-0 rounded-xl bg-white"
         loading="lazy"
       />
     </div>
