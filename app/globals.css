@@ -169,8 +169,11 @@
       #8c8f96 65%,
       #7a7d84 100%
     );
-  background-attachment: fixed;
+
+  /* ⬇️ IMPORTANT : on enlève le fixed qui flingue la perf du scroll auto */
+  /* background-attachment: fixed; */
 }
+
 
 /* étoiles fixes à positions "aléatoires" */
 .sparkle-bg::before,
