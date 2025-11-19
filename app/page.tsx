@@ -145,43 +145,80 @@ export default function PageEvenement() {
   // 👉 état pour activer / désactiver le scroll auto
   const [autoScroll, setAutoScroll] = useState(false); // scroll off a la base
 
-  // 👉 effet qui gère le défilement automatique
+  // 👉 quelle image est "en gros plan" pendant le défilement auto
+  const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null);
+
+  // 👉 effet qui fait défiler image par image
   useEffect(() => {
-    if (!autoScroll) return; // si désactivé, on ne fait rien
+    if (!autoScroll) {
+      setCurrentAutoMediaId(null);
+      return;
+    }
 
-    let frameId: number;
-    let lastTime: number | null = null;
-    const speed = 70; // pixels par seconde (tu peux augmenter ou diminuer)
+    // On récupère toutes les cartes qui portent data-autoscroll-id,
+    // dans l’ordre de la page
+    const stops = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-autoscroll-id]")
+    );
 
-    const step = (time: number) => {
-      if (!autoScroll) return; // garde-fou si l’état change en cours de route
+    if (!stops.length) {
+      setAutoScroll(false);
+      return;
+    }
 
-      if (lastTime === null) {
-        lastTime = time;
-      }
-      const delta = time - lastTime;
-      lastTime = time;
+    let index = 0;
+    let cancelled = false;
+    let timeoutId: number;
 
-      const distance = (speed * delta) / 1000; // conversion ms → s
-      const scrollTop =
-        window.scrollY || document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = window.innerHeight;
+    const goToNext = () => {
+      if (cancelled || !autoScroll) return;
 
-      // si on est en bas de page → on arrête le scroll auto
-      if (scrollTop + clientHeight >= scrollHeight) {
+      const el = stops[index];
+      if (!el) {
         setAutoScroll(false);
+        setCurrentAutoMediaId(null);
         return;
       }
 
-      window.scrollBy(0, distance);
-      frameId = requestAnimationFrame(step);
+      const id = el.dataset.autoscrollId ?? null;
+      setCurrentAutoMediaId(id); // on dit "celle-là est en gros plan"
+
+      // on centre l’élément dans l’écran (et en horizontal pour les carrousels)
+      el.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
+
+      index += 1;
+
+      if (index >= stops.length) {
+        // dernière image → petite pause puis on coupe
+        timeoutId = window.setTimeout(() => {
+          setAutoScroll(false);
+          setCurrentAutoMediaId(null);
+        }, 2000);
+      } else {
+        // temps d’affichage par image (à ajuster si tu veux)
+        timeoutId = window.setTimeout(goToNext, 2200);
+      }
     };
 
-    frameId = requestAnimationFrame(step);
+    // petit délai avant de commencer
+    timeoutId = window.setTimeout(goToNext, 400);
+
+    // si la personne touche à la souris / tactile / clavier → on arrête l’auto-scroll
+    const stopUserInteraction = () => setAutoScroll(false);
+    window.addEventListener("wheel", stopUserInteraction, { passive: true });
+    window.addEventListener("touchstart", stopUserInteraction, { passive: true });
+    window.addEventListener("keydown", stopUserInteraction);
 
     return () => {
-      cancelAnimationFrame(frameId);
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+      window.removeEventListener("wheel", stopUserInteraction);
+      window.removeEventListener("touchstart", stopUserInteraction);
+      window.removeEventListener("keydown", stopUserInteraction);
     };
   }, [autoScroll, setAutoScroll]);
 
@@ -231,18 +268,21 @@ export default function PageEvenement() {
 
       {/* MOMENTS FORTS */}
       {/* MOMENTS FORTS – carrousel 1 */}
-<SectionMomentsForts
-  titre="Au coeur de nos actions"
-  items={data.momentsForts}
-/>
-
-{/* MOMENTS FORTS – carrousel 2, autre fichier d'images */}
-{data.momentsFortsSecondaire.length > 0 && (
   <SectionMomentsForts
-    titre=""
-    items={data.momentsFortsSecondaire}
+    titre="Au coeur de nos actions"
+    items={data.momentsForts}
+    currentAutoMediaId={currentAutoMediaId}
   />
-)}
+
+  {data.momentsFortsSecondaire.length > 0 && (
+    <SectionMomentsForts
+      titre=""
+      items={data.momentsFortsSecondaire}
+      currentAutoMediaId={currentAutoMediaId}
+    />
+  )}
+      {/* GALERIE */}
+      <SectionGalerie items={data.galerie} />
 
 
       
@@ -279,9 +319,11 @@ function SectionChiffres({ data }: { data: { label: string; valeur: number }[] }
 function SectionMomentsForts({
   items,
   titre,
+  currentAutoMediaId,
 }: {
   items: Media[];
   titre: string;
+  currentAutoMediaId: string | null;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -305,32 +347,43 @@ function SectionMomentsForts({
           ref={ref}
           className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2"
         >
-          {items.map((m) => (
-            <article
-              key={m.id}
-              className="snap-start shrink-0 w-[85%] md:w-[48%] lg:w-[32%] rounded-2xl overflow-hidden border bg-white shadow-sm"
-            >
-              <MediaPreview m={m} ratio="aspect-[16/9]" hoverZoom />
-              <div className="p-4">
-                {m.titre && <h3 className="font-semibold">{m.titre}</h3>}
-                {m.texte && (
-                  <p className="text-sm text-gray-600 mt-1">{m.texte}</p>
-                )}
-                {m.tags && (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {m.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="text-xs rounded-full bg-gray-100 px-2 py-1"
-                      >
-                        #{t}
-                      </span>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </article>
-          ))}
+          {items.map((m) => {
+            const isActive = currentAutoMediaId === m.id;
+
+            return (
+              <article
+                key={m.id}
+                data-autoscroll-id={m.id}
+                className={`
+                  snap-start shrink-0 w-[85%] md:w-[48%] lg:w-[32%]
+                  rounded-2xl overflow-hidden border bg-white shadow-sm
+                  transition-transform duration-300
+                  ${isActive ? "scale-[1.03] shadow-xl ring-2 ring-rose-200" : ""}
+                `}
+              >
+                <MediaPreview m={m} ratio="aspect-[16/9]" hoverZoom />
+                <div className="p-4">
+                  {m.titre && <h3 className="font-semibold">{m.titre}</h3>}
+                  {m.texte && (
+                    <p className="text-sm text-gray-600 mt-1">{m.texte}</p>
+                  )}
+                  {m.tags && (
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {m.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="text-xs rounded-full bg-gray-100 px-2 py-1"
+                        >
+                          #{t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </article>
+            );
+          })}
+
         </div>
 
         {/* flèches navigation */}
@@ -356,7 +409,13 @@ function SectionMomentsForts({
 }
 
 
-function SectionGalerie({ items }: { items: Media[] }) {
+function SectionGalerie({
+  items,
+  currentAutoMediaId,
+  }: {
+    items: Media[];
+    currentAutoMediaId: string | null;
+  }) {
   const [lightbox, setLightbox] = useState<Media | null>(null);
   const [type, setType] = useState<"all" | "image" | "video">("all");
 
@@ -423,39 +482,56 @@ function SectionGalerie({ items }: { items: Media[] }) {
         transition={{ duration: 0.35 }}
         className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6"
       >
-        {filtered.map((m) => (
+      {filtered.map((m) => {
+        const isActive = currentAutoMediaId === m.id;
+
+        return (
           <motion.article
             key={m.id}
+            data-autoscroll-id={m.id}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.35 }}
-            className="break-inside-avoid rounded-2xl overflow-hidden border bg-white shadow-sm group"
+            className={`
+              break-inside-avoid rounded-2xl overflow-hidden border bg-white shadow-sm group
+              transition-transform duration-300
+              ${isActive ? "scale-[1.03] shadow-xl ring-2 ring-rose-200" : ""}
+            `}
           >
             <button
               onClick={() => setLightbox(m)}
-              className="w-full text-left"
-              aria-label={m.alt ?? m.titre ?? "ouvrir le média"}
+              className="block w-full text-left"
             >
-              <MediaPreview m={m} hoverZoom />
-              {(m.titre || m.texte) && (
+              <div className="relative">
+                <MediaPreview m={m} ratio="aspect-[4/3]" />
+              </div>
+
+              {m.titre || m.texte || m.tags ? (
                 <div className="p-4">
                   {m.titre && <h3 className="font-semibold">{m.titre}</h3>}
-                  {m.texte && <p className="text-sm text-gray-600 mt-1">{m.texte}</p>}
+                  {m.texte && (
+                    <p className="text-sm text-gray-600 mt-1">{m.texte}</p>
+                  )}
                   {m.tags && (
                     <div className="mt-3 flex flex-wrap gap-2">
                       {m.tags.map((t) => (
-                        <span key={t} className="text-xs rounded-full bg-gray-100 px-2 py-1">
+                        <span
+                          key={t}
+                          className="text-xs rounded-full bg-gray-100 px-2 py-1"
+                        >
                           #{t}
                         </span>
                       ))}
                     </div>
                   )}
                 </div>
-              )}
+              ) : null}
             </button>
           </motion.article>
-        ))}
+        );
+      })}
+
       </motion.div>
 
       {/* Lightbox */}
