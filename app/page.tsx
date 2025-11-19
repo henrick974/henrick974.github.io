@@ -1,13 +1,21 @@
 "use client";
 
-
-
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { MEDIAS_2024 } from "./medias2024"; // adapte le chemin si ta page n'est pas dans le même dossier
 
 import { MEDIAS_2025 } from "./medias2025"; // adapte le chemin si ta page n'est pas dans le même dossier
+
+import { MEDIAS_2025_2 } from "./medias2025_2"; 
+
+const splitMedias = (medias: Media[]): [Media[], Media[]] => {
+  if (medias.length <= 1) return [medias, []];
+  const middle = Math.ceil(medias.length / 2);
+  return [medias.slice(0, middle), medias.slice(middle)];
+};
+
+const [MEDIAS_2024_PRIMARY, MEDIAS_2024_SECONDARY] = splitMedias(MEDIAS_2024);
 
 /* =========================================================
    TYPES
@@ -24,10 +32,14 @@ export type Media = {
 
 type YearData = {
   hero: { titre: string; accroche: string };
-  chiffres: { label: string; valeur: number }[]; // uniquement lié aux ÉVÈNEMENTS
-  momentsForts: Media[]; // carrousel
-  galerie: Media[]; // masonry + filtres
+  chiffres: { label: string; valeur: number }[];
+  momentsForts: Media[];           // carrousel 1
+  momentsFortsSecondaire: Media[]; // carrousel 2 (nouveau)
+  galerie: Media[];
 };
+
+
+
 
 /* =========================================================
    DONNÉES
@@ -36,63 +48,69 @@ type YearData = {
    /* 2025 & 2024 & 2023 sont des YearData et on les initialises ci-dessous */
 const DATA: Record<"2025" | "2024" | "2023", YearData> = {
   "2025": {
-    /* HERO de 2025 */
     hero: {
       titre: "Notre Histoire en 2025",
       accroche:
         "Atelier, Cérémonies, conférences, rencontres publiques, soirées de prestige : Une association rythmée par des évènements marquants.",
     },
-
     chiffres: [
       { label: "Ateliers", valeur: 179 },
       { label: "Membres", valeur: 106 },
       { label: "Soutien et Partenaires", valeur: 21 },
     ],
-
-        // Même médias pour "Au coeur de nos actions" et "Galerie"
+    // Carrousel 1 : tes médias “classiques”
     momentsForts: MEDIAS_2025,
+
+    // Carrousel 2 : AUTRE fichier de médias (gala, etc.)
+    momentsFortsSecondaire: MEDIAS_2025_2,
+
+    // La galerie peut garder ce que tu veux
     galerie: MEDIAS_2025,
   },
 
   "2024": {
-    /*Hero de 2024 */
     hero: {
       titre: "Notre histoire en 2024",
       accroche:
         "Premières éditions et premières scènes : les fondations d’un rendez-vous qui compte.",
     },
-
     chiffres: [
       { label: "Ateliers", valeur: 192 },
       { label: "Membres", valeur: 95 },
       { label: "Soutien et partenaire", valeur: 28 },
     ],
-
-    // Même médias pour "Au coeur de nos actions" et "Galerie"
     momentsForts: MEDIAS_2024,
+    // Si tu as un deuxième fichier pour 2024, tu le mets ici
+    momentsFortsSecondaire: MEDIAS_2024, // ou MEDIAS_2024_GALA si tu le crées
     galerie: MEDIAS_2024,
   },
 
   "2023": {
-
-    /* HERO 2023 */
     hero: {
       titre: "Notre histoire en 2023",
       accroche:
         "Les premières pierres : rencontres fondatrices et formats testés grandeur nature.",
     },
-
     chiffres: [
       { label: "Ateliers", valeur: 15 },
       { label: "Membres", valeur: 17 },
       { label: "Soutien et partenaire", valeur: 5 },
     ],
-
-    // Même médias pour "Au coeur de nos actions" et "Galerie"
     momentsForts: MEDIAS_2024,
+    momentsFortsSecondaire: [], // rien pour l’instant
     galerie: MEDIAS_2024,
   },
 };
+
+DATA["2024"].momentsForts = MEDIAS_2024_PRIMARY;
+DATA["2024"].momentsFortsSecondaire = MEDIAS_2024_SECONDARY;
+
+const [MEDIAS_2023_PRIMARY, MEDIAS_2023_SECONDARY] = splitMedias(
+  DATA["2023"].momentsForts
+);
+DATA["2023"].momentsForts = MEDIAS_2023_PRIMARY;
+DATA["2023"].momentsFortsSecondaire = MEDIAS_2023_SECONDARY;
+
 
 /* =========================================================
    OUTILS
@@ -210,7 +228,22 @@ export default function PageEvenement() {
       <SectionChiffres data={data.chiffres} />
 
       {/* MOMENTS FORTS */}
-      <SectionMomentsForts items={data.momentsForts} />
+      {/* MOMENTS FORTS – carrousel 1 */}
+<SectionMomentsForts
+  titre="Au coeur de nos actions"
+  items={data.momentsForts}
+/>
+
+{/* MOMENTS FORTS – carrousel 2, autre fichier d'images */}
+{data.momentsFortsSecondaire.length > 0 && (
+  <SectionMomentsForts
+    titre=""
+    items={data.momentsFortsSecondaire}
+  />
+)}
+
+
+      
 
     </main>
   );
@@ -241,18 +274,35 @@ function SectionChiffres({ data }: { data: { label: string; valeur: number }[] }
   );
 }
 
-function SectionMomentsForts({ items }: { items: Media[] }) {
+function SectionMomentsForts({
+  items,
+  titre,
+}: {
+  items: Media[];
+  titre: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
+
   const scrollBy = (dir: number) => {
     const el = ref.current;
     if (!el) return;
-    el.scrollBy({ left: dir * (el.clientWidth * 0.8), behavior: "smooth" });
+    el.scrollBy({
+      left: dir * (el.clientWidth * 0.8),
+      behavior: "smooth",
+    });
   };
+
   return (
     <section className="mx-auto max-w-7xl px-6 py-14">
-      <h2 className="text-3xl md:text-4xl font-serif mb-6 text-center">Au coeur de nos actions</h2>
+      <h2 className="text-3xl md:text-4xl font-serif mb-6 text-center">
+        {titre}
+      </h2>
+
       <div className="relative">
-        <div ref={ref} className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2">
+        <div
+          ref={ref}
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2"
+        >
           {items.map((m) => (
             <article
               key={m.id}
@@ -261,11 +311,16 @@ function SectionMomentsForts({ items }: { items: Media[] }) {
               <MediaPreview m={m} ratio="aspect-[16/9]" hoverZoom />
               <div className="p-4">
                 {m.titre && <h3 className="font-semibold">{m.titre}</h3>}
-                {m.texte && <p className="text-sm text-gray-600 mt-1">{m.texte}</p>}
+                {m.texte && (
+                  <p className="text-sm text-gray-600 mt-1">{m.texte}</p>
+                )}
                 {m.tags && (
                   <div className="mt-3 flex flex-wrap gap-2">
                     {m.tags.map((t) => (
-                      <span key={t} className="text-xs rounded-full bg-gray-100 px-2 py-1">
+                      <span
+                        key={t}
+                        className="text-xs rounded-full bg-gray-100 px-2 py-1"
+                      >
                         #{t}
                       </span>
                     ))}
@@ -276,7 +331,7 @@ function SectionMomentsForts({ items }: { items: Media[] }) {
           ))}
         </div>
 
-        {/* flèches */}
+        {/* flèches navigation */}
         <div className="hidden md:block">
           <button
             onClick={() => scrollBy(-1)}
@@ -297,6 +352,7 @@ function SectionMomentsForts({ items }: { items: Media[] }) {
     </section>
   );
 }
+
 
 function SectionGalerie({ items }: { items: Media[] }) {
   const [lightbox, setLightbox] = useState<Media | null>(null);
