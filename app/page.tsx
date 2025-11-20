@@ -142,6 +142,11 @@ export default function PageEvenement() {
 
   // 👉 quelle image est "en gros plan" pendant le défilement auto
   const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // créé la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
+  const currentAutoMedia = useMemo(() => {
+    const pool = [...data.momentsForts, ...data.momentsFortsSecondaire];
+    return pool.find((m) => m.id === currentAutoMediaId) ?? null;
+  }, [data, currentAutoMediaId]);
+
 
   // 👉 effet qui fait défiler image par image
   useEffect(() => {
@@ -352,31 +357,31 @@ function SectionMomentsForts({
                 key={m.id}
                 data-autoscroll-id={m.id}
                 className={`
-                  snap-start shrink-0 w-[85%] md:w-[48%] lg:w-[32%]
+                  snap-start shrink-0 w-[92%] md:w-[60%] lg:w-[46%]
                   rounded-2xl overflow-hidden border bg-white shadow-sm
                   transition-transform duration-300
                   ${isActive ? "scale-[1.03] shadow-xl ring-2 ring-rose-200" : ""}
                 `}
               >
-                <MediaPreview m={m} ratio="aspect-[16/9]" hoverZoom />
-                <div className="p-4">
-               {/*   {m.titre && <h3 className="font-semibold">{m.titre}</h3>}  */}
-                  {m.texte && (
+                <motion.div
+                  animate={
+                    isActive
+                      ? { scale: [1, 1.06, 1] }
+                      : { scale: 1 }
+                  }
+                  transition={
+                    isActive
+                      ? { duration: 0.7, ease: "easeInOut" }
+                      : { duration: 0.3 }
+                  }
+                >
+                  <MediaPreview m={m} ratio="aspect-[4/3]" hoverZoom />
+                </motion.div>
+                {m.texte && (
+                  <div className="p-4">
                     <p className="text-sm text-gray-600 mt-1">{m.texte}</p>
-                  )}
-                  {m.tags && (
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {m.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="text-xs rounded-full bg-gray-100 px-2 py-1"
-                        >
-                          #{t}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </article>
             );
           })}
@@ -477,7 +482,7 @@ function SectionGalerie({
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 0.35 }}
-        className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6"
+        className="columns-1 sm:columns-1 lg:columns-2 gap-8 space-y-8"
       >
       {filtered.map((m) => {
         const isActive = currentAutoMediaId === m.id;
@@ -500,27 +505,27 @@ function SectionGalerie({
               onClick={() => setLightbox(m)}
               className="block w-full text-left"
             >
-              <div className="relative">
+              <motion.div
+                className="relative"
+                animate={
+                  isActive
+                    ? { scale: [1, 1.06, 1] }
+                    : { scale: 1 }
+                }
+                transition={
+                  isActive
+                    ? { duration: 0.7, ease: "easeInOut" }
+                    : { duration: 0.3 }
+                }
+              >
                 <MediaPreview m={m} ratio="aspect-[4/3]" />
-              </div>
+              </motion.div>
 
-              {m.titre || m.texte || m.tags ? (
+              {m.titre || m.texte ? (
                 <div className="p-4">
                   {m.titre && <h3 className="font-semibold">{m.titre}</h3>}
                   {m.texte && (
                     <p className="text-sm text-gray-600 mt-1">{m.texte}</p>
-                  )}
-                  {m.tags && (
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {m.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="text-xs rounded-full bg-gray-100 px-2 py-1"
-                        >
-                          #{t}
-                        </span>
-                      ))}
-                    </div>
                   )}
                 </div>
               ) : null}
@@ -596,7 +601,7 @@ function MediaPreview({
           alt={m.alt ?? m.titre ?? "image"}
           fill
           sizes="(max-width: 1024px) 100vw, 33vw"
-          className={`object-cover ${
+          className={`object-contain ${
             hoverZoom ? "transition-transform duration-300 group-hover:scale-[1.02]" : ""
           }`}
         />
@@ -606,7 +611,7 @@ function MediaPreview({
           muted
           playsInline
           preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-contain bg-black"
           onMouseEnter={(e) => (e.currentTarget as HTMLVideoElement).play()}
           onMouseLeave={(e) => {
             const v = e.currentTarget as HTMLVideoElement;
