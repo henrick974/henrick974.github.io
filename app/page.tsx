@@ -43,7 +43,7 @@ type YearData = {
   chiffres: { label: string; valeur: number }[];
   momentsForts: Media[];           // carrousel 1
   momentsFortsSecondaire: Media[]; // carrousel 2 (nouveau)
-  galerie: Media[];
+  
 };
 
 
@@ -282,10 +282,10 @@ export default function PageEvenement() {
       currentAutoMediaId={currentAutoMediaId}
     />
   )}
-<SectionGalerie 
-  items={data.galerie} 
-  currentAutoMediaId={null}
-/>
+
+
+      
+
     </main>
   );
 }

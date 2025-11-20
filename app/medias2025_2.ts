@@ -9,20 +9,8 @@ export const MEDIAS_2025_2: Media[] = [
     titre: "Souvenir 2025 #45",
     tags: ["2025"],
   },
-  {
-    id: "25-img-46",
-    type: "image",
-    src: "/medias/2025/45.jpg",
-    titre: "Souvenir 2025 #46",
-    tags: ["2025"],
-  },
-  {
-    id: "25-img-47",
-    type: "image",
-    src: "/medias/2025/46.jpg",
-    titre: "Souvenir 2025 #47",
-    tags: ["2025"],
-  },
+
+
   {
     id: "25-img-48",
     type: "image",
@@ -60,13 +48,7 @@ export const MEDIAS_2025_2: Media[] = [
     titre: "Souvenir 2025 #52",
     tags: ["2025"],
   },
-  {
-    id: "25-img-53",
-    type: "image",
-    src: "/medias/2025/53.jpg",
-    titre: "Souvenir 2025 #53",
-    tags: ["2025"],
-  },
+
   {
     id: "25-img-54",
     type: "image",
@@ -74,13 +56,7 @@ export const MEDIAS_2025_2: Media[] = [
     titre: "Souvenir 2025 #54",
     tags: ["2025"],
   },
-  {
-    id: "25-img-55",
-    type: "image",
-    src: "/medias/2025/55.jpg",
-    titre: "Souvenir 2025 #55",
-    tags: ["2025"],
-  },
+
   {
     id: "25-img-56",
     type: "image",
@@ -95,27 +71,8 @@ export const MEDIAS_2025_2: Media[] = [
     titre: "Souvenir 2025 #57",
     tags: ["2025"],
   },
-  {
-    id: "25-img-58",
-    type: "image",
-    src: "/medias/2025/58.jpg",
-    titre: "Souvenir 2025 #58",
-    tags: ["2025"],
-  },
-  {
-    id: "25-img-59",
-    type: "image",
-    src: "/medias/2025/59.jpg",
-    titre: "Souvenir 2025 #59",
-    tags: ["2025"],
-  },
-  {
-    id: "25-img-60",
-    type: "image",
-    src: "/medias/2025/60.jpg",
-    titre: "Souvenir 2025 #60",
-    tags: ["2025"],
-  },
+
+
   {
     id: "25-img-61",
     type: "image",
@@ -151,13 +108,7 @@ export const MEDIAS_2025_2: Media[] = [
     titre: "Souvenir 2025 #65",
     tags: ["2025"],
   },
-  {
-    id: "25-img-66",
-    type: "image",
-    src: "/medias/2025/66.jpg",
-    titre: "Souvenir 2025 #66",
-    tags: ["2025"],
-  },
+
   {
     id: "25-img-67",
     type: "image",
@@ -186,13 +137,7 @@ export const MEDIAS_2025_2: Media[] = [
     titre: "Souvenir 2025 #70",
     tags: ["2025"],
   },
-  {
-    id: "25-img-71",
-    type: "image",
-    src: "/medias/2025/71.jpg",
-    titre: "Souvenir 2025 #71",
-    tags: ["2025"],
-  },
+
   {
     id: "25-img-72",
     type: "image",

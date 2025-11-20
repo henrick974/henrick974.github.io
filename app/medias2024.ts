@@ -8,34 +8,8 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #1",
     tags: ["2024"],
   },
-  {
-    id: "24-img-2",
-    type: "image",
-    src: "/medias/2024/2.jpg",
-    titre: "Souvenir 2024 #2",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-3",
-    type: "image",
-    src: "/medias/2024/4.jpg",
-    titre: "Souvenir 2024 #3",
-    tags: ["2024"],
-  },
-    {
-    id: "24-img-3",
-    type: "image",
-    src: "/medias/2024/4.jpg",
-    titre: "Souvenir 2024 #3",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-4",
-    type: "image",
-    src: "/medias/2024/5.jpg",
-    titre: "Souvenir 2024 #4",
-    tags: ["2024"],
-  },
+
+
   {
     id: "24-img-5",
     type: "image",
@@ -43,27 +17,7 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #5",
     tags: ["2024"],
   },
-  {
-    id: "24-img-6",
-    type: "image",
-    src: "/medias/2024/7.png",
-    titre: "Souvenir 2024 #6",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-7",
-    type: "image",
-    src: "/medias/2024/8.jpg",
-    titre: "Souvenir 2024 #7",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-8",
-    type: "image",
-    src: "/medias/2024/9.jpg",
-    titre: "Souvenir 2024 #8",
-    tags: ["2024"],
-  },
+
   {
     id: "24-img-9",
     type: "image",
@@ -78,13 +32,7 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #10",
     tags: ["2024"],
   },
-  {
-    id: "24-img-11",
-    type: "image",
-    src: "/medias/2024/12.jpg",
-    titre: "Souvenir 2024 #11",
-    tags: ["2024"],
-  },
+
   {
     id: "24-img-12",
     type: "image",
@@ -92,48 +40,8 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #12",
     tags: ["2024"],
   },
-  {
-    id: "24-img-13",
-    type: "image",
-    src: "/medias/2024/14.jpg",
-    titre: "Souvenir 2024 #13",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-14",
-    type: "image",
-    src: "/medias/2024/15.jpg",
-    titre: "Souvenir 2024 #14",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-15",
-    type: "image",
-    src: "/medias/2024/16.jpg",
-    titre: "Souvenir 2024 #15",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-16",
-    type: "image",
-    src: "/medias/2024/17.jpg",
-    titre: "Souvenir 2024 #16",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-17",
-    type: "image",
-    src: "/medias/2024/18.jpg",
-    titre: "Souvenir 2024 #17",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-18",
-    type: "image",
-    src: "/medias/2024/19.jpg",
-    titre: "Souvenir 2024 #18",
-    tags: ["2024"],
-  },
+
+  
   {
     id: "24-img-19",
     type: "image",
@@ -148,27 +56,7 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #20",
     tags: ["2024"],
   },
-  {
-    id: "24-img-21",
-    type: "image",
-    src: "/medias/2024/22.jpg",
-    titre: "Souvenir 2024 #21",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-22",
-    type: "image",
-    src: "/medias/2024/23.jpg",
-    titre: "Souvenir 2024 #22",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-23",
-    type: "image",
-    src: "/medias/2024/24.jpg",
-    titre: "Souvenir 2024 #23",
-    tags: ["2024"],
-  },
+ 
   {
     id: "24-img-24",
     type: "image",
@@ -176,13 +64,7 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #24",
     tags: ["2024"],
   },
-  {
-    id: "24-img-25",
-    type: "image",
-    src: "/medias/2024/26.jpg",
-    titre: "Souvenir 2024 #25",
-    tags: ["2024"],
-  },
+
 
   // -------- 27 à 53 copy --------
   {
@@ -241,13 +123,7 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #33",
     tags: ["2024"],
   },
-  {
-    id: "24-img-34",
-    type: "image",
-    src: "/medias/2024/36.jpg",
-    titre: "Souvenir 2024 #34",
-    tags: ["2024"],
-  },
+
   {
     id: "24-img-35",
     type: "image",
@@ -290,20 +166,7 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #40",
     tags: ["2024"],
   },
-  {
-    id: "24-img-41",
-    type: "image",
-    src: "/medias/2024/43.JPG",
-    titre: "Souvenir 2024 #41",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-42",
-    type: "image",
-    src: "/medias/2024/44.JPG",
-    titre: "Souvenir 2024 #42",
-    tags: ["2024"],
-  },
+
   {
     id: "24-img-43",
     type: "image",
@@ -339,13 +202,7 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #47",
     tags: ["2024"],
   },
-  {
-    id: "24-img-48",
-    type: "image",
-    src: "/medias/2024/50.JPG",
-    titre: "Souvenir 2024 #48",
-    tags: ["2024"],
-  },
+
   {
     id: "24-img-49",
     type: "image",
@@ -418,55 +275,7 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #58",
     tags: ["2024"],
   },
-  {
-    id: "24-img-59",
-    type: "image",
-    src: "/medias/2024/61.jpg",
-    titre: "Souvenir 2024 #59",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-60",
-    type: "image",
-    src: "/medias/2024/62.jpg",
-    titre: "Souvenir 2024 #60",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-61",
-    type: "image",
-    src: "/medias/2024/63.jpg",
-    titre: "Souvenir 2024 #61",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-62",
-    type: "image",
-    src: "/medias/2024/64.jpg",
-    titre: "Souvenir 2024 #62",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-63",
-    type: "image",
-    src: "/medias/2024/65.jpg",
-    titre: "Souvenir 2024 #63",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-64",
-    type: "image",
-    src: "/medias/2024/66.jpg",
-    titre: "Souvenir 2024 #64",
-    tags: ["2024"],
-  },
-  {
-    id: "24-img-65",
-    type: "image",
-    src: "/medias/2024/67.jpg",
-    titre: "Souvenir 2024 #65",
-    tags: ["2024"],
-  },
+  
   {
     id: "24-img-66",
     type: "image",
@@ -523,13 +332,7 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #73",
     tags: ["2024"],
   },
-  {
-    id: "24-img-74",
-    type: "image",
-    src: "/medias/2024/780d2047-050a-460d-9d22-84e4188d6212.JPG",
-    titre: "Souvenir 2024 #74",
-    tags: ["2024"],
-  },
+
   {
     id: "24-img-75",
     type: "image",
@@ -551,13 +354,7 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #77",
     tags: ["2024"],
   },
-  {
-    id: "24-img-78",
-    type: "image",
-    src: "/medias/2024/Gala-3.jpg",
-    titre: "Soirée de gala #3",
-    tags: ["2024", "gala"],
-  },
+
 
   // -------- Série Gala + quelques IMG_ --------
   {
@@ -595,13 +392,7 @@ export const MEDIAS_2024: Media[] = [
     titre: "Soirée de gala #8",
     tags: ["2024", "gala"],
   },
-  {
-    id: "24-img-84",
-    type: "image",
-    src: "/medias/2024/Gala-9.jpg",
-    titre: "Soirée de gala #9",
-    tags: ["2024", "gala"],
-  },
+
   {
     id: "24-img-85",
     type: "image",
@@ -609,20 +400,8 @@ export const MEDIAS_2024: Media[] = [
     titre: "Soirée de gala #10",
     tags: ["2024", "gala"],
   },
-  {
-    id: "24-img-86",
-    type: "image",
-    src: "/medias/2024/Gala-11.jpg",
-    titre: "Soirée de gala #11",
-    tags: ["2024", "gala"],
-  },
-  {
-    id: "24-img-87",
-    type: "image",
-    src: "/medias/2024/Gala-12.jpg",
-    titre: "Soirée de gala #12",
-    tags: ["2024", "gala"],
-  },
+
+
   {
     id: "24-img-88",
     type: "image",
@@ -742,13 +521,7 @@ export const MEDIAS_2024: Media[] = [
     titre: "Souvenir 2024 #79",
     tags: ["2024"],
   },
-  {
-    id: "24-img-105",
-    type: "image",
-    src: "/medias/2024/IMG_0034.jpeg",
-    titre: "Souvenir 2024 #80",
-    tags: ["2024"],
-  },
+
 
   // -------- Série IMG_* --------
   {
