@@ -1,4 +1,4 @@
-"use client";
+"use client"; // côté client que c'est execueter les trucs
 
 
 
@@ -11,13 +11,21 @@ import { MEDIAS_2025 } from "./medias2025"; // adapte le chemin si ta page n'est
 
 import { MEDIAS_2025_2 } from "./medias2025_2"; 
 
+// splitMedias contient 2 array 
+// Media[] c'est un tableau de Media
+// et sa renvoi 2 tableau dcp
 const splitMedias = (medias: Media[]): [Media[], Media[]] => {
-  if (medias.length <= 1) return [medias, []];
-  const middle = Math.ceil(medias.length / 2);
-  return [medias.slice(0, middle), medias.slice(middle)];
+  if (medias.length <= 1) return [medias, []]; // si la taille et de 1 y a lui meme et un tableau vide 
+  const middle = Math.ceil(medias.length / 2); // on cherche le milieu .ceil sa arrondi arrondi au dessus 
+  return [medias.slice(0, middle), medias.slice(middle)]; // on met du debut au milieu dans un array et le reste ds l'autre array slice(start, end) || start(start)
 };
 
-const [MEDIAS_2024_PRIMARY, MEDIAS_2024_SECONDARY] = splitMedias(MEDIAS_2024);
+/* ========================================================
+ * SPLITAGE DES TABLEAU (MEDIA) EN 2!
+ * ========================================================
+ */
+
+const [MEDIAS_2024_PRIMARY, MEDIAS_2024_SECONDARY] = splitMedias(MEDIAS_2024); // assignation de la premiere partie de 2024 et la deuxieme partie de 2024
 
 /* =========================================================
    TYPES
@@ -48,7 +56,9 @@ type YearData = {
    ========================================================= */
 
    /* 2025 & 2024 & 2023 sont des YearData et on les initialises ci-dessous */
-const DATA: Record<"2025" | "2024" | "2023", YearData> = {
+const DATA: Record<"2025" | "2024" | "2023", YearData> = { // const NOM: TYPE = VALEUR;
+                                                          // Record<Clé, Valeur> en gros c'est pour dire avant c'est soit 2024 2025 ou 2023 
+                                                          // et sa valeur sera toujours un YearsData
   "2025": {
     hero: {
       titre: "Notre Histoire en 2025",
@@ -81,9 +91,8 @@ const DATA: Record<"2025" | "2024" | "2023", YearData> = {
       { label: "Membres", valeur: 95 },
       { label: "Soutien et partenaire", valeur: 28 },
     ],
-    momentsForts: MEDIAS_2024,
-    // Si tu as un deuxième fichier pour 2024, tu le mets ici
-    momentsFortsSecondaire: MEDIAS_2024, // ou MEDIAS_2024_GALA si tu le crées
+    momentsForts: MEDIAS_2024_PRIMARY, // premiere partie defini plus haut par ton split
+    momentsFortsSecondaire: MEDIAS_2024_SECONDARY, // je met le tableau de la deuxieme partie que ta defini plus tot
     galerie: MEDIAS_2024,
   },
 
@@ -98,21 +107,11 @@ const DATA: Record<"2025" | "2024" | "2023", YearData> = {
       { label: "Membres", valeur: 17 },
       { label: "Soutien et partenaire", valeur: 5 },
     ],
-    momentsForts: MEDIAS_2024,
-    momentsFortsSecondaire: [], // rien pour l’instant
+    momentsForts: MEDIAS_2024_PRIMARY, // même image que 2024
+    momentsFortsSecondaire: MEDIAS_2024_SECONDARY, // memes image que 2024
     galerie: MEDIAS_2024,
   },
 };
-
-DATA["2024"].momentsForts = MEDIAS_2024_PRIMARY;
-DATA["2024"].momentsFortsSecondaire = MEDIAS_2024_SECONDARY;
-
-const [MEDIAS_2023_PRIMARY, MEDIAS_2023_SECONDARY] = splitMedias(
-  DATA["2023"].momentsForts
-);
-DATA["2023"].momentsForts = MEDIAS_2023_PRIMARY;
-DATA["2023"].momentsFortsSecondaire = MEDIAS_2023_SECONDARY;
-
 
 /* =========================================================
    OUTILS
