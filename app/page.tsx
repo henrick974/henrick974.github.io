@@ -281,8 +281,10 @@ export default function PageEvenement() {
       currentAutoMediaId={currentAutoMediaId}
     />
   )}
-      {/* GALERIE */}
-      <SectionGalerie items={data.galerie} />
+<SectionGalerie 
+  items={data.galerie} 
+  currentAutoMediaId={null}
+/>
 
 
       
