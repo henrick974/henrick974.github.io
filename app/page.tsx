@@ -74,8 +74,6 @@ const DATA: Record<"2025" | "2024" | "2023", YearData> = { // const NOM: TYPE = 
     // Carrousel 2 : AUTRE fichier de médias (gala, etc.)
     momentsFortsSecondaire: MEDIAS_2025_2,
 
-    // La galerie peut garder ce que tu veux
-    galerie: MEDIAS_2025,
   },
 
   "2024": {
@@ -91,7 +89,7 @@ const DATA: Record<"2025" | "2024" | "2023", YearData> = { // const NOM: TYPE = 
     ],
     momentsForts: MEDIAS_2024_PRIMARY, // premiere partie defini plus haut par ton split
     momentsFortsSecondaire: MEDIAS_2024_SECONDARY, // je met le tableau de la deuxieme partie que ta defini plus tot
-    galerie: MEDIAS_2024,
+
   },
 
   "2023": {
@@ -107,7 +105,7 @@ const DATA: Record<"2025" | "2024" | "2023", YearData> = { // const NOM: TYPE = 
     ],
     momentsForts: MEDIAS_2024_PRIMARY, // même image que 2024
     momentsFortsSecondaire: MEDIAS_2024_SECONDARY, // memes image que 2024
-    galerie: MEDIAS_2024,
+
   },
 };
 
