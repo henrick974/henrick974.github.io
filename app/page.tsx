@@ -116,7 +116,7 @@ const DATA: Record<"2025" | "2024" | "2023", YearData> = { // const NOM: TYPE = 
    ========================================================= */
 const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
 
-function useCounter(n: number, duration = 1200) {
+function useCounter(n: number, duration = 1200) { // pour faire l'animation d'affichage des nombres
   const [v, setV] = useState(0);
   useEffect(() => {
     let raf = 0;
@@ -136,14 +136,14 @@ function useCounter(n: number, duration = 1200) {
    PAGE
    ========================================================= */
 export default function PageEvenement() {
-  const [year, setYear] = useState<"2025" | "2024" | "2023">("2025"); // utilise 2025 par defaut
+  const [year, setYear] = useState<"2025" | "2024" | "2023">("2025"); // creation de la function setYear qui n'accepte que 2025 2024 2023 et qui as mis 2025 par defaut
   const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque année juste en haut
 
   // 👉 état pour activer / désactiver le scroll auto
-  const [autoScroll, setAutoScroll] = useState(false); // scroll off a la base
+  const [autoScroll, setAutoScroll] = useState(false); // créé la fonction setAutoScroll et le met a false
 
   // 👉 quelle image est "en gros plan" pendant le défilement auto
-  const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null);
+  const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // créé la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
 
   // 👉 effet qui fait défiler image par image
   useEffect(() => {
@@ -158,7 +158,7 @@ export default function PageEvenement() {
       document.querySelectorAll<HTMLElement>("[data-autoscroll-id]")
     );
 
-    if (!stops.length) {
+    if (!stops.length) { // si rien a scroll alors on scroll pas
       setAutoScroll(false);
       return;
     }
@@ -168,10 +168,10 @@ export default function PageEvenement() {
     let timeoutId: number;
 
     const goToNext = () => {
-      if (cancelled || !autoScroll) return;
+      if (cancelled || !autoScroll) return; // si on as cancel ou auto scroll est false alors on arrete
 
       const el = stops[index];
-      if (!el) {
+      if (!el) { // si l'élément sur lequel on est est null on arrete tout
         setAutoScroll(false);
         setCurrentAutoMediaId(null);
         return;
@@ -187,7 +187,7 @@ export default function PageEvenement() {
         inline: "center",
       });
 
-      index += 1;
+      index += 1; // on passe au suivant
 
       if (index >= stops.length) {
         // dernière image → petite pause puis on coupe
@@ -197,7 +197,7 @@ export default function PageEvenement() {
         }, 2000);
       } else {
         // temps d’affichage par image (à ajuster si tu veux)
-        timeoutId = window.setTimeout(goToNext, 2200);
+        timeoutId = window.setTimeout(goToNext, 2200); // vas au suivant appel recursif
       }
     };
 
@@ -217,14 +217,18 @@ export default function PageEvenement() {
       window.removeEventListener("touchstart", stopUserInteraction);
       window.removeEventListener("keydown", stopUserInteraction);
     };
-  }, [autoScroll, setAutoScroll]);
+  }, [autoScroll, setAutoScroll]); // “Relance cet effet seulement quand une de ces valeurs change.”
 
+  /* ============================================
+   * VIEW
+   * ============================================
+   */
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#fff7ed] to-white">
       {/* Bouton toggle défilement auto */}
       <button
         type="button"
-        onClick={() => setAutoScroll((prev) => !prev)}
+        onClick={() => setAutoScroll((prev) => !prev)} /*on passe une fonction qui renvoie son inverse */
         className="fixed bottom-6 right-6 z-50 rounded-full bg-black text-white px-4 py-2 text-sm shadow-lg hover:bg-gray-900 active:scale-95 transition"
       >
         {autoScroll ? "Désactiver le défilement auto" : "Activer le défilement auto"}
@@ -282,10 +286,6 @@ export default function PageEvenement() {
   items={data.galerie} 
   currentAutoMediaId={null}
 />
-
-
-      
-
     </main>
   );
 }
@@ -362,7 +362,7 @@ function SectionMomentsForts({
               >
                 <MediaPreview m={m} ratio="aspect-[16/9]" hoverZoom />
                 <div className="p-4">
-                  {m.titre && <h3 className="font-semibold">{m.titre}</h3>}
+               {/*   {m.titre && <h3 className="font-semibold">{m.titre}</h3>}  */}
                   {m.texte && (
                     <p className="text-sm text-gray-600 mt-1">{m.texte}</p>
                   )}
