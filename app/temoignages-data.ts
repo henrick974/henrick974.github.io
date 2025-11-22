@@ -360,6 +360,20 @@ En fédérant depuis 2 ans, J'ai trouvé bien plus qu'une association : des vale
  
 Aujourd'hui, je tremble beaucoup moins avant de parler en public et je suis fière de faire partie de FELR-Femmes Entrepreneures et Leaders de La Réunion`,
   },
+
+  {
+    id: "felr-18",
+    prenom: "SANDRA",
+    nom: "K.",
+    fonction: "oratrice",
+    photo: "/temoignages/felr/SANDRA.jpeg",
+    temoignage:
+            `J’ai fait le choix d’adhérer à l’association FELR parce qu’en plus de répondre à mon  besoin de m’entourer de pairs, j’acquière des compétences indispensables à la vie entrepreneuriale grâce aux ateliers dont la quasi-totalité sont animés par les membres.
+ 
+Je gagne aussi en visibilité et en leadership, sans compter l’effet “wouah” des activités et des surprises de l’association sur mon mindset !
+Enfin, FELR sonne juste pour moi, parce qu’au-delà de la bienveillance, de l’engagement de chacune des membres
+Patricia BOUCARD, présidente de l’ Association, fait vivre ce mouvement dans l’action avec professionnalisme, joie , humour et enthousiasme.`,
+  },
 ];
 
 export const MEMBRES_SOUTIEN: TemoignageMembreSoutien[] = [
