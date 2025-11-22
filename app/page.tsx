@@ -1,11 +1,11 @@
-"use client"; // côté client que c'est execueter les trucs
+﻿"use client"; // cÃ´tÃ© client que c'est execueter les trucs
 
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { MEDIAS_2024 } from "./medias2024"; // adapte le chemin si ta page n'est pas dans le même dossier
+import { MEDIAS_2024 } from "./medias2024"; // adapte le chemin si ta page n'est pas dans le mÃªme dossier
 
-import { MEDIAS_2025 } from "./medias2025"; // adapte le chemin si ta page n'est pas dans le même dossier
+import { MEDIAS_2025 } from "./medias2025"; // adapte le chemin si ta page n'est pas dans le mÃªme dossier
 
 import { MEDIAS_2025_2 } from "./medias2025_2";
 import {
@@ -58,30 +58,48 @@ type YearData = {
 
 
 /* =========================================================
-   DONNÉES
+   DONNÃ‰ES
    ========================================================= */
 
 type YearKey = "2025" | "2023-2024";
 
+const WORD_CLOUD = [
+  {
+    titre: "Elan interieur et posture",
+    mots: ["Depassement de soi", "Prise de parole", "Audace", "Changement", "Responsabilite"],
+  },
+  {
+    titre: "Ouverture et relation a l'autre",
+    mots: ["S'ouvrir", "Ouverture aux autres", "Connexion", "Entraide", "Partage", "Partenariat", "Reseau"],
+  },
+  {
+    titre: "Croissance et evolution",
+    mots: ["Apprentissage", "Evolution", "Developpement personnel", "Developpement professionnel"],
+  },
+  {
+    titre: "Energie et plaisir",
+    mots: ["Fun"],
+  },
+];
    /* 2025 & 2024 & 2023 sont des YearData et on les initialises ci-dessous */
 const DATA: Record<YearKey, YearData> = { // const NOM: TYPE = VALEUR;
-                                                          // Record<Clé, Valeur> en gros c'est pour dire avant c'est soit 2024 2025 ou 2023 
+                                                          // Record<ClÃ©, Valeur> en gros c'est pour dire avant c'est soit 2024 2025 ou 2023 
                                                           // et sa valeur sera toujours un YearsData
   "2025": {
     hero: {
       titre: "Notre Histoire en 2025",
       accroche:
-        "Atelier, Cérémonies, conférences, rencontres publiques, soirées de prestige : Une association rythmée par des évènements marquants.",
+        "Atelier, CÃ©rÃ©monies, confÃ©rences, rencontres publiques, soirÃ©es de prestige : Une association rythmÃ©e par des Ã©vÃ¨nements marquants.",
     },
     chiffres: [
       { label: "Ateliers", valeur: 179 },
       { label: "Membres", valeur: 106 },
       { label: "Soutien et Partenaires", valeur: 21 },
     ],
-    // Carrousel 1 : tes médias “classiques”
+    // Carrousel 1 : tes mÃ©dias â€œclassiquesâ€
     momentsForts: MEDIAS_2025,
 
-    // Carrousel 2 : AUTRE fichier de médias (gala, etc.)
+    // Carrousel 2 : AUTRE fichier de mÃ©dias (gala, etc.)
     momentsFortsSecondaire: MEDIAS_2025_2,
 
   },
@@ -143,28 +161,28 @@ function useCounter(n: number, duration = 1200) { // pour faire l'animation d'af
    ========================================================= */
 export default function PageEvenement() {
   const [year, setYear] = useState<YearKey>("2025"); // creation de la function setYear qui n'accepte que 2025 ou 2023-2024 et qui as mis 2025 par defaut
-  const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque année juste en haut
+  const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque annÃ©e juste en haut
 
-  // 👉 état pour activer / désactiver le scroll auto
-  const [autoScroll, setAutoScroll] = useState(false); // créé la fonction setAutoScroll et le met a false
+  // ðŸ‘‰ Ã©tat pour activer / dÃ©sactiver le scroll auto
+  const [autoScroll, setAutoScroll] = useState(false); // crÃ©Ã© la fonction setAutoScroll et le met a false
 
-  // 👉 quelle image est "en gros plan" pendant le défilement auto
-  const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // créé la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
+  // ðŸ‘‰ quelle image est "en gros plan" pendant le dÃ©filement auto
+  const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // crÃ©Ã© la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
   const currentAutoMedia = useMemo(() => {
     const pool = [...data.momentsForts, ...data.momentsFortsSecondaire];
     return pool.find((m) => m.id === currentAutoMediaId) ?? null;
   }, [data, currentAutoMediaId]);
 
 
-  // 👉 effet qui fait défiler image par image
+  // ðŸ‘‰ effet qui fait dÃ©filer image par image
   useEffect(() => {
     if (!autoScroll) {
       setCurrentAutoMediaId(null);
       return;
     }
 
-    // On récupère toutes les cartes qui portent data-autoscroll-id,
-    // dans l’ordre de la page
+    // On rÃ©cupÃ¨re toutes les cartes qui portent data-autoscroll-id,
+    // dans lâ€™ordre de la page
     const stops = Array.from(
       document.querySelectorAll<HTMLElement>("[data-autoscroll-id]")
     );
@@ -182,16 +200,16 @@ export default function PageEvenement() {
       if (cancelled || !autoScroll) return; // si on as cancel ou auto scroll est false alors on arrete
 
       const el = stops[index];
-      if (!el) { // si l'élément sur lequel on est est null on arrete tout
+      if (!el) { // si l'Ã©lÃ©ment sur lequel on est est null on arrete tout
         setAutoScroll(false);
         setCurrentAutoMediaId(null);
         return;
       }
 
       const id = el.dataset.autoscrollId ?? null;
-      setCurrentAutoMediaId(id); // on dit "celle-là est en gros plan"
+      setCurrentAutoMediaId(id); // on dit "celle-lÃ  est en gros plan"
 
-      // on centre l’élément dans l’écran (et en horizontal pour les carrousels)
+      // on centre lâ€™Ã©lÃ©ment dans lâ€™Ã©cran (et en horizontal pour les carrousels)
       el.scrollIntoView({
         behavior: "smooth",
         block: "center",
@@ -201,21 +219,21 @@ export default function PageEvenement() {
       index += 1; // on passe au suivant
 
       if (index >= stops.length) {
-        // dernière image → petite pause puis on coupe
+        // derniÃ¨re image â†’ petite pause puis on coupe
         timeoutId = window.setTimeout(() => {
           setAutoScroll(false);
           setCurrentAutoMediaId(null);
         }, 2000);
       } else {
-        // temps d’affichage par image (à ajuster si tu veux)
+        // temps dâ€™affichage par image (Ã  ajuster si tu veux)
         timeoutId = window.setTimeout(goToNext, 2200); // vas au suivant appel recursif
       }
     };
 
-    // petit délai avant de commencer
+    // petit dÃ©lai avant de commencer
     timeoutId = window.setTimeout(goToNext, 400);
 
-    // si la personne touche à la souris / tactile / clavier → on arrête l’auto-scroll
+    // si la personne touche Ã  la souris / tactile / clavier â†’ on arrÃªte lâ€™auto-scroll
     const stopUserInteraction = () => setAutoScroll(false);
     window.addEventListener("wheel", stopUserInteraction, { passive: true });
     window.addEventListener("touchstart", stopUserInteraction, { passive: true });
@@ -228,7 +246,7 @@ export default function PageEvenement() {
       window.removeEventListener("touchstart", stopUserInteraction);
       window.removeEventListener("keydown", stopUserInteraction);
     };
-  }, [autoScroll, setAutoScroll]); // “Relance cet effet seulement quand une de ces valeurs change.”
+  }, [autoScroll, setAutoScroll]); // â€œRelance cet effet seulement quand une de ces valeurs change.â€
 
   /* ============================================
    * VIEW
@@ -236,45 +254,93 @@ export default function PageEvenement() {
    */
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#fff7ed] to-white">
-      {/* Bouton toggle défilement auto */}
+      {/* Bouton toggle dÃ©filement auto */}
       <button
         type="button"
         onClick={() => setAutoScroll((prev) => !prev)} /*on passe une fonction qui renvoie son inverse */
         className="fixed bottom-6 right-6 z-50 rounded-full bg-black text-white px-4 py-2 text-sm shadow-lg hover:bg-gray-900 active:scale-95 transition"
       >
-        {autoScroll ? "Désactiver le défilement auto" : "Activer le défilement auto"}
+        {autoScroll ? "DÃ©sactiver le dÃ©filement auto" : "Activer le dÃ©filement auto"}
       </button>
-
       {/* HERO */}
-      <section className="mx-auto max-w-7xl px-6 pt-16 md:pt-24 pb-8 text-center">
-        <motion.h1
-          key={`h1-${year}`}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          className="text-4xl md:text-6xl font-serif tracking-wide"
-        >
-          {data.hero.titre}
-        </motion.h1>
-        <p className="mt-3 text-lg text-gray-700">{data.hero.accroche}</p>
+      <section className="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-10">
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="relative w-full aspect-[4/5] overflow-hidden rounded-3xl bg-white shadow-md"
+          >
+            <Image
+              src="/PATRICIA.jpg"
+              alt="FELR"
+              fill
+              className="object-contain p-6"
+              sizes="(max-width: 1024px) 100vw, 45vw"
+              priority
+            />
+          </motion.div>
 
-        {/* Switch Année */}
-        <div className="mt-8 inline-flex rounded-full border bg-white overflow-hidden shadow">
-          {(["2025", "2023-2024"] as const).map((y) => (
-            <button
-              key={y}
-              onClick={() => setYear(y)}
-              className={`px-6 py-2 text-base transition ${
-                year === y ? "bg-black text-white" : "text-gray-700 hover:bg-gray-100"
-              }`}
-              aria-pressed={year === y}
-            >
-              {y}
-            </button>
-          ))}
+          
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.05 }}
+            className="space-y-4 text-gray-800"
+          >
+            <h1 className="text-4xl md:text-5xl font-serif leading-tight">Bienvenue chez FELR</h1>
+            <p className="text-lg leading-relaxed">
+              En 2023, j'ai cree FELR pour repondre a un besoin reel : offrir aux femmes entrepreneures un espace ou parler vrai,
+              apprendre, s'elever et oser prendre leur place. Un lieu ou l'on grandit, ou l'on se soutient, ou l'on s'ouvre au monde et a soi-meme.
+            </p>
+            <p className="text-lg leading-relaxed font-semibold">
+              Mais laisse-moi etre transparente : FELR n'est pas fait pour tout le monde.
+            </p>
+            <div className="space-y-2">
+              <p className="text-lg leading-relaxed">FELR s'adresse aux femmes qui ont envie de :</p>
+              <ul className="list-disc pl-5 space-y-1 text-base">
+                <li>evoluer, meme si cela demande de sortir de leur zone de confort,</li>
+                <li>travailler sur leur posture, leur prise de parole, leur presence,</li>
+                <li>apprendre, tester, experimenter, se challenger,</li>
+                <li>s'engager dans une communaute vivante, bienveillante et exigeante,</li>
+                <li>tisser des liens reels, durables et puissants,</li>
+                <li>devenir, pas a pas, une leader affirmee.</li>
+              </ul>
+            </div>
+            <p className="text-lg leading-relaxed">
+              Si tu cherches un simple reseau ou l'on vient "consommer" un evenement et repartir, alors FELR n'est pas l'endroit pour toi.
+              Ici, on avance. On se transforme. On participe. On contribue. On joue collectif.
+            </p>
+            <p className="text-lg leading-relaxed">
+              En deux ans, FELR est devenu un mouvement reconnu dans l'ecosysteme entrepreneurial feminin de La Reunion.
+              Un espace ou les femmes entrepreneures s'ouvrent, evoluent, osent et incarnent peu a peu leur leadership.
+            </p>
+            <p className="text-lg leading-relaxed">
+              Si tu te sens appelee par cette energie, si tu es prete a te developper personnellement et professionnellement,
+              si tu veux faire partie d'un collectif qui eleve autant qu'il soutient... Alors bienvenue chez FELR. Bienvenue chez toi.
+            </p>
+            <p className="text-base font-semibold">Par Patricia Boucard - Presidente & Fondatrice</p>
+
+            {/* Switch Année */}
+            <div className="mt-6 inline-flex rounded-full border bg-white overflow-hidden shadow">
+              {(["2025", "2023-2024"] as const).map((y) => (
+                <button
+                  key={y}
+                  onClick={() => setYear(y)}
+                  className={`px-6 py-2 text-base transition ${
+                    year === y ? "bg-black text-white" : "text-gray-700 hover:bg-gray-100"
+                  }`}
+                  aria-pressed={year === y}
+                >
+                  {y}
+                </button>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
+      <SectionNuageMots />
       {/* CHIFFRES */}
       {data.chiffresFusionnes ? (
         <SectionChiffresFusion blocs={data.chiffresFusionnes} />
@@ -357,6 +423,38 @@ function SectionChiffresFusion({
           </div>
         </div>
       ))}
+    </section>
+  );
+}
+
+function SectionNuageMots() {
+  return (
+    <section className="bg-gradient-to-r from-amber-100/60 via-white to-rose-100/60 py-10">
+      <div className="mx-auto max-w-6xl px-6 space-y-6">
+        <div className="text-center">
+          <p className="text-2xl md:text-3xl font-serif text-gray-900">Nuage d&apos;intentions FELR</p>
+        </div>
+        <div className="grid gap-4 md:grid-cols-2">
+          {WORD_CLOUD.map((bloc) => (
+            <div
+              key={bloc.titre}
+              className="rounded-2xl border border-amber-200/70 bg-white/80 shadow-sm p-4 flex flex-wrap gap-2 items-start"
+            >
+              <span className="text-base font-semibold text-gray-800 mr-2">{bloc.titre}</span>
+              <div className="flex flex-wrap gap-2">
+                {bloc.mots.map((mot) => (
+                  <span
+                    key={mot}
+                    className="px-3 py-1 rounded-full text-sm bg-amber-50 border border-amber-200 text-gray-800 shadow-[0_1px_4px_rgba(0,0,0,0.05)]"
+                  >
+                    {mot}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
@@ -554,21 +652,21 @@ function SectionMomentsForts({
 
         </div>
 
-        {/* flèches navigation */}
+        {/* flÃ¨ches navigation */}
         <div className="hidden md:block">
           <button
             onClick={() => scrollBy(-1)}
             className="absolute -left-3 top-1/2 -translate-y-1/2 rounded-full bg-white border shadow px-3 py-2"
-            aria-label="Précédent"
+            aria-label="PrÃ©cÃ©dent"
           >
-            ‹
+            â€¹
           </button>
           <button
             onClick={() => scrollBy(1)}
             className="absolute -right-3 top-1/2 -translate-y-1/2 rounded-full bg-white border shadow px-3 py-2"
             aria-label="Suivant"
           >
-            ›
+            â€º
           </button>
         </div>
       </div>
@@ -616,7 +714,7 @@ function SectionGalerie({
                 type === t ? "bg-black text-white" : "bg-white hover:bg-gray-50"
               }`}
             >
-              {t === "all" ? "Tous" : t === "image" ? "Photos" : "Vidéos"}
+              {t === "all" ? "Tous" : t === "image" ? "Photos" : "VidÃ©os"}
             </button>
           ))}
           <div className="w-px h-6 bg-gray-200 mx-1" />
@@ -807,6 +905,12 @@ function MediaView({ m }: { m: Media }) {
     <video src={m.src} controls autoPlay className="w-full h-auto object-contain bg-black" />
   );
 }
+
+
+
+
+
+
 
 
 
