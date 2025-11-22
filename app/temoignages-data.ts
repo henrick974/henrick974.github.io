@@ -279,6 +279,27 @@ Alors merci FELR.`,
   },
 
 
+                    {
+    id: "felr-13",
+    prenom: "HENRICK",
+    nom: "K.",
+    fonction: "oratrice",
+    photo: "/temoignages/felr/HENRICK.png",
+    temoignage:
+            `Il va de soi que j’ai décidé de devenir membre soutien de l’association Femmes Entrepreneures et Leaders de La Réunion. Après avoir collaboré avec Patricia et avoir construit une relation fondée sur la confiance, l’écoute et le respect, il m’a paru évident de poursuivre cette aventure à ses côtés et aux côtés de l’association.
+
+En tant qu’entrepreneur dans le domaine du digital et de l’informatique, je souhaite mettre mes compétences au service des membres : les accompagner dans leur présence en ligne, les aider à structurer leurs outils numériques, les conseiller sur leurs sites internet, leur communication ou encore l’utilisation de solutions digitales pour gagner en visibilité et en efficacité.
+
+Devenir membre soutien, pour moi, ce n’est pas seulement “adhérer” à une structure. C’est m’engager concrètement à :
+– participer aux événements et aux ateliers,
+– contribuer à des temps de partage d’expérience,
+– proposer, lorsque c’est utile, des interventions ou des formations sur les sujets que je maîtrise,
+– être disponible pour répondre aux questions des entrepreneures qui en ont besoin.
+
+Je crois profondément au potentiel des femmes entrepreneures de La Réunion et je suis convaincu que le collectif est un levier puissant de réussite. En rejoignant l’association en tant que membre soutien, mon objectif est de contribuer, à mon niveau, à la réussite de chaque membre : en partageant mes connaissances, en apportant des solutions concrètes et en soutenant leurs projets avec bienveillance et professionnalisme.`,
+  },
+
+
 
 ];
 
