@@ -176,7 +176,6 @@ export default function PageEvenement() {
     return pool.find((m) => m.id === currentAutoMediaId) ?? null;
   }, [data, currentAutoMediaId]);
 // 👉 effet qui fait défiler, étape par étape
-// 👉 effet qui fait défiler, étape par étape
 useEffect(() => {
   if (!autoScroll) {
     setCurrentAutoMediaId(null);
@@ -188,16 +187,24 @@ useEffect(() => {
     | { kind: "nuage"; durationMs: number }
     | { kind: "year-chiffres"; year: YearKey; durationMs: number }
     | { kind: "year-images"; year: YearKey }
-    | { kind: "anchor"; id: string; durationMs: number };
+    | { kind: "anchor"; id: string; durationMs: number }
+    | { kind: "temoignages"; perItemMs: number };
 
   // 🧭 Plan complet du défilement
   const steps: AutoStep[] = [
-    { kind: "hero", durationMs: 90_000 }, // 1min30 sur le HERO 90_000
+    { kind: "hero", durationMs: 90_000 }, // 1min30 sur le HERO
     { kind: "nuage", durationMs: 5_000 }, // 5s nuage
     { kind: "year-chiffres", year: "2023-2024", durationMs: 5_000 },
     { kind: "year-images", year: "2023-2024" },
     { kind: "year-chiffres", year: "2025", durationMs: 5_000 },
     { kind: "year-images", year: "2025" },
+
+    // 1 min sur le paragraphe "Temoignage FELR"
+    { kind: "anchor", id: "section-temoignage-felr", durationMs: 60_000 },
+
+    // puis chaque témoignage FELR 10s
+    { kind: "temoignages", perItemMs: 10_000 },
+
     { kind: "anchor", id: "section-membres-soutien", durationMs: 20_000 },
     { kind: "anchor", id: "osez-felr", durationMs: 10_000 },
   ];
@@ -226,7 +233,7 @@ useEffect(() => {
 
     // ===== Étapes simples : HERO / NUAGE / SECTIONS TEXTE =====
     if (step.kind === "hero") {
-      // on remet l'année sur 2025 pour le début du parcours
+      // tu avais mis "2023-2024" dans ta version, je garde ça
       setYear("2023-2024");
 
       const el = document.getElementById("section-hero");
@@ -273,6 +280,55 @@ useEffect(() => {
       timeoutId = window.setTimeout(() => {
         runStep(nextStepIndex);
       }, step.durationMs);
+      return;
+    }
+
+    // ===== Étape spéciale : TÉMOIGNAGES (1 par 1) =====
+    if (step.kind === "temoignages") {
+      const cards = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-temoignage-id]")
+      );
+
+      if (!cards.length) {
+        // si jamais aucune carte trouvée, on saute l’étape
+        runStep(nextStepIndex);
+        return;
+      }
+
+      let idx = 0;
+
+      const goToNextTemoignage = () => {
+        if (cancelled || !autoScroll) return;
+
+        const el = cards[idx];
+        if (!el) {
+          timeoutId = window.setTimeout(() => {
+            runStep(nextStepIndex);
+          }, step.perItemMs);
+          return;
+        }
+
+        el.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
+        });
+
+        idx += 1;
+
+        if (idx >= cards.length) {
+          // dernier témoignage → on passe à l’étape suivante
+          timeoutId = window.setTimeout(() => {
+            runStep(nextStepIndex);
+          }, step.perItemMs);
+        } else {
+          // sinon on continue
+          timeoutId = window.setTimeout(goToNextTemoignage, step.perItemMs);
+        }
+      };
+
+      // on commence à défiler les cartes après un premier délai
+      timeoutId = window.setTimeout(goToNextTemoignage, step.perItemMs);
       return;
     }
 
@@ -368,8 +424,6 @@ useEffect(() => {
     window.removeEventListener("keydown", stopUserInteraction);
   };
 }, [autoScroll]);
-
-
 
   /* ============================================
    * VIEW
@@ -689,8 +743,13 @@ function SectionCollectifFelr() {
           </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {MEMBRES_FELR.map((m) => (
-            <CarteTemoignageFelr key={m.id} m={m} />
+          {MEMBRES_FELR.map((m, index) => (
+            <div
+              key={m.id}
+              data-temoignage-id={`temoignage-felr-${index}`}
+            >
+              <CarteTemoignageFelr m={m} />
+            </div>
           ))}
         </div>
       </div>
