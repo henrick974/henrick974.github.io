@@ -322,7 +322,7 @@ export default function PageEvenement() {
             <p className="text-base font-semibold">Par Patricia Boucard - Presidente & Fondatrice</p>
 
             {/* Switch Année */}
-            <div className="mt-6 inline-flex rounded-full border bg-white overflow-hidden shadow">
+            <div className="mt-6 inline-flex rounded-full border bg-white overflow-hidden shadow justify-center items-center">
               {(["2025", "2023-2024"] as const).map((y) => (
                 <button
                   key={y}
