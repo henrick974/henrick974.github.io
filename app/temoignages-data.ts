@@ -299,8 +299,67 @@ Devenir membre soutien, pour moi, ce n’est pas seulement “adhérer” à une
 Je crois profondément au potentiel des femmes entrepreneures de La Réunion et je suis convaincu que le collectif est un levier puissant de réussite. En rejoignant l’association en tant que membre soutien, mon objectif est de contribuer, à mon niveau, à la réussite de chaque membre : en partageant mes connaissances, en apportant des solutions concrètes et en soutenant leurs projets avec bienveillance et professionnalisme.`,
   },
 
+  {
+    id: "felr-14",
+    prenom: "GISÈLE",
+    nom: "K.",
+    fonction: "Coach bien être",
+    photo: "/temoignages/felr/GISELE.jpeg",
+    temoignage:
+            `Deux ans déjà que je suis membre oratrice au sein de l’Association Femmes Entrepreneures et Leaders de la Réunion — et chaque instant me rappelle mes 17 ans de parcours dans mon réseau partenaire. ici, c’est plus qu’un regroupement : c’est une famille.
+L’engagement se ressent comme un battement d’âme, le partage circule comme une bonne ambiance lontan, la convivialité réchauffe comme un sourire péi, et l’inspiration jaillit des ateliers que nous créons ensemble.
+Je suis fière de faire partie de cette Association si vivante, menée par une présidente positive, dynamique et pleine de ce petit grain de fun que j’adore.
+Longue vie à ce réseau qui illumine les femmes et leurs ambitions ! Je suis Gisèle LAURATET, Coach bien être`,
+  },
 
+  {
+    id: "felr-15",
+    prenom: "ABDOUL",
+    nom: "K.",
+    fonction: "orateur",
+    photo: "/temoignages/felr/ABDOUL.jpeg",
+    temoignage:
+            `
+ 
+Je me retrouve chez FELR sur les bons conseils de Carine Merlo Rivière, membre salarié qui a eu la clairvoyance de me dire que ce serait intéressant de me connecter avec Patricia Boucard et FELR son association. Au vu des conseils que j'ai pu apporter à Carine sur le marketing digital et sur des compétences transversales comme l'audace la prise de parole face caméra, elle m'a dit que ce serait super que j'en fasse profiter au membre de l'association. 
+ 
+Et moi ça tombait bien j'avais croisé déjà en vrai Patricia à un évènement sur le marketing digital d'ailleurs et j'avais peut-être anticipé en prenant son numéro de téléphone occasion des opportunités pourraient apparaître plus tard entre nous d’eux. Pas une pas deux j'ai appelé Patricia juste après cet échange avec Carine. Et c'était un match! Patricia m'a invité à son événement et depuis je suis membre soutien sur la thématique Marketing-Digital-Video.
 
+Ce qui fait sens pour moi c'est déjà de suivre mon intuition de travailler avec des personnes qui partagent les mêmes valeurs que moi et même ambitions que moi et d'être avec des personnes qui ont confiance en moi et qui aiment bien aussi avoir des moments fun.
+ 
+L'engagement de membre soutien de l'association je le fais parce que je me rappelle en 2014 quand j'ai lancé ma première activité d'entrepreneur dans la photographie j'étais seul, pas accompagné en dehors du domaine administratif et c'était clairement la hess parce que je n'avais pas les bonnes clés, je n'avais pas des gens qui me partager leur expérience pour gagner du temps et de la maturité et j'aurais adoré à l'époque que des personnes comme ça soient sur mon chemin. Durant les premiers mois de l'activité je n'avais clairement pas le budget pour m'offrir des mentorings ou des coachings, mais parfois, et c'est le cas chez Felr, on peut s'entourer sans avoir des milles et des cents.
+ 
+ `,
+  },
+
+  {
+    id: "felr-16",
+    prenom: "GAËLLE",
+    nom: "K.",
+    fonction: "oratrice",
+    photo: "/temoignages/felr/GAELLE.jpeg",
+    temoignage:
+            `Membre FELR depuis janvier 2025, j'aime les ateliers mensuels en visio : de quoi apprendre, progresser, découvrir les expertises des autres membres, mais aussi partager mon propre travail et expertises.
+J’aime l’énergie des rencontres en présentiel : des moments de connexion humaine directe et chaleureuse avec les autres membres.
+Et j'aime le sérieux du bureau : tout est clair, organisé et bien cadré.
+ `,
+  },
+
+  {
+    id: "felr-17",
+    prenom: "STELLA",
+    nom: "K.",
+    fonction: "oratrice",
+    photo: "/temoignages/felr/STELLA.jpeg",
+    temoignage:
+            `En tant qu'ancienne salariée, je suis arrivée dans le monde de l’entrepreneuriat sans connaître personne et un peu perdue.
+ 
+C'est en rencontrant Patricia BOUCARD- Présidente de l’association, que j'ai découvert FELR, qui correspondait parfaitement à mon besoin de sororité.
+ 
+En fédérant depuis 2 ans, J'ai trouvé bien plus qu'une association : des valeurs de partage et des ateliers qui m'ont permis de grandir, notamment en tant qu'ORATRICE 2, programme que Patricia nous propose pour la prise de parole en public.
+ 
+Aujourd'hui, je tremble beaucoup moins avant de parler en public et je suis fière de faire partie de FELR-Femmes Entrepreneures et Leaders de La Réunion`,
+  },
 ];
 
 export const MEMBRES_SOUTIEN: TemoignageMembreSoutien[] = [
