@@ -47,7 +47,7 @@ export const MEMBRES_FELR: TemoignageMembreFelr[] = [
   },
   {
     id: "felr-2",
-    prenom: "ADELINE",
+    prenom: "MICHELINE",
     nom: "R.",
     fonction: "actif",
     photo: "/temoignages/felr/MICHELINE.jpg",
@@ -79,7 +79,7 @@ On y trouve des pairs, des confidences de chefs d’entreprise, des solutions, d
 
   {
     id: "felr-3",
-    prenom: "Nicole",
+    prenom: "NICOLE",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/NICOLE.jpg",
@@ -110,7 +110,7 @@ o	Je nourris un besoin profond : celui de soutenir, d’inspirer et d’ouvrir l
 
   {
     id: "felr-4",
-    prenom: "Carole",
+    prenom: "CAROLE",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/CAROLE.jpg",
@@ -161,7 +161,7 @@ En tant que membre soutien, mon engagement est une manière concrète de contrib
 
         {
     id: "felr-7",
-    prenom: "Hélène",
+    prenom: "HÉLÈNE",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/Hélène.jpg",
@@ -212,7 +212,7 @@ Ce sont de belles personnes avec des valeurs comme l'entraide, le respect, la si
   
             {
     id: "felr-10",
-    prenom: "Fanny",
+    prenom: "FANNY",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/FANNY.jpg",
@@ -243,7 +243,7 @@ C’est important pour moi de contribuer à leur croissance, à leur confiance, 
 
                 {
     id: "felr-11",
-    prenom: "Graziella",
+    prenom: "GRAZIELLA",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/GRAZIELLA.jpg",
@@ -262,7 +262,7 @@ Un espace où l’on parle vision, audace, résilience… mais aussi doutes, ré
 
                   {
     id: "felr-12",
-    prenom: "Nafissa",
+    prenom: "NAFISSA",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/Nafissa.jpg",
