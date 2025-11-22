@@ -175,135 +175,200 @@ export default function PageEvenement() {
     const pool = [...data.momentsForts, ...data.momentsFortsSecondaire];
     return pool.find((m) => m.id === currentAutoMediaId) ?? null;
   }, [data, currentAutoMediaId]);
+// 👉 effet qui fait défiler, étape par étape
+// 👉 effet qui fait défiler, étape par étape
+useEffect(() => {
+  if (!autoScroll) {
+    setCurrentAutoMediaId(null);
+    return;
+  }
 
+  type AutoStep =
+    | { kind: "hero"; durationMs: number }
+    | { kind: "nuage"; durationMs: number }
+    | { kind: "year-chiffres"; year: YearKey; durationMs: number }
+    | { kind: "year-images"; year: YearKey }
+    | { kind: "anchor"; id: string; durationMs: number };
 
-  // 👉 effet qui fait défiler :
-  // 1) 2023-2024 chiffres
-  // 2) 2023-2024 photos
-  // 3) 2025 chiffres
-  // 4) 2025 photos
-  useEffect(() => {
-    if (!autoScroll) {
-      setCurrentAutoMediaId(null);
+  // 🧭 Plan complet du défilement
+  const steps: AutoStep[] = [
+    { kind: "hero", durationMs: 90_000 }, // 1min30 sur le HERO 90_000
+    { kind: "nuage", durationMs: 5_000 }, // 5s nuage
+    { kind: "year-chiffres", year: "2023-2024", durationMs: 5_000 },
+    { kind: "year-images", year: "2023-2024" },
+    { kind: "year-chiffres", year: "2025", durationMs: 5_000 },
+    { kind: "year-images", year: "2025" },
+    { kind: "anchor", id: "section-membres-soutien", durationMs: 20_000 },
+    { kind: "anchor", id: "osez-felr", durationMs: 10_000 },
+  ];
+
+  let cancelled = false;
+  let timeoutId: number | null = null;
+
+  const runStep = (stepIndex: number) => {
+    if (cancelled || !autoScroll) return;
+
+    const step = steps[stepIndex];
+    if (!step) {
+      // si jamais on dépasse, on repart du début
+      runStep(0);
       return;
     }
 
-    let cancelled = false;
-    let timeoutId: number | null = null;
+    // on reset le "highlight" d'image à chaque nouvelle étape
+    setCurrentAutoMediaId(null);
 
-    // plan de défilement
-    const steps: { year: YearKey; phase: "chiffres" | "images" }[] = [
-      { year: "2023-2024", phase: "chiffres" },
-      { year: "2023-2024", phase: "images" },
-      { year: "2025", phase: "chiffres" },
-      { year: "2025", phase: "images" },
-    ];
+    if (timeoutId !== null) {
+      window.clearTimeout(timeoutId);
+    }
 
-    const runStep = (stepIndex: number) => {
-      if (cancelled || !autoScroll) return;
+    const nextStepIndex = (stepIndex + 1) % steps.length;
 
-      const step = steps[stepIndex];
-      if (!step) {
-        // plus d'étape → on coupe
-        setAutoScroll(false);
-        setCurrentAutoMediaId(null);
-        return;
+    // ===== Étapes simples : HERO / NUAGE / SECTIONS TEXTE =====
+    if (step.kind === "hero") {
+      // on remet l'année sur 2025 pour le début du parcours
+      setYear("2023-2024");
+
+      const el = document.getElementById("section-hero");
+      if (el) {
+        el.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+          inline: "nearest",
+        });
       }
 
-      // 1) on change d'année
-      setYear(step.year);
-
-      // 2) on attend un peu que la bonne année se rende,
-      // puis on fait soit "chiffres", soit "images"
       timeoutId = window.setTimeout(() => {
-        if (cancelled || !autoScroll) return;
+        runStep(nextStepIndex);
+      }, step.durationMs);
+      return;
+    }
 
-        if (step.phase === "chiffres") {
-          // 👉 scroller vers la zone des chiffres
-          const el = document.getElementById("section-chiffres");
-          if (el) {
-            el.scrollIntoView({
-              behavior: "smooth",
-              block: "center",
-              inline: "nearest",
-            });
-          }
+    if (step.kind === "nuage") {
+      const el = document.getElementById("section-nuage-mots");
+      if (el) {
+        el.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
+        });
+      }
 
-          // laisser les chiffres visibles un moment puis étape suivante
-          timeoutId = window.setTimeout(() => {
-            runStep(stepIndex + 1);
-          }, 2500);
-        } else {
-          // 👉 phase "images" : défiler toutes les cartes data-autoscroll-id
-          const stops = Array.from(
-            document.querySelectorAll<HTMLElement>("[data-autoscroll-id]")
-          );
+      timeoutId = window.setTimeout(() => {
+        runStep(nextStepIndex);
+      }, step.durationMs);
+      return;
+    }
 
-          if (!stops.length) {
-            // rien à défiler pour cette année → étape suivante
-            runStep(stepIndex + 1);
+    if (step.kind === "anchor") {
+      const el = document.getElementById(step.id);
+      if (el) {
+        el.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
+        });
+      }
+
+      timeoutId = window.setTimeout(() => {
+        runStep(nextStepIndex);
+      }, step.durationMs);
+      return;
+    }
+
+    // ===== Étapes par année : CHIFFRES / IMAGES =====
+    // Ici, on sait que step = "year-chiffres" ou "year-images"
+    setYear(step.year);
+
+    // petit délai pour laisser React changer d'année
+    timeoutId = window.setTimeout(() => {
+      if (cancelled || !autoScroll) return;
+
+      if (step.kind === "year-chiffres") {
+        const chiffresEl = document.getElementById("section-chiffres");
+        if (chiffresEl) {
+          chiffresEl.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "nearest",
+          });
+        }
+
+        timeoutId = window.setTimeout(() => {
+          runStep(nextStepIndex);
+        }, step.durationMs);
+      } else {
+        // === phase images de l'année courante ===
+        const stops = Array.from(
+          document.querySelectorAll<HTMLElement>("[data-autoscroll-id]")
+        );
+
+        if (!stops.length) {
+          runStep(nextStepIndex);
+          return;
+        }
+
+        let imgIndex = 0;
+
+        const goToNextImage = () => {
+          if (cancelled || !autoScroll) return;
+
+          const el = stops[imgIndex];
+          if (!el) {
+            timeoutId = window.setTimeout(() => {
+              setCurrentAutoMediaId(null);
+              runStep(nextStepIndex);
+            }, 2000);
             return;
           }
 
-          let imgIndex = 0;
+          const id = el.dataset.autoscrollId ?? null;
+          setCurrentAutoMediaId(id); // celle-là est en "gros plan"
 
-          const goToNextImage = () => {
-            if (cancelled || !autoScroll) return;
+          el.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "center",
+          });
 
-            const el = stops[imgIndex];
-            if (!el) {
+          imgIndex += 1;
+
+          if (imgIndex >= stops.length) {
+            timeoutId = window.setTimeout(() => {
               setCurrentAutoMediaId(null);
-              runStep(stepIndex + 1);
-              return;
-            }
+              runStep(nextStepIndex);
+            }, 2000);
+          } else {
+            timeoutId = window.setTimeout(goToNextImage, 2200); // vitesse actuelle des photos
+          }
+        };
 
-            const id = el.dataset.autoscrollId ?? null;
-            setCurrentAutoMediaId(id); // celle-là passe en "gros plan"
-
-            el.scrollIntoView({
-              behavior: "smooth",
-              block: "center",
-              inline: "center",
-            });
-
-            imgIndex += 1;
-
-            if (imgIndex >= stops.length) {
-              // dernière image → petite pause puis étape suivante
-              timeoutId = window.setTimeout(() => {
-                setCurrentAutoMediaId(null);
-                runStep(stepIndex + 1);
-              }, 2000);
-            } else {
-              // sinon on continue
-              timeoutId = window.setTimeout(goToNextImage, 2200);
-            }
-          };
-
-          // petit délai avant la 1ʳᵉ image
-          timeoutId = window.setTimeout(goToNextImage, 400);
-        }
-      }, 300); // délai pour laisser React changer d'année
-    };
-
-    // on démarre au début du plan (2023-2024 chiffres)
-    runStep(0);
-
-    const stopUserInteraction = () => setAutoScroll(false);
-    window.addEventListener("wheel", stopUserInteraction, { passive: true });
-    window.addEventListener("touchstart", stopUserInteraction, { passive: true });
-    window.addEventListener("keydown", stopUserInteraction);
-
-    return () => {
-      cancelled = true;
-      if (timeoutId !== null) {
-        window.clearTimeout(timeoutId);
+        // petit délai avant la 1ʳᵉ image
+        timeoutId = window.setTimeout(goToNextImage, 400);
       }
-      window.removeEventListener("wheel", stopUserInteraction);
-      window.removeEventListener("touchstart", stopUserInteraction);
-      window.removeEventListener("keydown", stopUserInteraction);
-    };
-  }, [autoScroll]);
+    }, 300);
+  };
+
+  // on démarre au début du plan
+  runStep(0);
+
+  // stop si l'utilisateur touche à la page
+  const stopUserInteraction = () => setAutoScroll(false);
+  window.addEventListener("wheel", stopUserInteraction, { passive: true });
+  window.addEventListener("touchstart", stopUserInteraction, { passive: true });
+  window.addEventListener("keydown", stopUserInteraction);
+
+  return () => {
+    cancelled = true;
+    if (timeoutId !== null) {
+      window.clearTimeout(timeoutId);
+    }
+    window.removeEventListener("wheel", stopUserInteraction);
+    window.removeEventListener("touchstart", stopUserInteraction);
+    window.removeEventListener("keydown", stopUserInteraction);
+  };
+}, [autoScroll]);
+
 
 
   /* ============================================
@@ -321,7 +386,9 @@ export default function PageEvenement() {
         {autoScroll ? "Désactiver le défilement auto" : "Activer le défilement auto"}
       </button>
       {/* HERO */}
-      <section className="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-10">
+      <section
+      id="section-hero" 
+      className="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-10">
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -426,7 +493,9 @@ export default function PageEvenement() {
 
       <SectionCollectifFelr />
 
-
+      {/* =========================================================
+          LA BIG SECTION POUR OSEZ FELR
+          ========================================================= */}
       <section
         id="osez-felr"
         className="mt-16 rounded-3xl bg-white/80 p-8 shadow-lg backdrop-blur-sm space-y-6"
@@ -553,7 +622,9 @@ function SectionChiffresFusion({
 
 function SectionNuageMots() {
   return (
-    <section className="bg-gradient-to-r from-amber-100/60 via-white to-rose-100/60 py-10">
+    <section
+    id="section-nuage-mots"
+    className="bg-gradient-to-r from-amber-100/60 via-white to-rose-100/60 py-10">
       <div className="mx-auto max-w-6xl px-6 space-y-6">
         <div className="text-center">
           <p className="text-2xl md:text-3xl font-serif text-gray-900">Nuage d&apos;intentions FELR</p>
@@ -597,7 +668,7 @@ function SectionCollectifFelr() {
         >
           Temoignage FELR
         </motion.h3>
-        <div className="max-w-3xl mx-auto text-center space-y-3 text-gray-800 mb-8">
+        <div className="max-w-3xl mx-auto text-center space-y-3 text-gray-800 mb-8"  id="section-temoignage-felr">
           <p className="text-lg font-semibold">🤍 Merci a celles et ceux qui font vivre FELR</p>
           <p>
             FELR ne serait pas ce qu'il est aujourd'hui sans toutes les personnes qui ont choisi de marcher a nos cotes.
@@ -624,7 +695,7 @@ function SectionCollectifFelr() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 pb-14">
+      <div className="mx-auto max-w-7xl px-6 pb-14" id="section-membres-soutien">
         <motion.h3
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
