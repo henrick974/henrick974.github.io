@@ -6,8 +6,6 @@ import { usePathname } from "next/navigation";
 
 const LINKS = [
   { href: "/", label: "Notre Histoire" },
-  { href: "/collectif-felr", label: "Collectif Felr" },
-  { href: "/osez-felr", label: "Osez Felr" },
 ];
 
 export function Header() {
