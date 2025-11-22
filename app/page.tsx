@@ -7,9 +7,16 @@ import { MEDIAS_2024 } from "./medias2024"; // adapte le chemin si ta page n'est
 
 import { MEDIAS_2025 } from "./medias2025"; // adapte le chemin si ta page n'est pas dans le même dossier
 
-import { MEDIAS_2025_2 } from "./medias2025_2"; 
+import { MEDIAS_2025_2 } from "./medias2025_2";
+import {
+  MEMBRES_FELR,
+  MEMBRES_SOUTIEN,
+  MOSAIQUE_TEMOIGNAGES,
+  TemoignageMembreFelr,
+  TemoignageMembreSoutien,
+  TemoignageMosaiqueItem,
+} from "./temoignages-data";
 
-// splitMedias contient 2 array 
 // Media[] c'est un tableau de Media
 // et sa renvoi 2 tableau dcp
 const splitMedias = (medias: Media[]): [Media[], Media[]] => {
@@ -40,7 +47,8 @@ export type Media = {
 
 type YearData = {
   hero: { titre: string; accroche: string };
-  chiffres: { label: string; valeur: number }[];
+  chiffres?: { label: string; valeur: number }[];
+  chiffresFusionnes?: { annee: string; chiffres: { label: string; valeur: number }[] }[];
   momentsForts: Media[];           // carrousel 1
   momentsFortsSecondaire: Media[]; // carrousel 2 (nouveau)
   
@@ -53,8 +61,10 @@ type YearData = {
    DONNÉES
    ========================================================= */
 
+type YearKey = "2025" | "2023-2024";
+
    /* 2025 & 2024 & 2023 sont des YearData et on les initialises ci-dessous */
-const DATA: Record<"2025" | "2024" | "2023", YearData> = { // const NOM: TYPE = VALEUR;
+const DATA: Record<YearKey, YearData> = { // const NOM: TYPE = VALEUR;
                                                           // Record<Clé, Valeur> en gros c'est pour dire avant c'est soit 2024 2025 ou 2023 
                                                           // et sa valeur sera toujours un YearsData
   "2025": {
@@ -76,38 +86,36 @@ const DATA: Record<"2025" | "2024" | "2023", YearData> = { // const NOM: TYPE = 
 
   },
 
-  "2024": {
+  "2023-2024": {
     hero: {
-      titre: "Notre histoire en 2024",
+      titre: "Notre histoire en 2023/2024",
       accroche:
-        "Premières éditions et premières scènes : les fondations d’un rendez-vous qui compte.",
+        "Les premieres pierres puis l'acceleration : deux annees pour installer les fondations et elargir notre impact.",
     },
-    chiffres: [
-      { label: "Ateliers", valeur: 192 },
-      { label: "Membres", valeur: 95 },
-      { label: "Soutien et partenaire", valeur: 28 },
+    chiffresFusionnes: [
+      {
+        annee: "2023",
+        chiffres: [
+          { label: "Ateliers", valeur: 15 },
+          { label: "Membres", valeur: 17 },
+          { label: "Soutien et partenaire", valeur: 5 },
+        ],
+      },
+      {
+        annee: "2024",
+        chiffres: [
+          { label: "Ateliers", valeur: 192 },
+          { label: "Membres", valeur: 95 },
+          { label: "Soutien et partenaire", valeur: 28 },
+        ],
+      },
     ],
     momentsForts: MEDIAS_2024_PRIMARY, // premiere partie defini plus haut par ton split
     momentsFortsSecondaire: MEDIAS_2024_SECONDARY, // je met le tableau de la deuxieme partie que ta defini plus tot
 
   },
 
-  "2023": {
-    hero: {
-      titre: "Notre histoire en 2023",
-      accroche:
-        "Les premières pierres : rencontres fondatrices et formats testés grandeur nature.",
-    },
-    chiffres: [
-      { label: "Ateliers", valeur: 15 },
-      { label: "Membres", valeur: 17 },
-      { label: "Soutien et partenaire", valeur: 5 },
-    ],
-    momentsForts: MEDIAS_2024_PRIMARY, // même image que 2024
-    momentsFortsSecondaire: MEDIAS_2024_SECONDARY, // memes image que 2024
-
-  },
-};
+  };
 
 /* =========================================================
    OUTILS
@@ -134,7 +142,7 @@ function useCounter(n: number, duration = 1200) { // pour faire l'animation d'af
    PAGE
    ========================================================= */
 export default function PageEvenement() {
-  const [year, setYear] = useState<"2025" | "2024" | "2023">("2025"); // creation de la function setYear qui n'accepte que 2025 2024 2023 et qui as mis 2025 par defaut
+  const [year, setYear] = useState<YearKey>("2025"); // creation de la function setYear qui n'accepte que 2025 ou 2023-2024 et qui as mis 2025 par defaut
   const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque année juste en haut
 
   // 👉 état pour activer / désactiver le scroll auto
@@ -252,7 +260,7 @@ export default function PageEvenement() {
 
         {/* Switch Année */}
         <div className="mt-8 inline-flex rounded-full border bg-white overflow-hidden shadow">
-          {(["2025", "2024", "2023"] as const).map((y) => (
+          {(["2025", "2023-2024"] as const).map((y) => (
             <button
               key={y}
               onClick={() => setYear(y)}
@@ -267,27 +275,29 @@ export default function PageEvenement() {
         </div>
       </section>
 
-      {/* CHIFFRES CLÉS */}
-      <SectionChiffres data={data.chiffres} />
+      {/* CHIFFRES */}
+      {data.chiffresFusionnes ? (
+        <SectionChiffresFusion blocs={data.chiffresFusionnes} />
+      ) : data.chiffres ? (
+        <SectionChiffres data={data.chiffres} />
+      ) : null}
 
       {/* MOMENTS FORTS */}
-      {/* MOMENTS FORTS – carrousel 1 */}
-  <SectionMomentsForts
-    titre="Au coeur de nos actions"
-    items={data.momentsForts}
-    currentAutoMediaId={currentAutoMediaId}
-  />
+      <SectionMomentsForts
+        titre="Au coeur de nos actions"
+        items={data.momentsForts}
+        currentAutoMediaId={currentAutoMediaId}
+      />
 
-  {data.momentsFortsSecondaire.length > 0 && (
-    <SectionMomentsForts
-      titre=""
-      items={data.momentsFortsSecondaire}
-      currentAutoMediaId={currentAutoMediaId}
-    />
-  )}
+      {data.momentsFortsSecondaire.length > 0 && (
+        <SectionMomentsForts
+          titre=""
+          items={data.momentsFortsSecondaire}
+          currentAutoMediaId={currentAutoMediaId}
+        />
+      )}
 
-
-      
+      <SectionCollectifFelr />
 
     </main>
   );
@@ -315,6 +325,162 @@ function SectionChiffres({ data }: { data: { label: string; valeur: number }[] }
         ))}
       </div>
     </section>
+  );
+}
+
+function SectionChiffresFusion({
+  blocs,
+}: {
+  blocs: { annee: string; chiffres: { label: string; valeur: number }[] }[];
+}) {
+  return (
+    <section className="mx-auto max-w-7xl px-6 pb-6 space-y-6">
+      {blocs.map((bloc) => (
+        <div key={bloc.annee} className="space-y-3">
+          <div className="text-center text-lg font-semibold text-gray-700">
+            {bloc.annee}
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {bloc.chiffres.map((c) => (
+              <motion.div
+                key={`${bloc.annee}-${c.label}`}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.35 }}
+                className="rounded-2xl border bg-white p-6 text-center shadow-sm"
+              >
+                <div className="text-4xl md:text-5xl font-semibold">{useCounter(c.valeur)}</div>
+                <div className="mt-2 text-gray-600">{c.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </section>
+  );
+}
+
+function SectionCollectifFelr() {
+  return (
+    <section className="mt-10 border-t border-gray-200 bg-white/50">
+
+      <div className="mx-auto max-w-7xl px-6 pb-6">
+        <motion.h3
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.35 }}
+          className="text-2xl md:text-3xl font-serif text-center mb-6"
+        >
+          Temoignage FELR
+        </motion.h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {MEMBRES_FELR.map((m) => (
+            <CarteTemoignageFelr key={m.id} m={m} />
+          ))}
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-6 pb-14">
+        <motion.h3
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.35 }}
+          className="text-2xl md:text-3xl font-serif text-center mb-6"
+        >
+          Membres soutien
+        </motion.h3>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {MEMBRES_SOUTIEN.map((m) => (
+            <CarteTemoignageSoutien key={m.id} m={m} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BandeauMosaiqueCollectif({ images }: { images: TemoignageMosaiqueItem[] }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4 }}
+      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3"
+    >
+      {images.map((img, i) => (
+        <motion.div
+          key={img.src}
+          initial={{ opacity: 0, y: 10, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.35, delay: i * 0.05 }}
+          className="relative aspect-square overflow-hidden rounded-2xl border bg-gray-100 group"
+        >
+          <Image
+            src={img.src}
+            alt={img.alt}
+            fill
+            sizes="(max-width:1024px) 33vw, 16vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 ring-0 ring-transparent group-hover:ring-2 group-hover:ring-black/10 rounded-2xl transition" />
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+}
+
+function CarteTemoignageFelr({ m }: { m: TemoignageMembreFelr }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.35 }}
+      className="rounded-2xl overflow-hidden border bg-white shadow-sm"
+    >
+      <div className="px-4 pt-4 text-center font-semibold text-base text-gray-800">
+        {m.prenom}
+      </div>
+      <div className="relative h-56 bg-gray-100">
+        <Image
+          src={m.photo}
+          alt={`${m.prenom} ${m.nom ?? ""}`}
+          fill
+          sizes="(max-width: 1024px) 100vw, 33vw"
+          className="object-contain"
+        />
+      </div>
+      <div className="p-4">
+        <p className="text-sm text-gray-600 leading-relaxed mt-2">{m.temoignage}</p>
+      </div>
+    </motion.article>
+  );
+}
+
+function CarteTemoignageSoutien({ m }: { m: TemoignageMembreSoutien }) {
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.35 }}
+      className="rounded-2xl overflow-hidden border bg-white shadow-sm"
+    >
+      <div className="relative h-56 bg-gray-100">
+        <Image
+          src={m.photo}
+          alt={`${m.prenom} ${m.nom ?? ""}`}
+          fill
+          sizes="(max-width: 1024px) 100vw, 33vw"
+          className="object-contain"
+        />
+      </div>
+    </motion.article>
   );
 }
 
@@ -641,3 +807,13 @@ function MediaView({ m }: { m: Media }) {
     <video src={m.src} controls autoPlay className="w-full h-auto object-contain bg-black" />
   );
 }
+
+
+
+
+
+
+
+
+
+
