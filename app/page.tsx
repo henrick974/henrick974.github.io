@@ -1,5 +1,6 @@
 ﻿"use client"; // cÃ´tÃ© client que c'est execueter les trucs
 
+import Link from "next/link";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -254,13 +255,13 @@ export default function PageEvenement() {
    */
   return (
     <main className="min-h-screen bg-gradient-to-b from-[#fff7ed] to-white">
-      {/* Bouton toggle dÃ©filement auto */}
+      {/* Bouton toggle défilement auto */}
       <button
         type="button"
         onClick={() => setAutoScroll((prev) => !prev)} /*on passe une fonction qui renvoie son inverse */
         className="fixed bottom-6 right-6 z-50 rounded-full bg-black text-white px-4 py-2 text-sm shadow-lg hover:bg-gray-900 active:scale-95 transition"
       >
-        {autoScroll ? "DÃ©sactiver le dÃ©filement auto" : "Activer le dÃ©filement auto"}
+        {autoScroll ? "Désactiver le défilement auto" : "Activer le défilement auto"}
       </button>
       {/* HERO */}
       <section className="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-10">
@@ -364,6 +365,69 @@ export default function PageEvenement() {
       )}
 
       <SectionCollectifFelr />
+
+
+      <section
+        id="osez-felr"
+        className="mt-16 rounded-3xl bg-white/80 p-8 shadow-lg backdrop-blur-sm space-y-6"
+      >
+        <p className="text-sm font-medium tracking-[0.25em] uppercase text-slate-500">
+          ✨ Osez FELR
+        </p>
+
+        <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900">
+          Rejoins notre communauté. Prends ta place. Contribue.
+        </h2>
+
+        <div className="space-y-3 text-slate-800">
+          <p>
+            👉{" "}
+            <Link
+              href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-JIE-2025/Quest.htm?ORIGINE_SAISIE=Iframe"
+              className="font-semibold underline underline-offset-4 hover:no-underline"
+            >
+              Devenir membre
+            </Link>{" "}
+            — Intègre une communauté qui t’élève, te soutient et t’aide à développer
+            ton leadership.
+            {/* TODO: remplace href="#" par le bon lien */}
+          </p>
+
+          <p>
+            👉{" "}
+            <Link
+              href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-JIE-2025/Quest.htm?ORIGINE_SAISIE=Iframe"
+              className="font-semibold underline underline-offset-4 hover:no-underline"
+            >
+              Devenir partenaire
+            </Link>{" "}
+            — Contribue à révéler la leader intérieure de chaque femme entrepreneure.
+            {/* TODO: remplace href="#" par le bon lien */}
+          </p>
+
+          <p>
+            👉{" "}
+            <Link
+              href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-JIE-2025/Quest.htm?ORIGINE_SAISIE=Iframe"
+              className="font-semibold underline underline-offset-4 hover:no-underline"
+            >
+              Devenir bénévole
+            </Link>{" "}
+            — Apporte ton énergie, ton talent et participe activement à l’évolution
+            d’un mouvement qui a du sens.
+            {/* TODO: remplace href="#" par le bon lien */}
+          </p>
+        </div>
+
+        <p className="pt-4 text-sm text-slate-600">
+          Ici, tu n’es pas un(e) simple participant(e).<br />
+          Tu es un acteur/une actrice du changement.
+        </p>
+
+        <p className="pt-2 text-xs sm:text-sm text-slate-500">
+          Par <span className="font-semibold">Patricia Boucard</span> — Présidente &amp; Fondatrice
+        </p>
+      </section>
 
     </main>
   );
@@ -925,19 +989,3 @@ function MediaView({ m }: { m: Media }) {
     <video src={m.src} controls autoPlay className="w-full h-auto object-contain bg-black" />
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
