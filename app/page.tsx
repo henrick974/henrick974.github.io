@@ -473,6 +473,26 @@ function SectionCollectifFelr() {
         >
           Temoignage FELR
         </motion.h3>
+        <div className="max-w-3xl mx-auto text-center space-y-3 text-gray-800 mb-8">
+          <p className="text-lg font-semibold">🤍 Merci a celles et ceux qui font vivre FELR</p>
+          <p>
+            FELR ne serait pas ce qu'il est aujourd'hui sans toutes les personnes qui ont choisi de marcher a nos cotes.
+            Depuis 2023, nous avancons ensemble, avec une vision commune : offrir aux femmes entrepreneures un espace
+            ou elles peuvent s'ouvrir, apprendre, evoluer et incarner un leadership qui leur ressemble.
+          </p>
+          <p className="font-medium">Je tiens a remercier de tout coeur :</p>
+          <ul className="space-y-1 text-left list-disc list-inside">
+            <li>Les femmes entrepreneures qui nous font confiance et qui osent se reveler, prendre la parole, evoluer et contribuer a chaque rencontre.</li>
+            <li>Les benevoles, intervenants et partenaires qui offrent leur temps, leur expertise, leur creativite et leur soutien.</li>
+            <li>Les soutiens de l'ombre, qui encouragent, conseillent, inspirent et croient en la vision depuis le debut.</li>
+            <li>Toutes celles et ceux qui contribuent, de pres ou de loin, a faire grandir FELR avec bienveillance, engagement et ambition.</li>
+          </ul>
+          <p>
+            FELR est nee d'un besoin… Mais FELR grandit grace a vous. Merci d'incarner, avec moi, une vision d'un leadership
+            feminin plus ouvert, plus humain et plus affirme. Merci de faire de FELR un espace ou l'on s'ouvre, ou l'on experimente, ou l'on partage…
+            et ou chaque femme peut devenir, pas a pas, celle qu'elle aspire a etre.
+          </p>
+        </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {MEMBRES_FELR.map((m) => (
             <CarteTemoignageFelr key={m.id} m={m} />
