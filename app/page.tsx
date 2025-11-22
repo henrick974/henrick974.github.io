@@ -160,12 +160,14 @@ function useCounter(n: number, duration = 1200) { // pour faire l'animation d'af
 /* =========================================================
    PAGE
    ========================================================= */
+
+
 export default function PageEvenement() {
   const [year, setYear] = useState<YearKey>("2025"); // creation de la function setYear qui n'accepte que 2025 ou 2023-2024 et qui as mis 2025 par defaut
   const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque annÃ©e juste en haut
 
-  // ðŸ‘‰ Ã©tat pour activer / dÃ©sactiver le scroll auto
-  const [autoScroll, setAutoScroll] = useState(false); // crÃ©Ã© la fonction setAutoScroll et le met a false
+  // ðŸ‘‰ Ã©tat pour activer / activer le scroll auto
+  const [autoScroll, setAutoScroll] = useState(true); // crÃ©Ã© la fonction setAutoScroll et le met a false
 
   // ðŸ‘‰ quelle image est "en gros plan" pendant le dÃ©filement auto
   const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // crÃ©Ã© la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
@@ -175,66 +177,118 @@ export default function PageEvenement() {
   }, [data, currentAutoMediaId]);
 
 
-  // ðŸ‘‰ effet qui fait dÃ©filer image par image
+  // 👉 effet qui fait défiler :
+  // 1) 2023-2024 chiffres
+  // 2) 2023-2024 photos
+  // 3) 2025 chiffres
+  // 4) 2025 photos
   useEffect(() => {
     if (!autoScroll) {
       setCurrentAutoMediaId(null);
       return;
     }
 
-    // On rÃ©cupÃ¨re toutes les cartes qui portent data-autoscroll-id,
-    // dans lâ€™ordre de la page
-    const stops = Array.from(
-      document.querySelectorAll<HTMLElement>("[data-autoscroll-id]")
-    );
-
-    if (!stops.length) { // si rien a scroll alors on scroll pas
-      setAutoScroll(false);
-      return;
-    }
-
-    let index = 0;
     let cancelled = false;
-    let timeoutId: number;
+    let timeoutId: number | null = null;
 
-    const goToNext = () => {
-      if (cancelled || !autoScroll) return; // si on as cancel ou auto scroll est false alors on arrete
+    // plan de défilement
+    const steps: { year: YearKey; phase: "chiffres" | "images" }[] = [
+      { year: "2023-2024", phase: "chiffres" },
+      { year: "2023-2024", phase: "images" },
+      { year: "2025", phase: "chiffres" },
+      { year: "2025", phase: "images" },
+    ];
 
-      const el = stops[index];
-      if (!el) { // si l'Ã©lÃ©ment sur lequel on est est null on arrete tout
+    const runStep = (stepIndex: number) => {
+      if (cancelled || !autoScroll) return;
+
+      const step = steps[stepIndex];
+      if (!step) {
+        // plus d'étape → on coupe
         setAutoScroll(false);
         setCurrentAutoMediaId(null);
         return;
       }
 
-      const id = el.dataset.autoscrollId ?? null;
-      setCurrentAutoMediaId(id); // on dit "celle-lÃ  est en gros plan"
+      // 1) on change d'année
+      setYear(step.year);
 
-      // on centre lâ€™Ã©lÃ©ment dans lâ€™Ã©cran (et en horizontal pour les carrousels)
-      el.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-        inline: "center",
-      });
+      // 2) on attend un peu que la bonne année se rende,
+      // puis on fait soit "chiffres", soit "images"
+      timeoutId = window.setTimeout(() => {
+        if (cancelled || !autoScroll) return;
 
-      index += 1; // on passe au suivant
+        if (step.phase === "chiffres") {
+          // 👉 scroller vers la zone des chiffres
+          const el = document.getElementById("section-chiffres");
+          if (el) {
+            el.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+              inline: "nearest",
+            });
+          }
 
-      if (index >= stops.length) {
-        // derniÃ¨re image â†’ petite pause puis on coupe
-        timeoutId = window.setTimeout(() => {
-          setAutoScroll(false);
-          setCurrentAutoMediaId(null);
-        }, 2000);
-      } else {
-        // temps dâ€™affichage par image (Ã  ajuster si tu veux)
-        timeoutId = window.setTimeout(goToNext, 2200); // vas au suivant appel recursif
-      }
+          // laisser les chiffres visibles un moment puis étape suivante
+          timeoutId = window.setTimeout(() => {
+            runStep(stepIndex + 1);
+          }, 2500);
+        } else {
+          // 👉 phase "images" : défiler toutes les cartes data-autoscroll-id
+          const stops = Array.from(
+            document.querySelectorAll<HTMLElement>("[data-autoscroll-id]")
+          );
+
+          if (!stops.length) {
+            // rien à défiler pour cette année → étape suivante
+            runStep(stepIndex + 1);
+            return;
+          }
+
+          let imgIndex = 0;
+
+          const goToNextImage = () => {
+            if (cancelled || !autoScroll) return;
+
+            const el = stops[imgIndex];
+            if (!el) {
+              setCurrentAutoMediaId(null);
+              runStep(stepIndex + 1);
+              return;
+            }
+
+            const id = el.dataset.autoscrollId ?? null;
+            setCurrentAutoMediaId(id); // celle-là passe en "gros plan"
+
+            el.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+              inline: "center",
+            });
+
+            imgIndex += 1;
+
+            if (imgIndex >= stops.length) {
+              // dernière image → petite pause puis étape suivante
+              timeoutId = window.setTimeout(() => {
+                setCurrentAutoMediaId(null);
+                runStep(stepIndex + 1);
+              }, 2000);
+            } else {
+              // sinon on continue
+              timeoutId = window.setTimeout(goToNextImage, 2200);
+            }
+          };
+
+          // petit délai avant la 1ʳᵉ image
+          timeoutId = window.setTimeout(goToNextImage, 400);
+        }
+      }, 300); // délai pour laisser React changer d'année
     };
 
-    // petit dÃ©lai avant de commencer
-    timeoutId = window.setTimeout(goToNext, 400);
+    // on démarre au début du plan (2023-2024 chiffres)
+    runStep(0);
 
-    // si la personne touche Ã  la souris / tactile / clavier â†’ on arrÃªte lâ€™auto-scroll
     const stopUserInteraction = () => setAutoScroll(false);
     window.addEventListener("wheel", stopUserInteraction, { passive: true });
     window.addEventListener("touchstart", stopUserInteraction, { passive: true });
@@ -242,12 +296,15 @@ export default function PageEvenement() {
 
     return () => {
       cancelled = true;
-      window.clearTimeout(timeoutId);
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+      }
       window.removeEventListener("wheel", stopUserInteraction);
       window.removeEventListener("touchstart", stopUserInteraction);
       window.removeEventListener("keydown", stopUserInteraction);
     };
-  }, [autoScroll, setAutoScroll]); // â€œRelance cet effet seulement quand une de ces valeurs change.â€
+  }, [autoScroll]);
+
 
   /* ============================================
    * VIEW
@@ -343,11 +400,14 @@ export default function PageEvenement() {
 
       <SectionNuageMots />
       {/* CHIFFRES */}
-      {data.chiffresFusionnes ? (
-        <SectionChiffresFusion blocs={data.chiffresFusionnes} />
-      ) : data.chiffres ? (
-        <SectionChiffres data={data.chiffres} />
-      ) : null}
+      <div id="section-chiffres">
+        {data.chiffresFusionnes ? (
+          <SectionChiffresFusion blocs={data.chiffresFusionnes} />
+        ) : data.chiffres ? (
+          <SectionChiffres data={data.chiffres} />
+        ) : null}
+      </div>
+
 
       {/* MOMENTS FORTS */}
       <SectionMomentsForts
@@ -741,16 +801,16 @@ function SectionMomentsForts({
           <button
             onClick={() => scrollBy(-1)}
             className="absolute -left-3 top-1/2 -translate-y-1/2 rounded-full bg-white border shadow px-3 py-2"
-            aria-label="PrÃ©cÃ©dent"
+            aria-label="Précèdent"
           >
-            â€¹
+            {"<"}
           </button>
           <button
             onClick={() => scrollBy(1)}
             className="absolute -right-3 top-1/2 -translate-y-1/2 rounded-full bg-white border shadow px-3 py-2"
             aria-label="Suivant"
           >
-            â€º
+            {">"}
           </button>
         </div>
       </div>
