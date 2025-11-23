@@ -785,14 +785,14 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
   <style jsx global>{`
     @keyframes marquee {
         0% {
-          transform: translateX(-100%);
+          transform: translateX(100%);
         }
         100% {
-          transform: translateX(100%);
+          transform: translateX(-100%);
         }
       }
       .animate-marquee {
-        animation: marquee 6s linear infinite;
+        animation: marquee 12s linear infinite;
       }
       @keyframes floatWords {
         0% { transform: translate(0, 0); }
