@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { MEDIAS_2024 } from "./medias2024"; // adapte le chemin si ta page n'est pas dans le m?me dossier
+import { MEDIAS_2024, MEDIAS_2024_2 } from "./medias2024"; // adapte le chemin si ta page n'est pas dans le m?me dossier
 
 import { MEDIAS_2025, MEDIAS_2025_2 } from "./medias2025"; // adapte le chemin si ta page n'est pas dans le m?me dossier
 import {
@@ -29,7 +29,8 @@ const splitMedias = (medias: Media[]): [Media[], Media[]] => {
  * ========================================================
  */
 
-const [MEDIAS_2024_PRIMARY, MEDIAS_2024_SECONDARY] = splitMedias(MEDIAS_2024); // assignation de la premiere partie de 2024 et la deuxieme partie de 2024
+const MEDIAS_2024_PRIMARY = MEDIAS_2024; // premiere partie 2023-2024
+const MEDIAS_2024_SECONDARY = MEDIAS_2024_2; // deuxieme partie 2023-2024
 
 /* =========================================================
    TYPES
@@ -697,13 +698,65 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
               Par <span className="font-bold">Patricia BOUCARD</span> – Présidente &amp; Fondatrice
             </p>
           </div>
+      </div>
+    </section>
+
+        <section
+      id="mentions-legales"
+      className="mx-auto max-w-7xl px-6 py-14 text-slate-900"
+    >
+      <div className="rounded-3xl border border-slate-200 bg-white/70 p-8 shadow-sm">
+        <h2 className="text-3xl md:text-4xl font-serif text-[#E2A429] mb-6">
+          Mentions légales & RGPD
+        </h2>
+        <div className="space-y-4 text-base leading-relaxed">
+          <p>
+            Le site présente l'activité de l'association Femmes Entrepreneures et Leaders de La Réunion (FELR).
+            Les informations ci-dessous résument les points essentiels du traitement des données personnelles (RGPD).
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <span className="font-semibold">Responsable de traitement :</span>{" "}
+              FEMMES ENTREPRENEURES ET LEADERS DE LA REUNION (FELR).
+            </li>
+            <li>
+              <span className="font-semibold">Finalités :</span> gestion des demandes de contact/inscription,
+              organisation des événements, envoi d'informations liées à FELR, statistiques de visite du site.
+            </li>
+            <li>
+              <span className="font-semibold">Données traitées :</span> identité et coordonnées (nom, prénom,
+                email, téléphone, société), contenu des messages, données de navigation/mesure d'audience.
+            </li>
+            <li>
+              <span className="font-semibold">Bases légales :</span> consentement (formulaires, newsletters) et
+                intérêt légitime (sécurité du site, statistiques).
+            </li>
+            <li>
+              <span className="font-semibold">Destinataires :</span> équipe FELR et prestataires techniques
+                (hébergement / maintenance) uniquement pour les besoins du service.
+            </li>
+            <li>
+              <span className="font-semibold">Durée de conservation :</span> données de contact jusqu'à 3 ans
+                après le dernier échange ; journaux techniques jusqu'à 12 mois ; cookies de mesure d'audience
+                jusqu'à 13 mois.
+            </li>
+            <li>
+              <span className="font-semibold">Vos droits :</span> accès, rectification, effacement, limitation,
+                opposition, portabilité, retrait du consentement. Pour exercer vos droits ou toute question RGPD :{" "}
+              <a className="text-[#E2A429] font-semibold" href="mailto:contact@felr.re">
+                contact@felr.re
+              </a>
+                . Vous pouvez également saisir la CNIL.
+            </li>
+          </ul>
         </div>
-      </section>
+      </div>
+    </section>
 
-    </main>
+  </main>
 
-    <style jsx global>{`
-      @keyframes marquee {
+  <style jsx global>{`
+    @keyframes marquee {
         0% {
           transform: translateX(-100%);
         }
