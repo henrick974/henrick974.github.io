@@ -2,7 +2,7 @@ export type TemoignageMembreFelr = {
   id: string;
   prenom: string;
   nom?: string;
-  fonction: "oratrice" | "actif";
+  fonction: string;
   photo: string; // ex: /temoignages/felr/jeanne.jpg
   temoignage: string;
 };
@@ -319,9 +319,7 @@ Longue vie à ce réseau qui illumine les femmes et leurs ambitions ! Je suis Gi
     fonction: "orateur",
     photo: "/temoignages/felr/ABDOUL.jpeg",
     temoignage:
-            `
- 
-Je me retrouve chez FELR sur les bons conseils de Carine Merlo Rivière, membre salarié qui a eu la clairvoyance de me dire que ce serait intéressant de me connecter avec Patricia Boucard et FELR son association. Au vu des conseils que j'ai pu apporter à Carine sur le marketing digital et sur des compétences transversales comme l'audace la prise de parole face caméra, elle m'a dit que ce serait super que j'en fasse profiter au membre de l'association. 
+            ` Je me retrouve chez FELR sur les bons conseils de Carine Merlo Rivière, membre salarié qui a eu la clairvoyance de me dire que ce serait intéressant de me connecter avec Patricia Boucard et FELR son association. Au vu des conseils que j'ai pu apporter à Carine sur le marketing digital et sur des compétences transversales comme l'audace la prise de parole face caméra, elle m'a dit que ce serait super que j'en fasse profiter au membre de l'association. 
  
 Et moi ça tombait bien j'avais croisé déjà en vrai Patricia à un évènement sur le marketing digital d'ailleurs et j'avais peut-être anticipé en prenant son numéro de téléphone occasion des opportunités pourraient apparaître plus tard entre nous d’eux. Pas une pas deux j'ai appelé Patricia juste après cet échange avec Carine. Et c'était un match! Patricia m'a invité à son événement et depuis je suis membre soutien sur la thématique Marketing-Digital-Video.
 
