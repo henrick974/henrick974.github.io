@@ -1,4 +1,4 @@
-"use client"; // c?t? client que c'est execueter les trucs
+ï»¿"use client"; // c?t? client que c'est execueter les trucs
 
 import Link from "next/link";
 import React, { useEffect, useMemo, useRef, useState } from "react";
@@ -97,7 +97,7 @@ const CLOUD_WORDS_GROWTH = [
 ];
 
 const CLOUD_WORDS_OPEN = [
-  { text: "S’ouvrir", top: "24%", left: "28%", size: "text-lg font-semibold" },
+  { text: "S'ouvrir", top: "24%", left: "28%", size: "text-lg font-semibold" },
   { text: "Ouverture aux autres", top: "56%", left: "46%", size: "text-base font-semibold" },
   { text: "Connexion", top: "70%", left: "34%", size: "text-base font-semibold" },
   { text: "Entraide", top: "40%", left: "64%", size: "text-sm font-semibold" },
@@ -475,7 +475,7 @@ useEffect(() => {
         onClick={() => setAutoScroll((prev) => !prev)} /*on passe une fonction qui renvoie son inverse */
         className="fixed bottom-6 right-6 z-50 rounded-full bg-black text-white px-4 py-2 text-sm shadow-lg hover:bg-gray-900 active:scale-95 transition"
       >
-        {autoScroll ? "Désactiver le d?filement auto" : "Activer le défilement auto"}
+        {autoScroll ? "Dï¿½sactiver le d?filement auto" : "Activer le dï¿½filement auto"}
       </button>
       {/* HERO */}
       <section
@@ -512,40 +512,40 @@ useEffect(() => {
           >
            
             <p className="text-lg leading-relaxed">
-              En 2023, j’ai créé FELR pour répondre à un besoin réel :
-offrir aux femmes entrepreneures un espace où parler vrai, apprendre, s’élever et oser prendre leur place.
-Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au monde et à soi-même.
+              En 2023, j'ai crÃ©Ã© FELR pour rÃ©pondre Ã  un besoin rÃ©el :
+offrir aux femmes entrepreneures un espace oÃ¹ parler vrai, apprendre, sâ€™Ã©lever et oser prendre leur place.
+Un lieu oÃ¹ lâ€™on grandit, oÃ¹ lâ€™on se soutient, oÃ¹ lâ€™on sâ€™ouvre au monde et Ã  soi-mÃªme.
 
 
             </p>
             <p className="text-lg leading-relaxed font-semibold">
-              Mais laisse-moi être transparente :
-              FELR n’est pas fait pour tout le monde.
+              Mais laisse-moi Ãªtre transparente :
+              FELR n'est pas fait pour tout le monde.
             </p>
             <div className="space-y-2">
-              <p className="text-lg leading-relaxed">   FELR s’adresse aux femmes qui ont envie de :</p>
+              <p className="text-lg leading-relaxed">   FELR sâ€™adresse aux femmes qui ont envie de :</p>
               <ul className="list-disc pl-5 space-y-1 text-base">
-                <li>Évoluer, même si cela demande de sortir de leur zone de confort,</li>
-                <li>travailler sur leur posture, leur prise de parole, leur présence,</li>
-                <li>apprendre, tester, expérimenter, se challenger,</li>
-                <li>s’engager dans une communauté vivante, bienveillante et exigeante,</li>
-                <li>tisser des liens réels, durables et puissants,</li>
-                <li>devenir, pas à pas, une leader affirmée.</li>
+                <li>Ã©voluer, mÃªme si cela demande de sortir de leur zone de confort,</li>
+                <li>travailler sur leur posture, leur prise de parole, leur prÃ©sence,</li>
+                <li>apprendre, tester, expÃ©rimenter, se challenger,</li>
+                <li>sâ€™engager dans une communautÃ© vivante, bienveillante et exigeante,</li>
+                <li>tisser des liens rÃ©els, durables et puissants,</li>
+                <li>devenir, pas Ã  pas, une leader affirmÃ©e.</li>
               </ul>
             </div>
             <p className="text-lg leading-relaxed">
-              Si tu cherches un simple réseau où l'on vient "consommer" un événement et repartir, alors FELR n'est pas l'endroit pour toi.
+              Si tu cherches un simple rÃ©seau oÃ¹ l'on vient "consommer" un Ã©vÃ©nement et repartir, alors FELR n'est pas l'endroit pour toi.
               Ici, on avance. On se transforme. On participe. On contribue. On joue collectif.
             </p>
             <p className="text-lg leading-relaxed">
-              En deux ans, FELR est devenu un mouvement reconnu dans l'écosystème entrepreneurial féminin de La Réunion.
-              Un espace où les femmes entrepreneures s'ouvrent, évoluent, osent et incarnent peu à peu leur leadership.
+              En deux ans, FELR est devenu un mouvement reconnu dans l'Ã©cosystÃ¨me entrepreneurial fÃ©minin de La RÃ©union.
+              Un espace oÃ¹ les femmes entrepreneures s'ouvrent, Ã©voluent, osent et incarnent peu Ã  peu leur leadership.
             </p>
             <p className="text-lg leading-relaxed">
-              Si tu te sens appelée par cette énergie, si tu es prête à te développer personnellement et professionnellement,
-              si tu veux faire partie d'un collectif qui élève autant qu'il soutient... Alors bienvenue chez FELR. Bienvenue chez toi.
+              Si tu te sens appelÃ©e par cette Ã©nergie, si tu es prÃªte Ã  te dÃ©velopper personnellement et professionnellement,
+              si tu veux faire partie d'un collectif qui Ã©lÃ¨ve autant qu'il soutient... Alors bienvenue chez FELR. Bienvenue chez toi.
             </p>
-            <p className="text-base font-semibold">Par Patricia BOUCARD - Présidente & Fondatrice</p>
+            <p className="text-base font-semibold">Par Patricia BOUCARD - PrÃ©sidente & Fondatrice</p>
 
           </motion.div>
         </div>
@@ -626,7 +626,7 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au monde et à soi-
                   Devenir membre
                 </span>
                 <p className="text-sm text-slate-700 leading-relaxed">
-                  Intègre une communauté qui t'élève, te soutient et t'aide à développer ton leadership.
+                  IntÃ¨gre une communautÃ© qui t'Ã©lÃ¨ve, te soutient et t'aide Ã  dÃ©velopper ton leadership.
                 </p>
               </Link>
 
@@ -638,7 +638,7 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au monde et à soi-
                   Devenir partenaire
                 </span>
                 <p className="text-sm text-slate-700 leading-relaxed">
-                  Contribue à révéler la leader intérieure de chaque femme entrepreneure.
+                  Contribue Ã  rÃ©vÃ©ler la leader intÃ©rieure de chaque femme entrepreneure.
                 </p>
               </Link>
 
@@ -647,10 +647,10 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au monde et à soi-
                 className="group flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
               >
                 <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
-                  Devenir bénévole
+                  Devenir bÃ©nÃ©vole
                 </span>
                 <p className="text-sm text-slate-700 leading-relaxed">
-                  Apporte ton énergie, ton talent et participe activement à l'évolution d'un mouvement qui a du sens.
+                  Apporte ton Ã©nergie, ton talent et participe activement Ã  l'Ã©volution d'un mouvement qui a du sens.
                 </p>
               </Link>
             </div>
@@ -658,43 +658,43 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au monde et à soi-
 
           <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm text-slate-900">
             <h3 className="text-2xl font-semibold text-[#E2A429]">
-              Merci à celles et ceux qui font vivre FELR
+              Merci Ã  celles et ceux qui font vivre FELR
             </h3>
             <p>
-              FELR ne serait pas ce qu'il est aujourd'hui sans toutes les personnes qui ont choisi de marcher à nos côtés.
-              Depuis 2023, nous avançons ensemble, avec une vision commune : offrir aux femmes entrepreneures un espace où
-              elles peuvent s'ouvrir, apprendre, évoluer et incarner un leadership qui leur ressemble.
+              FELR ne serait pas ce qu'il est aujourd'hui sans toutes les personnes qui ont choisi de marcher Ã  nos cÃ´tÃ©s.
+              Depuis 2023, nous avanÃ§ons ensemble, avec une vision commune : offrir aux femmes entrepreneures un espace oÃ¹
+              elles peuvent s'ouvrir, apprendre, Ã©voluer et incarner un leadership qui leur ressemble.
             </p>
-            <p className="font-semibold">Je tiens à remercier de tout cœur :</p>
+            <p className="font-semibold">Je tiens Ã  remercier de tout cÅ“ur :</p>
             <div className="space-y-2">
               <p>
-                à Les femmes entrepreneures qui nous font confiance et qui osent se révéler, prendre la parole, évoluer et
-                contribuer à chaque rencontre.
+                Ã€ Les femmes entrepreneures qui nous font confiance et qui osent se rÃ©vÃ©ler, prendre la parole, Ã©voluer et
+                contribuer Ã  chaque rencontre.
               </p>
               <p>
-                à Les bénévoles, intervenants et partenaires qui offrent leur temps, leur expertise, leur créativité et leur soutien.
+                Ã€ Les bÃ©nÃ©voles, intervenants et partenaires qui offrent leur temps, leur expertise, leur crÃ©ativitÃ© et leur soutien.
               </p>
               <p>
-                à Les soutiens de l'ombre, qui encouragent, conseillent, inspirent et croient en la vision depuis le début.
+                Ã€ Les soutiens de l'ombre, qui encouragent, conseillent, inspirent et croient en la vision depuis le dÃ©but.
               </p>
               <p>
-                à Toutes celles et ceux qui contribuent, de près ou de loin, à faire grandir FELR avec bienveillance, engagement et ambition.
+                Ã€ Toutes celles et ceux qui contribuent, de prÃ¨s ou de loin, Ã  faire grandir FELR avec bienveillance, engagement et ambition.
               </p>
             </div>
-            <p>FELR est née d'un besoin? Mais FELR grandit grâce à vous.</p>
+            <p>FELR est nÃ©e d'un besoin? Mais FELR grandit grÃ¢ce Ã  vous.</p>
             <p>
-              Merci d'incarner, avec moi, une vision d'un leadership féminin plus ouvert, plus humain et plus affirmé.
+              Merci d'incarner, avec moi, une vision d'un leadership fÃ©minin plus ouvert, plus humain et plus affirmÃ©.
             </p>
             <p>
-              Merci de faire de FELR un espace où l'on s'ouvre, où l'on expérimente, où l'on partage et où chaque femme peut
-              devenir, pas à pas, celle qu'elle aspire à être.
+              Merci de faire de FELR un espace oÃ¹ l'on s'ouvre, oÃ¹ l'on expÃ©rimente, oÃ¹ l'on partage et oÃ¹ chaque femme peut
+              devenir, pas Ã  pas, celle qu'elle aspire Ã  Ãªtre.
             </p>
             <p className="pt-2 text-lg md:text-xl font-semibold text-slate-900 text-center">
               Ici, tu n'es pas un(e) simple participant(e).<br />
               Tu es un acteur/une actrice du changement.
             </p>
             <p className="text-base md:text-lg font-semibold text-slate-800 text-center">
-              Par <span className="font-bold">Patricia BOUCARD</span> – Présidente &amp; Fondatrice
+              Par <span className="font-bold">Patricia BOUCARD</span> â€“ PrÃ©sidente &amp; Fondatrice
             </p>
           </div>
         </div>
@@ -865,7 +865,7 @@ function SectionNuageMots() {
           </div>
 
           <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">Ouverture & relation a l’autre</p>
+            <p className="text-lg font-semibold text-gray-800">Ouverture & relation Ã  l'autre</p>
             <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-purple-50/80 via-white to-purple-100/60 border border-purple-200 shadow-sm overflow-hidden">
               {CLOUD_WORDS_OPEN.map((mot, idx) => (
                 <span
@@ -925,14 +925,18 @@ function SectionCollectifFelr() {
 
         <div className="grid lg:grid-cols-2 gap-10 items-start">
           <div className="flex flex-col gap-4">
-            {["/temoignages/felr/temoignage01.jpg", "/temoignages/felr/temoignage02.jpg"].map((src) => (
+            {[
+              { src: "/temoignages/felr/temoignage01.jpg", alt: "Temoignage FELR 1" },
+              { src: "/temoignages/felr/temoignage02.jpg", alt: "Temoignage FELR 2" },
+            ].map(({ src, alt }) => (
               <div key={src} className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-white shadow-sm">
                 <Image
                   src={src}
-                  alt="Temoignage FELR"
+                  alt={alt}
                   fill
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-contain"
+                  priority
                 />
               </div>
             ))}
@@ -984,7 +988,7 @@ function SectionCollectifFelr() {
             transition={{ duration: 0.35 }}
             className="text-4xl md:text-5xl font-serif text-[#E2A429] text-center mb-6"
           >
-            2025 : Événement White & Silver
+            2025 : Ã©vÃ©nement White & Silver
           </motion.h3>
           <div className="grid lg:grid-cols-2 gap-10 mb-8 text-gray-800 text-left">
             <div className="space-y-4">
@@ -1000,19 +1004,19 @@ function SectionCollectifFelr() {
               </div>
             </div>
             <div className="space-y-4">
-              <p>Une journée White & Silver pour célébrer l'audace féminine</p>
-              <p>Le 25 novembre 2025, FELR consacre une journée White & Silver, un moment lumineux où l'on célèbre l'entrepreneuriat, l'audace et la résilience des femmes entrepreneures de La Réunion.</p>
+              <p>Une journÃ©e White & Silver pour cÃ©lÃ©brer l'audace fÃ©minine</p>
+              <p>Le 25 novembre 2025, FELR consacre une journÃ©e White & Silver, un moment lumineux oÃ¹ l'on cÃ©lÃ¨bre l'entrepreneuriat, l'audace et la rÃ©silience des femmes entrepreneures de La RÃ©union.</p>
               <div className="space-y-2">
                 <p className="font-semibold">Au programme :</p>
                 <ul className="list-disc pl-5 space-y-1">
-                  <li>un espace vibrant dédié aux initiatives féminines locales,</li>
-                  <li>des parcours inspirants mis en lumière,</li>
-                  <li>un regard affirmé sur la puissance de l'entrepreneuriat au féminin,</li>
-                  <li>et une soirée de célébration pour clore l'année dans l'élégance et la cohésion.</li>
+                  <li>un espace vibrant dÃ©diÃ© aux initiatives fÃ©minines locales,</li>
+                  <li>des parcours inspirants mis en lumiÃ¨re,</li>
+                  <li>un regard affirmÃ© sur la puissance de l'entrepreneuriat au fÃ©minin,</li>
+                  <li>et une soirÃ©e de cÃ©lÃ©bration pour clore l'annÃ©e dans l'Ã©lÃ©gance et la cohÃ©sion.</li>
                 </ul>
               </div>
-              <p>Cette journée incarne l'essence même de FELR : révéler, valoriser et faire rayonner les femmes qui transforment notre territoire.</p>
-              <p>Un rendez-vous signature, fort, lumineux et profondément humain — aux couleurs White & Silver.</p>
+              <p>Cette journÃ©e incarne l'essence mÃªme de FELR : rÃ©vÃ©ler, valoriser et faire rayonner les femmes qui transforment notre territoire.</p>
+              <p>Un rendez-vous signature, fort, lumineux et profondÃ©ment humain Ã  aux couleurs White & Silver.</p>
             </div>
           </div>
           <div className="relative">
@@ -1089,7 +1093,8 @@ function CarteTemoignageFelr({ m }: { m: TemoignageMembreFelr }) {
           fill
           sizes="(max-width: 1024px) 100vw, 33vw"
           className="object-contain"
-        />
+                  priority
+                />
       </div>
 
       <div className="p-4">
@@ -1128,7 +1133,8 @@ function CarteTemoignageSoutien({ m }: { m: TemoignageMembreSoutien }) {
           fill
           sizes="(max-width: 1024px) 100vw, 420px"
           className="object-contain"
-        />
+                  priority
+                />
       </div>
     </motion.article>
   );
@@ -1457,6 +1463,8 @@ function MediaView({ m }: { m: Media }) {
     <video src={m.src} controls autoPlay className="w-full h-auto object-contain bg-black" />
   );
 }
+
+
 
 
 
