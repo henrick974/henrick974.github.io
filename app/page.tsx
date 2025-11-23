@@ -577,6 +577,22 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
         titre="Au coeur de nos actions"
         items={data.momentsForts}
         currentAutoMediaId={currentAutoMediaId}
+        headerAddon={
+          <div className="inline-flex rounded-full border bg-white overflow-hidden shadow">
+            {(["2025", "2024-2023"] as const).map((y) => (
+              <button
+                key={y}
+                onClick={() => setYear(y)}
+                className={`px-6 py-2 text-base transition ${
+                  year === y ? "bg-black text-white" : "text-gray-700 hover:bg-gray-100"
+                }`}
+                aria-pressed={year === y}
+              >
+                {y}
+              </button>
+            ))}
+          </div>
+        }
       />
 
       {data.momentsFortsSecondaire.length > 0 && (
@@ -1168,10 +1184,12 @@ function SectionMomentsForts({
   items,
   titre,
   currentAutoMediaId,
+  headerAddon,
 }: {
   items: Media[];
   titre: string;
   currentAutoMediaId: string | null;
+  headerAddon?: React.ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -1189,6 +1207,10 @@ function SectionMomentsForts({
       <h2 className="text-4xl md:text-5xl font-serif leading-tight text-[#E2A429] mb-6 text-center">
         {titre}
       </h2>
+
+      {headerAddon ? (
+        <div className="mb-6 flex justify-center">{headerAddon}</div>
+      ) : null}
 
       <div className="relative">
         <div
