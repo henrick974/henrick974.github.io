@@ -6,9 +6,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { MEDIAS_2024 } from "./medias2024"; // adapte le chemin si ta page n'est pas dans le m?me dossier
 
-import { MEDIAS_2025 } from "./medias2025"; // adapte le chemin si ta page n'est pas dans le m?me dossier
-
-import { MEDIAS_2025_2 } from "./medias2025_2";
+import { MEDIAS_2025, MEDIAS_2025_2 } from "./medias2025"; // adapte le chemin si ta page n'est pas dans le m?me dossier
 import {
   MEMBRES_FELR,
   MEMBRES_SOUTIEN,
@@ -205,20 +203,18 @@ export default function PageEvenement() {
   const [year, setYear] = useState<YearKey>("2025"); // creation de la function setYear qui n'accepte que 2025 ou 2023-2024 et qui as mis 2025 par defaut
   const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque ann?e juste en haut
 
-  // ?? ?tat pour activer / activer le scroll auto
-  const [autoScroll, setAutoScroll] = useState(true); // cr?? la fonction setAutoScroll et le met a false
+  // ðŸ‘‰ Ã©tat pour activer / activer le scroll auto
+  const [autoScroll, setAutoScroll] = useState(true); // crÃ©Ã© la fonction setAutoScroll et le met a false
 
   // ?? quelle image est "en gros plan" pendant le d?filement auto
   const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // cr?? la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
-  const currentStepRef = useRef(0); // m?morise l'?tape auto-scroll pour reprise
   const currentAutoMedia = useMemo(() => {
     const pool = [...data.momentsForts, ...data.momentsFortsSecondaire];
     return pool.find((m) => m.id === currentAutoMediaId) ?? null;
   }, [data, currentAutoMediaId]);
-// 👉 effet qui fait défiler, étape par étape
+// ?? effet qui fait d?filer, ?tape par ?tape
 useEffect(() => {
   if (!autoScroll) {
-    // quand on coupe l'autoscroll, on arrête juste le highlight
     setCurrentAutoMediaId(null);
     return;
   }
@@ -231,42 +227,39 @@ useEffect(() => {
     | { kind: "anchor"; id: string; durationMs: number }
     | { kind: "temoignages"; perItemMs: number };
 
-  // 🧭 Plan complet du défilement
+  // ?? Plan complet du d?filement
   const steps: AutoStep[] = [
     { kind: "hero", durationMs: 30_000 }, // 30s sur le HERO
-    { kind: "nuage", durationMs: 5_000 },
+    { kind: "nuage", durationMs: 5_000 }, // 5s nuage
     { kind: "year-chiffres", year: "2023-2024", durationMs: 5_000 },
     { kind: "year-images", year: "2023-2024" },
     { kind: "year-chiffres", year: "2025", durationMs: 5_000 },
     { kind: "year-images", year: "2025" },
 
-    { kind: "anchor", id: "section-temoignage-felr", durationMs: 20_000 },
-    { kind: "temoignages", perItemMs: 5_000 },
+    // 1 min sur le paragraphe "Temoignage FELR"
+    { kind: "anchor", id: "section-temoignage-felr", durationMs: 60_000 },
 
-    // puis chaque témoignage FELR 10s
+    // puis chaque t?moignage FELR 10s
     { kind: "temoignages", perItemMs: 10_000 },
 
+    { kind: "anchor", id: "section-membres-soutien", durationMs: 20_000 },
     { kind: "anchor", id: "osez-felr", durationMs: 10_000 },
   ];
 
   let cancelled = false;
   let timeoutId: number | null = null;
 
-  const runStep = (stepIndexRaw: number) => {
+  const runStep = (stepIndex: number) => {
     if (cancelled || !autoScroll) return;
-
-    // 🔁 on normalise l'index et on le mémorise
-    const stepIndex = ((stepIndexRaw % steps.length) + steps.length) % steps.length;
-    currentStepRef.current = stepIndex;
 
     const step = steps[stepIndex];
     if (!step) {
-      // si jamais on dépasse, on repart du début
+      // si jamais on d?passe, on repart du d?but
       runStep(0);
       return;
     }
 
-    // on reset le "highlight" d'image à chaque nouvelle étape
+    // on reset le "highlight" d'image ? chaque nouvelle ?tape
     setCurrentAutoMediaId(null);
 
     if (timeoutId !== null) {
@@ -275,9 +268,9 @@ useEffect(() => {
 
     const nextStepIndex = (stepIndex + 1) % steps.length;
 
-    // ===== Étapes simples : HERO / NUAGE / SECTIONS TEXTE =====
+    // ===== ?tapes simples : HERO / NUAGE / SECTIONS TEXTE =====
     if (step.kind === "hero") {
-      // tu avais mis "2023-2024" dans ta version, je garde ça
+      // tu avais mis "2023-2024" dans ta version, je garde ?a
       setYear("2023-2024");
 
       const el = document.getElementById("section-hero");
@@ -295,7 +288,6 @@ useEffect(() => {
       return;
     }
 
-    // ===== NUAGE =====
     if (step.kind === "nuage") {
       const el = document.getElementById("section-nuage-mots");
       if (el) {
@@ -312,7 +304,6 @@ useEffect(() => {
       return;
     }
 
-    // ===== ANCHOR SECTIONS =====
     if (step.kind === "anchor") {
       const el = document.getElementById(step.id);
       if (el) {
@@ -329,14 +320,14 @@ useEffect(() => {
       return;
     }
 
-    // ===== Étape spéciale : TÉMOIGNAGES (1 par 1) =====
+    // ===== ?tape sp?ciale : T?MOIGNAGES (1 par 1) =====
     if (step.kind === "temoignages") {
       const cards = Array.from(
         document.querySelectorAll<HTMLElement>("[data-temoignage-id]")
       );
 
       if (!cards.length) {
-        // si jamais aucune carte trouvée, on saute l’étape
+        // si jamais aucune carte trouv?e, on saute l??tape
         runStep(nextStepIndex);
         return;
       }
@@ -363,25 +354,26 @@ useEffect(() => {
         idx += 1;
 
         if (idx >= cards.length) {
-          // dernier témoignage → on passe à l’étape suivante
+          // dernier t?moignage ? on passe ? l??tape suivante
           timeoutId = window.setTimeout(() => {
             runStep(nextStepIndex);
           }, step.perItemMs);
         } else {
+          // sinon on continue
           timeoutId = window.setTimeout(goToNextTemoignage, step.perItemMs);
         }
       };
 
-      // on commence à défiler les cartes après un premier délai
+      // on commence ? d?filer les cartes apr?s un premier d?lai
       timeoutId = window.setTimeout(goToNextTemoignage, step.perItemMs);
       return;
     }
 
-    // ===== Étapes par année : CHIFFRES / IMAGES =====
+    // ===== ?tapes par ann?e : CHIFFRES / IMAGES =====
     // Ici, on sait que step = "year-chiffres" ou "year-images"
     setYear(step.year);
 
-    // petit délai pour laisser React changer d'année
+    // petit d?lai pour laisser React changer d'ann?e
     timeoutId = window.setTimeout(() => {
       if (cancelled || !autoScroll) return;
 
@@ -399,7 +391,7 @@ useEffect(() => {
           runStep(nextStepIndex);
         }, step.durationMs);
       } else {
-        // === phase images de l'année courante ===
+        // === phase images de l'ann?e courante ===
         const stops = Array.from(
           document.querySelectorAll<HTMLElement>("[data-autoscroll-id]")
         );
@@ -424,7 +416,7 @@ useEffect(() => {
           }
 
           const id = el.dataset.autoscrollId ?? null;
-          setCurrentAutoMediaId(id); // celle-là est en "gros plan"
+          setCurrentAutoMediaId(id); // celle-l? est en "gros plan"
 
           el.scrollIntoView({
             behavior: "smooth",
@@ -440,24 +432,20 @@ useEffect(() => {
               runStep(nextStepIndex);
             }, 2000);
           } else {
-            timeoutId = window.setTimeout(goToNextImage, 2200);
+            timeoutId = window.setTimeout(goToNextImage, 2200); // vitesse actuelle des photos
           }
         };
 
-        // petit délai avant la 1ʳᵉ image
+        // petit d?lai avant la 1?? image
         timeoutId = window.setTimeout(goToNextImage, 400);
       }
     }, 300);
   };
-  // 🔥 ICI LE CHANGEMENT IMPORTANT :
-  // avant : runStep(0);
-  // maintenant : on redémarre à l'étape mémorisée
-  runStep(currentStepRef.current);
 
-  // on démarre au début du plan
+  // on d?marre au d?but du plan
   runStep(0);
 
-  // stop si l'utilisateur touche à la page
+  // stop si l'utilisateur touche ? la page
   const stopUserInteraction = () => setAutoScroll(false);
   window.addEventListener("wheel", stopUserInteraction, { passive: true });
   window.addEventListener("touchstart", stopUserInteraction, { passive: true });
@@ -473,7 +461,6 @@ useEffect(() => {
     window.removeEventListener("keydown", stopUserInteraction);
   };
 }, [autoScroll]);
-
 
   /* ============================================
    * VIEW
@@ -525,39 +512,40 @@ useEffect(() => {
           >
            
             <p className="text-lg leading-relaxed">
-              En 2023, j?ai cr?? FELR pour r?pondre ? un besoin r?el :
-              offrir aux femmes entrepreneures un espace o? parler vrai, apprendre, s??lever et oser prendre leur place.
-              Un lieu o? l?on grandit, o? l?on se soutient, o? l?on s?ouvre au monde et ? soi-m?me.
+              En 2023, j’ai créé FELR pour répondre à un besoin réel :
+offrir aux femmes entrepreneures un espace où parler vrai, apprendre, s’élever et oser prendre leur place.
+Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au monde et à soi-même.
+
 
             </p>
             <p className="text-lg leading-relaxed font-semibold">
-              Mais laisse-moi ?tre transparente :
-              FELR n?est pas fait pour tout le monde.
+              Mais laisse-moi être transparente :
+              FELR n’est pas fait pour tout le monde.
             </p>
             <div className="space-y-2">
-              <p className="text-lg leading-relaxed">   FELR s?adresse aux femmes qui ont envie de :</p>
+              <p className="text-lg leading-relaxed">   FELR s’adresse aux femmes qui ont envie de :</p>
               <ul className="list-disc pl-5 space-y-1 text-base">
-                <li>?voluer, m?me si cela demande de sortir de leur zone de confort,</li>
-                <li>travailler sur leur posture, leur prise de parole, leur pr?sence,</li>
-                <li>apprendre, tester, exp?rimenter, se challenger,</li>
-                <li>s?engager dans une communaut? vivante, bienveillante et exigeante,</li>
-                <li>tisser des liens r?els, durables et puissants,</li>
-                <li>devenir, pas ? pas, une leader affirm?e.</li>
+                <li>Évoluer, même si cela demande de sortir de leur zone de confort,</li>
+                <li>travailler sur leur posture, leur prise de parole, leur présence,</li>
+                <li>apprendre, tester, expérimenter, se challenger,</li>
+                <li>s’engager dans une communauté vivante, bienveillante et exigeante,</li>
+                <li>tisser des liens réels, durables et puissants,</li>
+                <li>devenir, pas à pas, une leader affirmée.</li>
               </ul>
             </div>
             <p className="text-lg leading-relaxed">
-              Si tu cherches un simple r?seau o? l'on vient "consommer" un ?v?nement et repartir, alors FELR n'est pas l'endroit pour toi.
+              Si tu cherches un simple réseau où l'on vient "consommer" un événement et repartir, alors FELR n'est pas l'endroit pour toi.
               Ici, on avance. On se transforme. On participe. On contribue. On joue collectif.
             </p>
             <p className="text-lg leading-relaxed">
-              En deux ans, FELR est devenu un mouvement reconnu dans l'?cosyst?me entrepreneurial f?minin de La ?union.
-              Un espace o? les femmes entrepreneures s'ouvrent, ?voluent, osent et incarnent peu ? peu leur leadership.
+              En deux ans, FELR est devenu un mouvement reconnu dans l'écosystème entrepreneurial féminin de La Réunion.
+              Un espace où les femmes entrepreneures s'ouvrent, évoluent, osent et incarnent peu à peu leur leadership.
             </p>
             <p className="text-lg leading-relaxed">
-              Si tu te sens appelee par cette energie, si tu es prete a te developper personnellement et professionnellement,
-              si tu veux faire partie d'un collectif qui eleve autant qu'il soutient... Alors bienvenue chez FELR. Bienvenue chez toi.
+              Si tu te sens appelée par cette énergie, si tu es prête à te développer personnellement et professionnellement,
+              si tu veux faire partie d'un collectif qui élève autant qu'il soutient... Alors bienvenue chez FELR. Bienvenue chez toi.
             </p>
-            <p className="text-base font-semibold">Par Patricia BOUCARD - Pr?sidente & Fondatrice</p>
+            <p className="text-base font-semibold">Par Patricia BOUCARD - Présidente & Fondatrice</p>
 
           </motion.div>
         </div>
@@ -565,7 +553,7 @@ useEffect(() => {
 
       <SectionNuageMots />
       <div className="mx-auto max-w-7xl px-6 pb-2 flex justify-center">
-        <h2 className="text-2xl md:text-3xl font-serif text-[#E2A429]">Nos chiffres cles</h2>
+        <h2 className="text-4xl md:text-5xl font-serif leading-tight text-[#E2A429]">Nos chiffres cles</h2>
       </div>
       {/* Switch Ann?e au-dessus des chiffres */}
       <div className="mx-auto max-w-7xl px-6 pb-4 flex justify-center">
@@ -619,62 +607,97 @@ useEffect(() => {
         id="osez-felr"
         className="mt-16 rounded-3xl bg-white/80 p-8 shadow-lg backdrop-blur-sm space-y-6"
       >
-        <p className="text-sm font-medium tracking-[0.25em] uppercase text-slate-500">
-          ? Osez FELR
-        </p>
-
-        <h2 className="text-2xl sm:text-3xl font-semibold text-slate-900">
-          Rejoins notre communaut?. Prends ta place. Contribue.
+        <h2 className="text-4xl md:text-5xl font-serif text-[#E2A429] text-center">
+          Osez FELR
         </h2>
 
-        <div className="space-y-3 text-slate-800">
-          <p>
-            ??{" "}
-            <Link
-              href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-JIE-2025/Quest.htm?ORIGINE_SAISIE=Iframe"
-              className="font-semibold underline underline-offset-4 hover:no-underline"
-            >
-              Devenir membre
-            </Link>{" "}
-            ? Int?gre une communaut? qui t??l?ve, te soutient et t?aide ? d?velopper
-            ton leadership.
-            {/* TODO: remplace href="#" par le bon lien */}
-          </p>
+        <p className="text-lg md:text-xl font-semibold text-slate-900 text-center">
+          Rejoins notre communaut. Prends ta place. Contribue.
+        </p>
 
-          <p>
-            ??{" "}
-            <Link
-              href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-JIE-2025/Quest.htm?ORIGINE_SAISIE=Iframe"
-              className="font-semibold underline underline-offset-4 hover:no-underline"
-            >
-              Devenir partenaire
-            </Link>{" "}
-            ? Contribue ? r?v?ler la leader int?rieure de chaque femme entrepreneure.
-            {/* TODO: remplace href="#" par le bon lien */}
-          </p>
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
+          <div className="space-y-4">
+            <div className="flex flex-col justify-between gap-24 text-slate-900 h-full">
+              <Link
+                href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-JIE-2025/Quest.htm?ORIGINE_SAISIE=Iframe"
+                className="group flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
+                  Devenir membre
+                </span>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  Intègre une communauté qui t'élève, te soutient et t'aide à développer ton leadership.
+                </p>
+              </Link>
 
-          <p>
-            ??{" "}
-            <Link
-              href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-JIE-2025/Quest.htm?ORIGINE_SAISIE=Iframe"
-              className="font-semibold underline underline-offset-4 hover:no-underline"
-            >
-              Devenir b?n?vole
-            </Link>{" "}
-            ? Apporte ton ?nergie, ton talent et participe activement ? l??volution
-            d?un mouvement qui a du sens.
-            {/* TODO: remplace href="#" par le bon lien */}
-          </p>
+              <Link
+                href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-JIE-2025/Quest.htm?ORIGINE_SAISIE=Iframe"
+                className="group flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
+                  Devenir partenaire
+                </span>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  Contribue à révéler la leader intérieure de chaque femme entrepreneure.
+                </p>
+              </Link>
+
+              <Link
+                href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-JIE-2025/Quest.htm?ORIGINE_SAISIE=Iframe"
+                className="group flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+              >
+                <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
+                  Devenir bénévole
+                </span>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  Apporte ton énergie, ton talent et participe activement à l'évolution d'un mouvement qui a du sens.
+                </p>
+              </Link>
+            </div>
+          </div>
+
+          <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm text-slate-900">
+            <h3 className="text-2xl font-semibold text-[#E2A429]">
+              Merci à celles et ceux qui font vivre FELR
+            </h3>
+            <p>
+              FELR ne serait pas ce qu'il est aujourd'hui sans toutes les personnes qui ont choisi de marcher à nos côtés.
+              Depuis 2023, nous avançons ensemble, avec une vision commune : offrir aux femmes entrepreneures un espace où
+              elles peuvent s'ouvrir, apprendre, évoluer et incarner un leadership qui leur ressemble.
+            </p>
+            <p className="font-semibold">Je tiens à remercier de tout cœur :</p>
+            <div className="space-y-2">
+              <p>
+                à Les femmes entrepreneures qui nous font confiance et qui osent se révéler, prendre la parole, évoluer et
+                contribuer à chaque rencontre.
+              </p>
+              <p>
+                à Les bénévoles, intervenants et partenaires qui offrent leur temps, leur expertise, leur créativité et leur soutien.
+              </p>
+              <p>
+                à Les soutiens de l'ombre, qui encouragent, conseillent, inspirent et croient en la vision depuis le début.
+              </p>
+              <p>
+                à Toutes celles et ceux qui contribuent, de près ou de loin, à faire grandir FELR avec bienveillance, engagement et ambition.
+              </p>
+            </div>
+            <p>FELR est née d'un besoin? Mais FELR grandit grâce à vous.</p>
+            <p>
+              Merci d'incarner, avec moi, une vision d'un leadership féminin plus ouvert, plus humain et plus affirmé.
+            </p>
+            <p>
+              Merci de faire de FELR un espace où l'on s'ouvre, où l'on expérimente, où l'on partage et où chaque femme peut
+              devenir, pas à pas, celle qu'elle aspire à être.
+            </p>
+            <p className="pt-2 text-lg md:text-xl font-semibold text-slate-900 text-center">
+              Ici, tu n'es pas un(e) simple participant(e).<br />
+              Tu es un acteur/une actrice du changement.
+            </p>
+            <p className="text-base md:text-lg font-semibold text-slate-800 text-center">
+              Par <span className="font-bold">Patricia BOUCARD</span> – Présidente &amp; Fondatrice
+            </p>
+          </div>
         </div>
-
-        <p className="pt-4 text-sm text-slate-600">
-          Ici, tu n?es pas un(e) simple participant(e).<br />
-          Tu es un acteur/une actrice du changement.
-        </p>
-
-        <p className="pt-2 text-xs sm:text-sm text-slate-500">
-          Par <span className="font-semibold">Patricia Boucard</span> ? Pr?sidente &amp; Fondatrice
-        </p>
       </section>
 
     </main>
@@ -797,97 +820,208 @@ function SectionNuageMots() {
     >
       <div className="mx-auto max-w-6xl px-6 space-y-6">
         <div className="text-center">
-          <p className="text-2xl md:text-3xl font-serif text-gray-900">
-            Notre ambition
-          </p>
+          <p className="text-4xl md:text-5xl font-serif leading-tight text-[#E2A429]">Notre ambition</p>
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          {WORD_CLOUD.map((bloc) => (
-            <div
-              key={bloc.titre}
-              className="rounded-2xl border border-amber-200/70 bg-white/80 shadow-sm p-4 flex flex-wrap gap-2 items-start"
-            >
-              <span className="text-base font-semibold text-gray-800 mr-2">{bloc.titre}</span>
-              <div className="flex flex-wrap gap-2">
-                {bloc.mots.map((mot) => (
-                  <span
-                    key={mot}
-                    className="px-3 py-1 rounded-full text-sm bg-amber-50 border border-amber-200 text-gray-800 shadow-[0_1px_4px_rgba(0,0,0,0.05)]"
-                  >
-                    {mot}
-                  </span>
-                ))}
-              </div>
+
+        <div className="flex flex-wrap gap-6 justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-lg font-semibold text-gray-800">Elan interieur et posture</p>
+            <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-amber-50/80 via-white to-amber-100/60 border border-amber-200 shadow-sm overflow-hidden">
+              {CLOUD_WORDS.map((mot, idx) => (
+                <span
+                  key={mot.text}
+                  className={`cloud-word-gold absolute ${mot.size}`}
+                  style={{
+                    top: mot.top,
+                    left: mot.left,
+                    animationDuration: `${6 + idx * 0.5}s`,
+                    animationDelay: `${idx * 0.3}s`,
+                  }}
+                >
+                  {mot.text}
+                </span>
+              ))}
             </div>
-          ))}
+          </div>
+
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-lg font-semibold text-gray-800">Croissance & evolution</p>
+            <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-sky-50/80 via-white to-sky-100/60 border border-sky-200 shadow-sm overflow-hidden">
+              {CLOUD_WORDS_GROWTH.map((mot, idx) => (
+                <span
+                  key={mot.text}
+                  className={`cloud-word-blue absolute ${mot.size}`}
+                  style={{
+                    top: mot.top,
+                    left: mot.left,
+                    animationDuration: `${6 + idx * 0.5}s`,
+                    animationDelay: `${idx * 0.3}s`,
+                  }}
+                >
+                  {mot.text}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-lg font-semibold text-gray-800">Ouverture & relation a l’autre</p>
+            <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-purple-50/80 via-white to-purple-100/60 border border-purple-200 shadow-sm overflow-hidden">
+              {CLOUD_WORDS_OPEN.map((mot, idx) => (
+                <span
+                  key={mot.text}
+                  className={`cloud-word-purple absolute ${mot.size}`}
+                  style={{
+                    top: mot.top,
+                    left: mot.left,
+                    animationDuration: `${6 + idx * 0.5}s`,
+                    animationDelay: `${idx * 0.3}s`,
+                  }}
+                >
+                  {mot.text}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-3">
+            <p className="text-lg font-semibold text-gray-800">Energie & plaisir</p>
+            <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-orange-50/80 via-white to-orange-100/60 border border-orange-200 shadow-sm overflow-hidden">
+              {CLOUD_WORDS_FUN.map((mot, idx) => (
+                <span
+                  key={mot.text}
+                  className={`cloud-word-orange absolute ${mot.size}`}
+                  style={{
+                    top: mot.top,
+                    left: mot.left,
+                    animationDuration: `${6 + idx * 0.5}s`,
+                    animationDelay: `${idx * 0.3}s`,
+                  }}
+                >
+                  {mot.text}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-
 function SectionCollectifFelr() {
   return (
     <section className="mt-10 border-t border-gray-200 bg-white/50">
-
-      <div className="mx-auto max-w-7xl px-6 pb-6">
+      <div className="mx-auto max-w-7xl px-6 pb-14">
         <motion.h3
           initial={{ opacity: 0, y: 8 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.35 }}
-          className="text-2xl md:text-3xl font-serif text-center mb-6"
+          className="text-4xl md:text-5xl font-serif text-[#E2A429] text-center mb-10"
         >
           Temoignage FELR
         </motion.h3>
-        <div className="max-w-3xl mx-auto text-center space-y-3 text-gray-800 mb-8"  id="section-temoignage-felr">
-          <p className="text-lg font-semibold">?? Merci a celles et ceux qui font vivre FELR</p>
-          <p>
-            FELR ne serait pas ce qu'il est aujourd'hui sans toutes les personnes qui ont choisi de marcher a nos cotes.
-            Depuis 2023, nous avancons ensemble, avec une vision commune : offrir aux femmes entrepreneures un espace
-            ou elles peuvent s'ouvrir, apprendre, evoluer et incarner un leadership qui leur ressemble.
-          </p>
-          <p className="font-medium">Je tiens a remercier de tout coeur :</p>
-          <ul className="space-y-1 text-left list-disc list-inside">
-            <li>Les femmes entrepreneures qui nous font confiance et qui osent se reveler, prendre la parole, evoluer et contribuer a chaque rencontre.</li>
-            <li>Les benevoles, intervenants et partenaires qui offrent leur temps, leur expertise, leur creativite et leur soutien.</li>
-            <li>Les soutiens de l'ombre, qui encouragent, conseillent, inspirent et croient en la vision depuis le debut.</li>
-            <li>Toutes celles et ceux qui contribuent, de pres ou de loin, a faire grandir FELR avec bienveillance, engagement et ambition.</li>
-          </ul>
-          <p>
-            FELR est nee d'un besoin? Mais FELR grandit grace a vous. Merci d'incarner, avec moi, une vision d'un leadership
-            feminin plus ouvert, plus humain et plus affirme. Merci de faire de FELR un espace ou l'on s'ouvre, ou l'on experimente, ou l'on partage?
-            et ou chaque femme peut devenir, pas a pas, celle qu'elle aspire a etre.
-          </p>
+
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
+          <div className="flex flex-col gap-4">
+            {["/temoignages/felr/temoignage01.jpg", "/temoignages/felr/temoignage02.jpg"].map((src) => (
+              <div key={src} className="relative aspect-[16/9] rounded-2xl overflow-hidden bg-white shadow-sm">
+                <Image
+                  src={src}
+                  alt="Temoignage FELR"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-contain"
+                />
+              </div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.4 }}
+            className="space-y-3 text-gray-800 text-left"
+            id="section-temoignage-felr"
+          >
+            <p className="text-lg font-semibold">Merci a celles et ceux qui font vivre FELR</p>
+            <p>
+              FELR ne serait pas ce qu'il est aujourd'hui sans toutes les personnes qui ont choisi de marcher a nos cotes.
+              Depuis 2023, nous avancons ensemble, avec une vision commune : offrir aux femmes entrepreneures un espace
+              ou elles peuvent s'ouvrir, apprendre, evoluer et incarner un leadership qui leur ressemble.
+            </p>
+            <p className="font-medium">Je tiens a remercier de tout coeur :</p>
+            <ul className="space-y-1 list-disc pl-5">
+              <li>Les femmes entrepreneures qui nous font confiance et qui osent se reveler, prendre la parole, evoluer et contribuer a chaque rencontre.</li>
+              <li>Les benevoles, intervenants et partenaires qui offrent leur temps, leur expertise, leur creativite et leur soutien.</li>
+              <li>Les soutiens de l'ombre, qui encouragent, conseillent, inspirent et croient en la vision depuis le debut.</li>
+              <li>Toutes celles et ceux qui contribuent, de pres ou de loin, a faire grandir FELR avec bienveillance, engagement et ambition.</li>
+            </ul>
+            <p>
+              FELR est nee d'un besoin. Mais FELR grandit grace a vous. Merci d'incarner, avec moi, une vision d'un leadership
+              feminin plus ouvert, plus humain et plus affirme. Merci de faire de FELR un espace ou l'on s'ouvre, ou l'on experimente, ou l'on partage
+              et ou chaque femme peut devenir, pas a pas, celle qu'elle aspire a etre.
+            </p>
+          </motion.div>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {MEMBRES_FELR.map((m, index) => (
-            <div
-              key={m.id}
-              data-temoignage-id={`temoignage-felr-${index}`}
-            >
+            <div key={m.id} data-temoignage-id={`temoignage-felr-${index}`}>
               <CarteTemoignageFelr m={m} />
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="mx-auto max-w-7xl px-6 pb-14" id="section-membres-soutien">
-        <motion.h3
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.35 }}
-          className="text-2xl md:text-3xl font-serif text-center mb-6"
-        >
-          Membres soutien
-        </motion.h3>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {MEMBRES_SOUTIEN.map((m) => (
-            <CarteTemoignageSoutien key={m.id} m={m} />
-          ))}
         </div>
+
+        <div className="mx-auto max-w-7xl px-6 pb-14" id="section-membres-soutien">
+          <motion.h3
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.35 }}
+            className="text-4xl md:text-5xl font-serif text-[#E2A429] text-center mb-6"
+          >
+            2025 : Événement White & Silver
+          </motion.h3>
+          <div className="grid lg:grid-cols-2 gap-10 mb-8 text-gray-800 text-left">
+            <div className="space-y-4">
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 shadow-sm">
+                <Image
+                  src="/temoignages/felr/celebration.jpg"
+                  alt="Célébration White & Silver"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-contain bg-white"
+                  priority
+                />
+              </div>
+            </div>
+            <div className="space-y-4">
+              <p>Une journée White & Silver pour célébrer l'audace féminine</p>
+              <p>Le 25 novembre 2025, FELR consacre une journée White & Silver, un moment lumineux où l'on célèbre l'entrepreneuriat, l'audace et la résilience des femmes entrepreneures de La Réunion.</p>
+              <div className="space-y-2">
+                <p className="font-semibold">Au programme :</p>
+                <ul className="list-disc pl-5 space-y-1">
+                  <li>un espace vibrant dédié aux initiatives féminines locales,</li>
+                  <li>des parcours inspirants mis en lumière,</li>
+                  <li>un regard affirmé sur la puissance de l'entrepreneuriat au féminin,</li>
+                  <li>et une soirée de célébration pour clore l'année dans l'élégance et la cohésion.</li>
+                </ul>
+              </div>
+              <p>Cette journée incarne l'essence même de FELR : révéler, valoriser et faire rayonner les femmes qui transforment notre territoire.</p>
+              <p>Un rendez-vous signature, fort, lumineux et profondément humain — aux couleurs White & Silver.</p>
+            </div>
+          </div>
+          <div className="relative">
+            <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-3">
+              {MEMBRES_SOUTIEN.map((m) => (
+                <CarteTemoignageSoutien key={m.id} m={m} />
+              ))}
+            </div>
+          </div>
       </div>
     </section>
   );
@@ -909,7 +1043,7 @@ function BandeauMosaiqueCollectif({ images }: { images: TemoignageMosaiqueItem[]
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.35, delay: i * 0.05 }}
-          className="relative aspect-square overflow-hidden rounded-2xl border bg-gray-100 group"
+          className="relative aspect-square overflow-hidden rounded-2xl border bg-white group"
         >
           <Image
             src={img.src}
@@ -948,7 +1082,7 @@ function CarteTemoignageFelr({ m }: { m: TemoignageMembreFelr }) {
         {m.prenom}
       </div>
 
-      <div className="relative h-56 bg-gray-100">
+      <div className="relative h-56 bg-white">
         <Image
           src={m.photo}
           alt={`${m.prenom} ${m.nom ?? ""}`}
@@ -985,14 +1119,14 @@ function CarteTemoignageSoutien({ m }: { m: TemoignageMembreSoutien }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.35 }}
-      className="rounded-2xl overflow-hidden border bg-white shadow-sm"
+      className="rounded-2xl overflow-hidden border bg-white shadow-sm snap-start shrink-0 w-[420px]"
     >
-      <div className="relative h-56 bg-gray-100">
+      <div className="relative h-80 bg-white">
         <Image
           src={m.photo}
           alt={`${m.prenom} ${m.nom ?? ""}`}
           fill
-          sizes="(max-width: 1024px) 100vw, 33vw"
+          sizes="(max-width: 1024px) 100vw, 420px"
           className="object-contain"
         />
       </div>
@@ -1022,7 +1156,7 @@ function SectionMomentsForts({
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-14">
-      <h2 className="text-3xl md:text-4xl font-serif mb-6 text-center">
+      <h2 className="text-4xl md:text-5xl font-serif leading-tight text-[#E2A429] mb-6 text-center">
         {titre}
       </h2>
 
@@ -1323,6 +1457,8 @@ function MediaView({ m }: { m: Media }) {
     <video src={m.src} controls autoPlay className="w-full h-auto object-contain bg-black" />
   );
 }
+
+
 
 
 
