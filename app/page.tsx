@@ -68,7 +68,7 @@ type YearData = {
    DONN?ES
    ========================================================= */
 
-type YearKey = "2025" | "2023-2024";
+type YearKey = "2025" | "2024-2023";
 
 const WORD_CLOUD = [
   {
@@ -150,7 +150,7 @@ const DATA: Record<YearKey, YearData> = { // const NOM: TYPE = VALEUR;
 
   },
 
-  "2023-2024": {
+  "2024-2023": {
     hero: {
       titre: "Notre histoire en 2023/2024",
       accroche:
@@ -208,7 +208,7 @@ function useCounter(n: number, duration = 1200) { // pour faire l'animation d'af
 
 
 export default function PageEvenement() {
-  const [year, setYear] = useState<YearKey>("2025"); // creation de la function setYear qui n'accepte que 2025 ou 2023-2024 et qui as mis 2025 par defaut
+  const [year, setYear] = useState<YearKey>("2025"); // creation de la function setYear qui n'accepte que 2025 ou 2024-2023 et qui as mis 2025 par defaut
   const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque ann?e juste en haut
 
   // 👉 état pour activer / activer le scroll auto
@@ -239,8 +239,8 @@ useEffect(() => {
   const steps: AutoStep[] = [
     { kind: "hero", durationMs: 30_000 }, // 30s sur le HERO
     { kind: "nuage", durationMs: 5_000 }, // 5s nuage
-    { kind: "year-chiffres", year: "2023-2024", durationMs: 5_000 },
-    { kind: "year-images", year: "2023-2024" },
+    { kind: "year-chiffres", year: "2024-2023", durationMs: 5_000 },
+    { kind: "year-images", year: "2024-2023" },
     { kind: "year-chiffres", year: "2025", durationMs: 5_000 },
     { kind: "year-images", year: "2025" },
 
@@ -279,7 +279,7 @@ useEffect(() => {
     // ===== ?tapes simples : HERO / NUAGE / SECTIONS TEXTE =====
     if (step.kind === "hero") {
       // tu avais mis "2023-2024" dans ta version, je garde ?a
-      setYear("2023-2024");
+      setYear("2024-2023");
 
       const el = document.getElementById("section-hero");
       if (el) {
@@ -566,7 +566,7 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
       {/* Switch Ann?e au-dessus des chiffres */}
       <div className="mx-auto max-w-7xl px-6 pb-4 flex justify-center">
         <div className="inline-flex rounded-full border bg-white overflow-hidden shadow">
-          {(["2025", "2023-2024"] as const).map((y) => (
+          {(["2025", "2024-2023"] as const).map((y) => (
             <button
               key={y}
               onClick={() => setYear(y)}
