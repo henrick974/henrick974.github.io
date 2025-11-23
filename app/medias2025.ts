@@ -3,13 +3,49 @@ import type { Media } from "./page";
 
 export const MEDIAS_2025: Media[] = [
   // -------- 1 à 21 --------
-  {
-    id: "25-img-1",
+
+    {
+    id: "25-img-0",
     type: "image",
-    src: "/medias/2025/1.jpg",
-    titre: "Souvenir 2025 #1",
+    src: "/medias/2025/JANV/01.jpg",
+    titre: "Souvenir 2025 #0",
     tags: ["2025"],
   },
+
+      {
+    id: "25-img-0",
+    type: "image",
+    src: "/medias/2025/JANV/02.jpg",
+    titre: "Souvenir 2025 #0",
+    tags: ["2025"],
+  },
+
+
+        {
+    id: "25-img-0",
+    type: "image",
+    src: "/medias/2025/FEV/04.jpg",
+    titre: "Souvenir 2025 #0",
+    tags: ["2025"],
+  },
+
+          {
+    id: "25-img-0",
+    type: "image",
+    src: "/medias/2025/FEV/05.jpg",
+    titre: "Souvenir 2025 #0",
+    tags: ["2025"],
+  },
+
+          {
+    id: "25-img-0",
+    type: "image",
+    src: "/medias/2025/FEV/06.jpg",
+    titre: "Souvenir 2025 #0",
+    tags: ["2025"],
+  },
+
+
   {
     id: "25-img-2",
     type: "image",
