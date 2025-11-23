@@ -214,13 +214,9 @@ export default function PageEvenement() {
     const pool = [...data.momentsForts, ...data.momentsFortsSecondaire];
     return pool.find((m) => m.id === currentAutoMediaId) ?? null;
   }, [data, currentAutoMediaId]);
-<<<<<<< HEAD
 
   const currentStepRef = useRef(0);
 // 👉 effet qui fait défiler, étape par étape
-=======
-// ?? effet qui fait d?filer, ?tape par ?tape
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
 useEffect(() => {
   if (!autoScroll) {
     // quand on coupe l'autoscroll, on arrête juste le highlight
@@ -236,10 +232,6 @@ useEffect(() => {
     | { kind: "anchor"; id: string; durationMs: number }
     | { kind: "temoignages"; perItemMs: number };
 
-<<<<<<< HEAD
-=======
-  // ?? Plan complet du d?filement
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
   const steps: AutoStep[] = [
     { kind: "hero", durationMs: 30_000 }, // 30s sur le HERO
     { kind: "nuage", durationMs: 5_000 },
@@ -251,14 +243,8 @@ useEffect(() => {
     { kind: "anchor", id: "section-temoignage-felr", durationMs: 20_000 },
     { kind: "temoignages", perItemMs: 5_000 },
 
-<<<<<<< HEAD
     { kind: "anchor", id: "section-membres-soutien", durationMs: 10_000 },
-=======
-    // puis chaque t?moignage FELR 10s
-    { kind: "temoignages", perItemMs: 10_000 },
 
-    { kind: "anchor", id: "section-membres-soutien", durationMs: 20_000 },
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
     { kind: "anchor", id: "osez-felr", durationMs: 10_000 },
   ];
 
@@ -274,20 +260,11 @@ useEffect(() => {
 
     const step = steps[stepIndex];
     if (!step) {
-<<<<<<< HEAD
       // sécurité, mais normalement inutile avec le modulo
       return runStep(0);
     }
 
     // à chaque nouvelle étape, on reset le highlight image
-=======
-      // si jamais on d?passe, on repart du d?but
-      runStep(0);
-      return;
-    }
-
-    // on reset le "highlight" d'image ? chaque nouvelle ?tape
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
     setCurrentAutoMediaId(null);
 
     if (timeoutId !== null) {
@@ -296,14 +273,8 @@ useEffect(() => {
 
     const nextStepIndex = (stepIndex + 1) % steps.length;
 
-<<<<<<< HEAD
     // ===== HERO =====
     if (step.kind === "hero") {
-=======
-    // ===== ?tapes simples : HERO / NUAGE / SECTIONS TEXTE =====
-    if (step.kind === "hero") {
-      // tu avais mis "2023-2024" dans ta version, je garde ?a
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
       setYear("2023-2024");
 
       const el = document.getElementById("section-hero");
@@ -355,21 +326,13 @@ useEffect(() => {
       return;
     }
 
-<<<<<<< HEAD
     // ===== TÉMOIGNAGES UN PAR UN =====
-=======
-    // ===== ?tape sp?ciale : T?MOIGNAGES (1 par 1) =====
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
     if (step.kind === "temoignages") {
       const cards = Array.from(
         document.querySelectorAll<HTMLElement>("[data-temoignage-id]")
       );
 
       if (!cards.length) {
-<<<<<<< HEAD
-=======
-        // si jamais aucune carte trouv?e, on saute l??tape
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
         runStep(nextStepIndex);
         return;
       }
@@ -396,10 +359,6 @@ useEffect(() => {
         idx += 1;
 
         if (idx >= cards.length) {
-<<<<<<< HEAD
-=======
-          // dernier t?moignage ? on passe ? l??tape suivante
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
           timeoutId = window.setTimeout(() => {
             runStep(nextStepIndex);
           }, step.perItemMs);
@@ -407,26 +366,12 @@ useEffect(() => {
           timeoutId = window.setTimeout(goToNextTemoignage, step.perItemMs);
         }
       };
-
-<<<<<<< HEAD
-=======
-      // on commence ? d?filer les cartes apr?s un premier d?lai
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
       timeoutId = window.setTimeout(goToNextTemoignage, step.perItemMs);
       return;
     }
 
-<<<<<<< HEAD
     // ===== ÉTAPES PAR ANNÉE =====
     setYear(step.year);
-
-=======
-    // ===== ?tapes par ann?e : CHIFFRES / IMAGES =====
-    // Ici, on sait que step = "year-chiffres" ou "year-images"
-    setYear(step.year);
-
-    // petit d?lai pour laisser React changer d'ann?e
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
     timeoutId = window.setTimeout(() => {
       if (cancelled || !autoScroll) return;
 
@@ -444,11 +389,7 @@ useEffect(() => {
           runStep(nextStepIndex);
         }, step.durationMs);
       } else {
-<<<<<<< HEAD
         // year-images
-=======
-        // === phase images de l'ann?e courante ===
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
         const stops = Array.from(
           document.querySelectorAll<HTMLElement>("[data-autoscroll-id]")
         );
@@ -473,11 +414,7 @@ useEffect(() => {
           }
 
           const id = el.dataset.autoscrollId ?? null;
-<<<<<<< HEAD
           setCurrentAutoMediaId(id);
-=======
-          setCurrentAutoMediaId(id); // celle-l? est en "gros plan"
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
 
           el.scrollIntoView({
             behavior: "smooth",
@@ -496,28 +433,15 @@ useEffect(() => {
             timeoutId = window.setTimeout(goToNextImage, 2200);
           }
         };
-
-<<<<<<< HEAD
-=======
-        // petit d?lai avant la 1?? image
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
         timeoutId = window.setTimeout(goToNextImage, 400);
       }
     }, 300);
   };
-
-<<<<<<< HEAD
   // 🔥 ICI LE CHANGEMENT IMPORTANT :
   // avant : runStep(0);
   // maintenant : on redémarre à l'étape mémorisée
   runStep(currentStepRef.current);
 
-=======
-  // on d?marre au d?but du plan
-  runStep(0);
-
-  // stop si l'utilisateur touche ? la page
->>>>>>> 02ad7409b5664d06987cbd7ed5910a7b0cfda9fe
   const stopUserInteraction = () => setAutoScroll(false);
   window.addEventListener("wheel", stopUserInteraction, { passive: true });
   window.addEventListener("touchstart", stopUserInteraction, { passive: true });
@@ -857,12 +781,16 @@ function SectionNuageMots() {
     >
       <div className="mx-auto max-w-6xl px-6 space-y-6">
         <div className="text-center">
-          <p className="text-2xl md:text-3xl font-serif text-gray-900">Notre ambition </p>
+          <p className="text-2xl md:text-3xl font-serif text-gray-900">
+            Notre ambition
+          </p>
         </div>
 
         <div className="flex flex-wrap gap-6 justify-center">
           <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">Elan interieur et posture</p>
+            <p className="text-lg font-semibold text-gray-800">
+              Elan interieur et posture
+            </p>
             <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-amber-50/80 via-white to-amber-100/60 border border-amber-200 shadow-sm overflow-hidden">
               {CLOUD_WORDS.map((mot, idx) => (
                 <span
@@ -882,7 +810,9 @@ function SectionNuageMots() {
           </div>
 
           <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">Croissance & evolution</p>
+            <p className="text-lg font-semibold text-gray-800">
+              Croissance & evolution
+            </p>
             <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-sky-50/80 via-white to-sky-100/60 border border-sky-200 shadow-sm overflow-hidden">
               {CLOUD_WORDS_GROWTH.map((mot, idx) => (
                 <span
@@ -902,7 +832,9 @@ function SectionNuageMots() {
           </div>
 
           <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">Ouverture & relation a l’autre</p>
+            <p className="text-lg font-semibold text-gray-800">
+              Ouverture & relation a l’autre
+            </p>
             <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-purple-50/80 via-white to-purple-100/60 border border-purple-200 shadow-sm overflow-hidden">
               {CLOUD_WORDS_OPEN.map((mot, idx) => (
                 <span
@@ -922,7 +854,9 @@ function SectionNuageMots() {
           </div>
 
           <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">Energie & plaisir</p>
+            <p className="text-lg font-semibold text-gray-800">
+              Energie & plaisir
+            </p>
             <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-orange-50/80 via-white to-orange-100/60 border border-orange-200 shadow-sm overflow-hidden">
               {CLOUD_WORDS_FUN.map((mot, idx) => (
                 <span
@@ -942,30 +876,12 @@ function SectionNuageMots() {
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
-          {WORD_CLOUD.map((bloc) => (
-            <div
-              key={bloc.titre}
-              className="rounded-2xl border border-amber-200/70 bg-white/80 shadow-sm p-4 flex flex-wrap gap-2 items-start"
-            >
-              <span className="text-base font-semibold text-gray-800 mr-2">{bloc.titre}</span>
-              <div className="flex flex-wrap gap-2">
-                {bloc.mots.map((mot) => (
-                  <span
-                    key={mot}
-                    className="px-3 py-1 rounded-full text-sm bg-amber-50 border border-amber-200 text-gray-800 shadow-[0_1px_4px_rgba(0,0,0,0.05)]"
-                  >
-                    {mot}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        {/* 👉 Ici avant il y avait le grid avec WORD_CLOUD, on l'a supprimé */}
       </div>
     </section>
   );
 }
+
 
 function SectionCollectifFelr() {
   return (
