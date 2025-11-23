@@ -89,42 +89,23 @@ const WORD_CLOUD = [
   },
 ];
 
-const CLOUD_WORDS = [
-  { text: "Depassement de soi", top: "38%", left: "44%", size: "text-base font-semibold" },
-  { text: "Prise de parole", top: "52%", left: "48%", size: "text-sm font-semibold" },
-  { text: "Audace", top: "64%", left: "42%", size: "text-sm font-semibold" },
-  { text: "Changement", top: "46%", left: "56%", size: "text-sm font-semibold" },
-  { text: "Responsabilite", top: "32%", left: "54%", size: "text-sm font-semibold" },
+const CLOUD_POSITIONS = [
+  { top: "18%", left: "26%" },
+  { top: "30%", left: "42%" },
+  { top: "44%", left: "24%" },
+  { top: "50%", left: "60%" },
+  { top: "64%", left: "32%" },
+  { top: "70%", left: "48%" },
+  { top: "78%", left: "28%" },
+  { top: "36%", left: "64%" },
+  { top: "56%", left: "40%" },
 ];
 
-const CLOUD_WORDS_GROWTH = [
-  { text: "Apprentissage", top: "36%", left: "48%", size: "text-base font-semibold" },
-  { text: "Evolution", top: "50%", left: "52%", size: "text-sm font-semibold" },
-  { text: "Developpement personnel", top: "60%", left: "46%", size: "text-xs font-semibold" },
-  { text: "Developpement professionnel", top: "44%", left: "58%", size: "text-xs font-semibold" },
-];
-
-const CLOUD_WORDS_OPEN = [
-  { text: "S'ouvrir", top: "38%", left: "50%", size: "text-base font-semibold" },
-  { text: "Ouverture aux autres", top: "52%", left: "48%", size: "text-sm font-semibold" },
-  { text: "Connexion", top: "60%", left: "54%", size: "text-sm font-semibold" },
-  { text: "Entraide", top: "62%", left: "42%", size: "text-sm font-semibold" },
-  { text: "Partage", top: "46%", left: "58%", size: "text-sm font-semibold" },
-  { text: "Partenariat", top: "34%", left: "54%", size: "text-sm font-semibold" },
-  { text: "Reseau", top: "32%", left: "44%", size: "text-sm font-semibold" },
-];
-
-const CLOUD_WORDS_FUN = [
-  { text: "Fun", top: "40%", left: "50%", size: "text-base font-semibold" },
-  { text: "Engagement", top: "54%", left: "56%", size: "text-sm font-semibold" },
-  { text: "Rencontres", top: "62%", left: "48%", size: "text-sm font-semibold" },
-  { text: "Moments partages", top: "48%", left: "46%", size: "text-xs font-semibold" },
-  { text: "Joie simple", top: "34%", left: "54%", size: "text-sm font-semibold" },
-  { text: "Convivialite", top: "58%", left: "52%", size: "text-sm font-semibold" },
-  { text: "Legerete", top: "44%", left: "50%", size: "text-sm font-semibold" },
-  { text: "Sourires", top: "64%", left: "54%", size: "text-sm font-semibold" },
-  { text: "Presence naturelle", top: "52%", left: "44%", size: "text-sm font-semibold" },
-];
+const spreadWords = (words: string[]) =>
+  words.map((text, i) => {
+    const pos = CLOUD_POSITIONS[i % CLOUD_POSITIONS.length];
+    return { text, ...pos };
+  });
 
 const HEADER_MARQUEE_TEXT = "Bienvenue chez FELR - Femmes Entrepreneures et Leaders de La Reunion";
    /* 2025 & 2024 & 2023 sont des YearData et on les initialises ci-dessous */
@@ -916,96 +897,85 @@ function SectionChiffresFusion({
 }
 
 function SectionNuageMots() {
+  const clouds = [
+    {
+      titre: "Elan interieur et posture",
+      mots: ["Depassement de soi", "Prise de parole", "Audace", "Changement", "Responsabilite"],
+      colorClass: "cloud-word-gold",
+      bg: "from-amber-50/80 via-white to-amber-100/60 border-amber-200",
+    },
+    {
+      titre: "Croissance & evolution",
+      mots: ["Apprentissage", "Evolution", "Developpement personnel", "Developpement professionnel"],
+      colorClass: "cloud-word-blue",
+      bg: "from-sky-50/80 via-white to-sky-100/60 border-sky-200",
+    },
+    {
+      titre: "Ouverture & relation a l'autre",
+      mots: ["S'ouvrir", "Ouverture aux autres", "Connexion", "Entraide", "Partage", "Partenariat", "Reseau"],
+      colorClass: "cloud-word-purple",
+      bg: "from-purple-50/80 via-white to-purple-100/60 border-purple-200",
+    },
+    {
+      titre: "Energie & plaisir",
+      mots: ["Fun", "Engagement", "Rencontres", "Moments partages", "Joie simple", "Convivialite", "Legerete", "Sourires", "Presence naturelle"],
+      colorClass: "cloud-word-orange",
+      bg: "from-orange-50/80 via-white to-orange-100/60 border-orange-200",
+    },
+  ];
+
+  const positions = [
+    { top: "30%", left: "10%" },
+    { top: "50%", left: "30%" },
+    { top: "60%", left: "30%" },
+    { top: "15%", left: "20%" },
+    { top: "68%", left: "44%" },
+    { top: "32%", left: "48%" },
+    { top: "54%", left: "54%" },
+    { top: "42%", left: "46%" },
+    { top: "60%", left: "52%" },
+  ];
+
+  const spreadWordsLocal = (words: string[]) =>
+    words.map((text, i) => ({ text, ...positions[i % positions.length] }));
+
   return (
-    <section
-      id="section-nuage-mots"
-      className="bg-gradient-to-r from-amber-100/60 via-white to-rose-100/60 py-10"
-    >
+    <section id="section-nuage-mots" className="bg-gradient-to-r from-amber-100/60 via-white to-rose-100/60 py-10">
       <div className="mx-auto max-w-6xl px-6 space-y-6">
         <div className="text-center">
           <p className="text-4xl md:text-5xl font-serif leading-tight text-[#E2A429]">Notre ambition</p>
         </div>
 
-        <div className="flex flex-wrap gap-6 justify-center">
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">Elan interieur et posture</p>
-            <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-amber-50/80 via-white to-amber-100/60 border border-amber-200 shadow-sm overflow-hidden">
-              {CLOUD_WORDS.map((mot, idx) => (
-                <span
-                  key={mot.text}
-                  className={`cloud-word-gold absolute ${mot.size}`}
-                  style={{
-                    top: mot.top,
-                    left: mot.left,
-                    animationDuration: `${6 + idx * 0.5}s`,
-                    animationDelay: `${idx * 0.3}s`,
-                  }}
-                >
-                  {mot.text}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">Croissance & evolution</p>
-            <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-sky-50/80 via-white to-sky-100/60 border border-sky-200 shadow-sm overflow-hidden">
-              {CLOUD_WORDS_GROWTH.map((mot, idx) => (
-                <span
-                  key={mot.text}
-                  className={`cloud-word-blue absolute ${mot.size}`}
-                  style={{
-                    top: mot.top,
-                    left: mot.left,
-                    animationDuration: `${6 + idx * 0.5}s`,
-                    animationDelay: `${idx * 0.3}s`,
-                  }}
-                >
-                  {mot.text}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">Ouverture & relation à l'autre</p>
-            <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-purple-50/80 via-white to-purple-100/60 border border-purple-200 shadow-sm overflow-hidden">
-              {CLOUD_WORDS_OPEN.map((mot, idx) => (
-                <span
-                  key={mot.text}
-                  className={`cloud-word-purple absolute ${mot.size}`}
-                  style={{
-                    top: mot.top,
-                    left: mot.left,
-                    animationDuration: `${6 + idx * 0.5}s`,
-                    animationDelay: `${idx * 0.3}s`,
-                  }}
-                >
-                  {mot.text}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">Energie & plaisir</p>
-            <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-orange-50/80 via-white to-orange-100/60 border border-orange-200 shadow-sm overflow-hidden">
-              {CLOUD_WORDS_FUN.map((mot, idx) => (
-                <span
-                  key={mot.text}
-                  className={`cloud-word-orange absolute ${mot.size}`}
-                  style={{
-                    top: mot.top,
-                    left: mot.left,
-                    animationDuration: `${6 + idx * 0.5}s`,
-                    animationDelay: `${idx * 0.3}s`,
-                  }}
-                >
-                  {mot.text}
-                </span>
-              ))}
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+          {clouds.map((c) => {
+            const items = spreadWordsLocal(c.mots);
+            return (
+              <div key={c.titre} className="flex flex-col items-center gap-3">
+                <p className="text-lg font-semibold text-gray-800 text-center">{c.titre}</p>
+                <div className={`relative w-[260px] h-[260px] md:w-[300px] md:h-[300px] rounded-full bg-gradient-to-br ${c.bg} border shadow-sm overflow-hidden`}>
+                  {items.map((mot, idx) => (
+                    <span
+                      key={`${c.titre}-${mot.text}-${idx}`}
+                      className={`${c.colorClass} absolute text-xs md:text-sm font-semibold text-center max-w-[70%] leading-tight break-words`}
+                      style={{
+                        top: mot.top,
+                        left: mot.left,
+                        transform: "translate(-50%, -50%)",
+                        animationDuration: `${6 + idx * 0.4}s`,
+                        animationDelay: `${idx * 0.25}s`,
+                      }}
+                    >
+                      {mot.text === "Developpement personnel"
+                        ? "Developpement\npersonnel"
+                        : mot.text === "Developpement professionnel"
+                        ? "Developpement\nprofessionnel"
+                        : mot.text}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
