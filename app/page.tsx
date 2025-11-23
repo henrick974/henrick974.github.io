@@ -693,17 +693,17 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
             <p className="font-semibold">Je tiens à remercier de tout cœur :</p>
             <div className="space-y-2">
               <p>
-                À Les femmes entrepreneures qui nous font confiance et qui osent se révéler, prendre la parole, évoluer et
+                - Les femmes entrepreneures qui nous font confiance et qui osent se révéler, prendre la parole, évoluer et
                 contribuer à chaque rencontre.
               </p>
               <p>
-                À Les bénévoles, intervenants et partenaires qui offrent leur temps, leur expertise, leur créativité et leur soutien.
+                - Les bénévoles, intervenants et partenaires qui offrent leur temps, leur expertise, leur créativité et leur soutien.
               </p>
               <p>
-                À Les soutiens de l'ombre, qui encouragent, conseillent, inspirent et croient en la vision depuis le début.
+                - Les soutiens de l'ombre, qui encouragent, conseillent, inspirent et croient en la vision depuis le début.
               </p>
               <p>
-                À Toutes celles et ceux qui contribuent, de près ou de loin, à faire grandir FELR avec bienveillance, engagement et ambition.
+                - Toutes celles et ceux qui contribuent, de près ou de loin, à faire grandir FELR avec bienveillance, engagement et ambition.
               </p>
             </div>
             <p>FELR est née d'un besoin? Mais FELR grandit grâce à vous.</p>
