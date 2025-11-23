@@ -90,40 +90,40 @@ const WORD_CLOUD = [
 ];
 
 const CLOUD_WORDS = [
-  { text: "Depassement de soi", top: "26%", left: "28%", size: "text-lg font-semibold" },
-  { text: "Prise de parole", top: "54%", left: "48%", size: "text-base font-semibold" },
-  { text: "Audace", top: "70%", left: "34%", size: "text-base font-semibold" },
-  { text: "Changement", top: "42%", left: "60%", size: "text-base font-semibold" },
-  { text: "Responsabilite", top: "24%", left: "66%", size: "text-sm font-semibold" },
+  { text: "Depassement de soi", top: "38%", left: "44%", size: "text-base font-semibold" },
+  { text: "Prise de parole", top: "52%", left: "48%", size: "text-sm font-semibold" },
+  { text: "Audace", top: "64%", left: "42%", size: "text-sm font-semibold" },
+  { text: "Changement", top: "46%", left: "56%", size: "text-sm font-semibold" },
+  { text: "Responsabilite", top: "32%", left: "54%", size: "text-sm font-semibold" },
 ];
 
 const CLOUD_WORDS_GROWTH = [
-  { text: "Apprentissage", top: "26%", left: "32%", size: "text-lg font-semibold" },
-  { text: "Evolution", top: "54%", left: "46%", size: "text-base font-semibold" },
-  { text: "Developpement personnel", top: "68%", left: "36%", size: "text-sm font-semibold" },
-  { text: "Developpement professionnel", top: "40%", left: "60%", size: "text-sm font-semibold" },
+  { text: "Apprentissage", top: "36%", left: "48%", size: "text-base font-semibold" },
+  { text: "Evolution", top: "50%", left: "52%", size: "text-sm font-semibold" },
+  { text: "Developpement personnel", top: "60%", left: "46%", size: "text-xs font-semibold" },
+  { text: "Developpement professionnel", top: "44%", left: "58%", size: "text-xs font-semibold" },
 ];
 
 const CLOUD_WORDS_OPEN = [
-  { text: "S'ouvrir", top: "24%", left: "28%", size: "text-lg font-semibold" },
-  { text: "Ouverture aux autres", top: "56%", left: "46%", size: "text-base font-semibold" },
-  { text: "Connexion", top: "70%", left: "34%", size: "text-base font-semibold" },
-  { text: "Entraide", top: "40%", left: "64%", size: "text-sm font-semibold" },
-  { text: "Partage", top: "22%", left: "62%", size: "text-sm font-semibold" },
-  { text: "Partenariat", top: "66%", left: "58%", size: "text-sm font-semibold" },
-  { text: "Reseau", top: "44%", left: "30%", size: "text-sm font-semibold" },
+  { text: "S'ouvrir", top: "38%", left: "50%", size: "text-base font-semibold" },
+  { text: "Ouverture aux autres", top: "52%", left: "48%", size: "text-sm font-semibold" },
+  { text: "Connexion", top: "60%", left: "54%", size: "text-sm font-semibold" },
+  { text: "Entraide", top: "62%", left: "42%", size: "text-sm font-semibold" },
+  { text: "Partage", top: "46%", left: "58%", size: "text-sm font-semibold" },
+  { text: "Partenariat", top: "34%", left: "54%", size: "text-sm font-semibold" },
+  { text: "Reseau", top: "32%", left: "44%", size: "text-sm font-semibold" },
 ];
 
 const CLOUD_WORDS_FUN = [
-  { text: "Fun", top: "24%", left: "30%", size: "text-lg font-semibold" },
-  { text: "Engagement", top: "54%", left: "48%", size: "text-base font-semibold" },
-  { text: "Rencontres", top: "70%", left: "34%", size: "text-base font-semibold" },
-  { text: "Moments partages", top: "38%", left: "64%", size: "text-sm font-semibold" },
-  { text: "Joie simple", top: "22%", left: "62%", size: "text-sm font-semibold" },
-  { text: "Convivialite", top: "66%", left: "58%", size: "text-sm font-semibold" },
-  { text: "Legerete", top: "44%", left: "32%", size: "text-sm font-semibold" },
-  { text: "Sourires", top: "58%", left: "62%", size: "text-sm font-semibold" },
-  { text: "Presence naturelle", top: "26%", left: "46%", size: "text-sm font-semibold" },
+  { text: "Fun", top: "40%", left: "50%", size: "text-base font-semibold" },
+  { text: "Engagement", top: "54%", left: "56%", size: "text-sm font-semibold" },
+  { text: "Rencontres", top: "62%", left: "48%", size: "text-sm font-semibold" },
+  { text: "Moments partages", top: "48%", left: "46%", size: "text-xs font-semibold" },
+  { text: "Joie simple", top: "34%", left: "54%", size: "text-sm font-semibold" },
+  { text: "Convivialite", top: "58%", left: "52%", size: "text-sm font-semibold" },
+  { text: "Legerete", top: "44%", left: "50%", size: "text-sm font-semibold" },
+  { text: "Sourires", top: "64%", left: "54%", size: "text-sm font-semibold" },
+  { text: "Presence naturelle", top: "52%", left: "44%", size: "text-sm font-semibold" },
 ];
 
 const HEADER_MARQUEE_TEXT = "Bienvenue chez FELR - Femmes Entrepreneures et Leaders de La Reunion";
@@ -641,45 +641,6 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
               </div>
             ))}
           </div>
-          <div className="space-y-4 hidden">
-            <div className="flex flex-col justify-between gap-24 text-slate-900 h-full">
-              <Link
-                href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-JIE-2025/Quest.htm?ORIGINE_SAISIE=Iframe"
-                className="group flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
-                  Devenir membre
-                </span>
-                <p className="text-sm text-slate-700 leading-relaxed">
-                  Intègre une communauté qui t'élève, te soutient et t'aide à développer ton leadership.
-                </p>
-              </Link>
-
-              <Link
-                href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-JIE-2025/Quest.htm?ORIGINE_SAISIE=Iframe"
-                className="group flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
-                  Devenir partenaire
-                </span>
-                <p className="text-sm text-slate-700 leading-relaxed">
-                  Contribue à révéler la leader intérieure de chaque femme entrepreneure.
-                </p>
-              </Link>
-
-              <Link
-                href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-JIE-2025/Quest.htm?ORIGINE_SAISIE=Iframe"
-                className="group flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
-                  Devenir bénévole
-                </span>
-                <p className="text-sm text-slate-700 leading-relaxed">
-                  Apporte ton énergie, ton talent et participe activement à l'évolution d'un mouvement qui a du sens.
-                </p>
-              </Link>
-            </div>
-          </div>
 
           <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm text-slate-900">
             <h3 className="text-2xl font-semibold text-[#E2A429]">
@@ -719,10 +680,55 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
               Tu es un acteur/une actrice du changement.
             </p>
             <p className="text-base md:text-lg font-semibold text-slate-800 text-center">
-              Par <span className="font-bold">Patricia BOUCARD</span> – Présidente &amp; Fondatrice
+              Par <span className="font-bold">Patricia BOUCARD</span> - Présidente &amp; Fondatrice
             </p>
-            </div>
           </div>
+          </div>
+
+        <div className="flex flex-wrap justify-center gap-4">
+          <Link
+            href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-2025/FELR.htm?V9=DevenirMembre"
+            className="group flex-1 min-w-[220px] max-w-xs flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
+              Devenir membre
+            </span>
+            <p className="text-sm text-slate-700 leading-relaxed">
+              Intègre une communauté qui t'élève, te soutient et t'aide à développer ton leadership.
+            </p>
+          </Link>
+
+          <Link
+            href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-2025/FELR.htm?V9=DevenirPartenaire"
+            className="group flex-1 min-w-[220px] max-w-xs flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
+              Devenir partenaire
+            </span>
+            <p className="text-sm text-slate-700 leading-relaxed">
+              Contribue à révéler la leader intérieure de chaque femme entrepreneure.
+            </p>
+          </Link>
+
+          <Link
+            href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-2025/FELR.htm?V9=DevenirB%C3%A9n%C3%A9vole"
+            className="group flex-1 min-w-[220px] max-w-xs flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
+              Devenir bénévole
+            </span>
+            <p className="text-sm text-slate-700 leading-relaxed">
+              Apporte ton énergie, ton talent et participe activement à l'évolution d'un mouvement qui a du sens.
+            </p>
+          </Link>
+        </div>
+
+        <p className="text-center text-base text-slate-800">
+          Pour nous contacter :{" "}
+          <a className="text-[#E2A429] font-semibold" href="mailto:felr.contact@gmail.com">
+            felr.contact@gmail.com
+          </a>
+        </p>
       </section>
 
       <SectionCollectifFelr />
@@ -813,9 +819,9 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
       }
       @keyframes floatWords {
         0% { transform: translate(0, 0); }
-        25% { transform: translate(6px, -8px); }
-        50% { transform: translate(-6px, 6px); }
-        75% { transform: translate(8px, 4px); }
+        20% { transform: translate(10px, -12px); }
+        45% { transform: translate(-12px, 10px); }
+        70% { transform: translate(14px, 6px); }
         100% { transform: translate(0, 0); }
       }
       .cloud-word {
