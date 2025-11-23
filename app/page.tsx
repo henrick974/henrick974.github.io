@@ -177,9 +177,12 @@ export default function PageEvenement() {
     const pool = [...data.momentsForts, ...data.momentsFortsSecondaire];
     return pool.find((m) => m.id === currentAutoMediaId) ?? null;
   }, [data, currentAutoMediaId]);
+
+  const currentStepRef = useRef(0);
 // 👉 effet qui fait défiler, étape par étape
 useEffect(() => {
   if (!autoScroll) {
+    // quand on coupe l'autoscroll, on arrête juste le highlight
     setCurrentAutoMediaId(null);
     return;
   }
@@ -192,39 +195,38 @@ useEffect(() => {
     | { kind: "anchor"; id: string; durationMs: number }
     | { kind: "temoignages"; perItemMs: number };
 
-  // 🧭 Plan complet du défilement
   const steps: AutoStep[] = [
     { kind: "hero", durationMs: 30_000 }, // 30s sur le HERO
-    { kind: "nuage", durationMs: 5_000 }, // 5s nuage
+    { kind: "nuage", durationMs: 5_000 },
     { kind: "year-chiffres", year: "2023-2024", durationMs: 5_000 },
     { kind: "year-images", year: "2023-2024" },
     { kind: "year-chiffres", year: "2025", durationMs: 5_000 },
     { kind: "year-images", year: "2025" },
 
-    // 1 min sur le paragraphe "Temoignage FELR"
-    { kind: "anchor", id: "section-temoignage-felr", durationMs: 60_000 },
+    { kind: "anchor", id: "section-temoignage-felr", durationMs: 20_000 },
+    { kind: "temoignages", perItemMs: 5_000 },
 
-    // puis chaque témoignage FELR 10s
-    { kind: "temoignages", perItemMs: 10_000 },
-
-    { kind: "anchor", id: "section-membres-soutien", durationMs: 20_000 },
+    { kind: "anchor", id: "section-membres-soutien", durationMs: 10_000 },
     { kind: "anchor", id: "osez-felr", durationMs: 10_000 },
   ];
 
   let cancelled = false;
   let timeoutId: number | null = null;
 
-  const runStep = (stepIndex: number) => {
+  const runStep = (stepIndexRaw: number) => {
     if (cancelled || !autoScroll) return;
+
+    // 🔁 on normalise l'index et on le mémorise
+    const stepIndex = ((stepIndexRaw % steps.length) + steps.length) % steps.length;
+    currentStepRef.current = stepIndex;
 
     const step = steps[stepIndex];
     if (!step) {
-      // si jamais on dépasse, on repart du début
-      runStep(0);
-      return;
+      // sécurité, mais normalement inutile avec le modulo
+      return runStep(0);
     }
 
-    // on reset le "highlight" d'image à chaque nouvelle étape
+    // à chaque nouvelle étape, on reset le highlight image
     setCurrentAutoMediaId(null);
 
     if (timeoutId !== null) {
@@ -233,9 +235,8 @@ useEffect(() => {
 
     const nextStepIndex = (stepIndex + 1) % steps.length;
 
-    // ===== Étapes simples : HERO / NUAGE / SECTIONS TEXTE =====
+    // ===== HERO =====
     if (step.kind === "hero") {
-      // tu avais mis "2023-2024" dans ta version, je garde ça
       setYear("2023-2024");
 
       const el = document.getElementById("section-hero");
@@ -253,6 +254,7 @@ useEffect(() => {
       return;
     }
 
+    // ===== NUAGE =====
     if (step.kind === "nuage") {
       const el = document.getElementById("section-nuage-mots");
       if (el) {
@@ -269,6 +271,7 @@ useEffect(() => {
       return;
     }
 
+    // ===== ANCHOR SECTIONS =====
     if (step.kind === "anchor") {
       const el = document.getElementById(step.id);
       if (el) {
@@ -285,14 +288,13 @@ useEffect(() => {
       return;
     }
 
-    // ===== Étape spéciale : TÉMOIGNAGES (1 par 1) =====
+    // ===== TÉMOIGNAGES UN PAR UN =====
     if (step.kind === "temoignages") {
       const cards = Array.from(
         document.querySelectorAll<HTMLElement>("[data-temoignage-id]")
       );
 
       if (!cards.length) {
-        // si jamais aucune carte trouvée, on saute l’étape
         runStep(nextStepIndex);
         return;
       }
@@ -319,26 +321,21 @@ useEffect(() => {
         idx += 1;
 
         if (idx >= cards.length) {
-          // dernier témoignage → on passe à l’étape suivante
           timeoutId = window.setTimeout(() => {
             runStep(nextStepIndex);
           }, step.perItemMs);
         } else {
-          // sinon on continue
           timeoutId = window.setTimeout(goToNextTemoignage, step.perItemMs);
         }
       };
 
-      // on commence à défiler les cartes après un premier délai
       timeoutId = window.setTimeout(goToNextTemoignage, step.perItemMs);
       return;
     }
 
-    // ===== Étapes par année : CHIFFRES / IMAGES =====
-    // Ici, on sait que step = "year-chiffres" ou "year-images"
+    // ===== ÉTAPES PAR ANNÉE =====
     setYear(step.year);
 
-    // petit délai pour laisser React changer d'année
     timeoutId = window.setTimeout(() => {
       if (cancelled || !autoScroll) return;
 
@@ -356,7 +353,7 @@ useEffect(() => {
           runStep(nextStepIndex);
         }, step.durationMs);
       } else {
-        // === phase images de l'année courante ===
+        // year-images
         const stops = Array.from(
           document.querySelectorAll<HTMLElement>("[data-autoscroll-id]")
         );
@@ -381,7 +378,7 @@ useEffect(() => {
           }
 
           const id = el.dataset.autoscrollId ?? null;
-          setCurrentAutoMediaId(id); // celle-là est en "gros plan"
+          setCurrentAutoMediaId(id);
 
           el.scrollIntoView({
             behavior: "smooth",
@@ -397,20 +394,20 @@ useEffect(() => {
               runStep(nextStepIndex);
             }, 2000);
           } else {
-            timeoutId = window.setTimeout(goToNextImage, 2200); // vitesse actuelle des photos
+            timeoutId = window.setTimeout(goToNextImage, 2200);
           }
         };
 
-        // petit délai avant la 1ʳᵉ image
         timeoutId = window.setTimeout(goToNextImage, 400);
       }
     }, 300);
   };
 
-  // on démarre au début du plan
-  runStep(0);
+  // 🔥 ICI LE CHANGEMENT IMPORTANT :
+  // avant : runStep(0);
+  // maintenant : on redémarre à l'étape mémorisée
+  runStep(currentStepRef.current);
 
-  // stop si l'utilisateur touche à la page
   const stopUserInteraction = () => setAutoScroll(false);
   window.addEventListener("wheel", stopUserInteraction, { passive: true });
   window.addEventListener("touchstart", stopUserInteraction, { passive: true });
@@ -426,6 +423,7 @@ useEffect(() => {
     window.removeEventListener("keydown", stopUserInteraction);
   };
 }, [autoScroll]);
+
 
   /* ============================================
    * VIEW
