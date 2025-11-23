@@ -205,8 +205,8 @@ export default function PageEvenement() {
   const [year, setYear] = useState<YearKey>("2025"); // creation de la function setYear qui n'accepte que 2025 ou 2023-2024 et qui as mis 2025 par defaut
   const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque ann?e juste en haut
 
-  // ðŸ‘‰ Ã©tat pour activer / activer le scroll auto
-  const [autoScroll, setAutoScroll] = useState(true); // crÃ©Ã© la fonction setAutoScroll et le met a false
+  // ?? ?tat pour activer / activer le scroll auto
+  const [autoScroll, setAutoScroll] = useState(true); // cr?? la fonction setAutoScroll et le met a false
 
   // ?? quelle image est "en gros plan" pendant le d?filement auto
   const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // cr?? la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
@@ -214,8 +214,6 @@ export default function PageEvenement() {
     const pool = [...data.momentsForts, ...data.momentsFortsSecondaire];
     return pool.find((m) => m.id === currentAutoMediaId) ?? null;
   }, [data, currentAutoMediaId]);
-
-  const currentStepRef = useRef(0);
 // 👉 effet qui fait défiler, étape par étape
 useEffect(() => {
   if (!autoScroll) {
@@ -232,6 +230,7 @@ useEffect(() => {
     | { kind: "anchor"; id: string; durationMs: number }
     | { kind: "temoignages"; perItemMs: number };
 
+  // 🧭 Plan complet du défilement
   const steps: AutoStep[] = [
     { kind: "hero", durationMs: 30_000 }, // 30s sur le HERO
     { kind: "nuage", durationMs: 5_000 },
@@ -243,7 +242,8 @@ useEffect(() => {
     { kind: "anchor", id: "section-temoignage-felr", durationMs: 20_000 },
     { kind: "temoignages", perItemMs: 5_000 },
 
-    { kind: "anchor", id: "section-membres-soutien", durationMs: 10_000 },
+    // puis chaque témoignage FELR 10s
+    { kind: "temoignages", perItemMs: 10_000 },
 
     { kind: "anchor", id: "osez-felr", durationMs: 10_000 },
   ];
@@ -260,11 +260,12 @@ useEffect(() => {
 
     const step = steps[stepIndex];
     if (!step) {
-      // sécurité, mais normalement inutile avec le modulo
-      return runStep(0);
+      // si jamais on dépasse, on repart du début
+      runStep(0);
+      return;
     }
 
-    // à chaque nouvelle étape, on reset le highlight image
+    // on reset le "highlight" d'image à chaque nouvelle étape
     setCurrentAutoMediaId(null);
 
     if (timeoutId !== null) {
@@ -273,8 +274,9 @@ useEffect(() => {
 
     const nextStepIndex = (stepIndex + 1) % steps.length;
 
-    // ===== HERO =====
+    // ===== Étapes simples : HERO / NUAGE / SECTIONS TEXTE =====
     if (step.kind === "hero") {
+      // tu avais mis "2023-2024" dans ta version, je garde ça
       setYear("2023-2024");
 
       const el = document.getElementById("section-hero");
@@ -326,13 +328,14 @@ useEffect(() => {
       return;
     }
 
-    // ===== TÉMOIGNAGES UN PAR UN =====
+    // ===== Étape spéciale : TÉMOIGNAGES (1 par 1) =====
     if (step.kind === "temoignages") {
       const cards = Array.from(
         document.querySelectorAll<HTMLElement>("[data-temoignage-id]")
       );
 
       if (!cards.length) {
+        // si jamais aucune carte trouvée, on saute l’étape
         runStep(nextStepIndex);
         return;
       }
@@ -359,6 +362,7 @@ useEffect(() => {
         idx += 1;
 
         if (idx >= cards.length) {
+          // dernier témoignage → on passe à l’étape suivante
           timeoutId = window.setTimeout(() => {
             runStep(nextStepIndex);
           }, step.perItemMs);
@@ -366,12 +370,17 @@ useEffect(() => {
           timeoutId = window.setTimeout(goToNextTemoignage, step.perItemMs);
         }
       };
+
+      // on commence à défiler les cartes après un premier délai
       timeoutId = window.setTimeout(goToNextTemoignage, step.perItemMs);
       return;
     }
 
-    // ===== ÉTAPES PAR ANNÉE =====
+    // ===== Étapes par année : CHIFFRES / IMAGES =====
+    // Ici, on sait que step = "year-chiffres" ou "year-images"
     setYear(step.year);
+
+    // petit délai pour laisser React changer d'année
     timeoutId = window.setTimeout(() => {
       if (cancelled || !autoScroll) return;
 
@@ -389,7 +398,7 @@ useEffect(() => {
           runStep(nextStepIndex);
         }, step.durationMs);
       } else {
-        // year-images
+        // === phase images de l'année courante ===
         const stops = Array.from(
           document.querySelectorAll<HTMLElement>("[data-autoscroll-id]")
         );
@@ -414,7 +423,7 @@ useEffect(() => {
           }
 
           const id = el.dataset.autoscrollId ?? null;
-          setCurrentAutoMediaId(id);
+          setCurrentAutoMediaId(id); // celle-là est en "gros plan"
 
           el.scrollIntoView({
             behavior: "smooth",
@@ -433,6 +442,8 @@ useEffect(() => {
             timeoutId = window.setTimeout(goToNextImage, 2200);
           }
         };
+
+        // petit délai avant la 1ʳᵉ image
         timeoutId = window.setTimeout(goToNextImage, 400);
       }
     }, 300);
@@ -442,6 +453,10 @@ useEffect(() => {
   // maintenant : on redémarre à l'étape mémorisée
   runStep(currentStepRef.current);
 
+  // on démarre au début du plan
+  runStep(0);
+
+  // stop si l'utilisateur touche à la page
   const stopUserInteraction = () => setAutoScroll(false);
   window.addEventListener("wheel", stopUserInteraction, { passive: true });
   window.addEventListener("touchstart", stopUserInteraction, { passive: true });
@@ -785,98 +800,26 @@ function SectionNuageMots() {
             Notre ambition
           </p>
         </div>
-
-        <div className="flex flex-wrap gap-6 justify-center">
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">
-              Elan interieur et posture
-            </p>
-            <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-amber-50/80 via-white to-amber-100/60 border border-amber-200 shadow-sm overflow-hidden">
-              {CLOUD_WORDS.map((mot, idx) => (
-                <span
-                  key={mot.text}
-                  className={`cloud-word-gold absolute ${mot.size}`}
-                  style={{
-                    top: mot.top,
-                    left: mot.left,
-                    animationDuration: `${6 + idx * 0.5}s`,
-                    animationDelay: `${idx * 0.3}s`,
-                  }}
-                >
-                  {mot.text}
-                </span>
-              ))}
+        <div className="grid gap-4 md:grid-cols-2">
+          {WORD_CLOUD.map((bloc) => (
+            <div
+              key={bloc.titre}
+              className="rounded-2xl border border-amber-200/70 bg-white/80 shadow-sm p-4 flex flex-wrap gap-2 items-start"
+            >
+              <span className="text-base font-semibold text-gray-800 mr-2">{bloc.titre}</span>
+              <div className="flex flex-wrap gap-2">
+                {bloc.mots.map((mot) => (
+                  <span
+                    key={mot}
+                    className="px-3 py-1 rounded-full text-sm bg-amber-50 border border-amber-200 text-gray-800 shadow-[0_1px_4px_rgba(0,0,0,0.05)]"
+                  >
+                    {mot}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">
-              Croissance & evolution
-            </p>
-            <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-sky-50/80 via-white to-sky-100/60 border border-sky-200 shadow-sm overflow-hidden">
-              {CLOUD_WORDS_GROWTH.map((mot, idx) => (
-                <span
-                  key={mot.text}
-                  className={`cloud-word-blue absolute ${mot.size}`}
-                  style={{
-                    top: mot.top,
-                    left: mot.left,
-                    animationDuration: `${6 + idx * 0.5}s`,
-                    animationDelay: `${idx * 0.3}s`,
-                  }}
-                >
-                  {mot.text}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">
-              Ouverture & relation a l’autre
-            </p>
-            <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-purple-50/80 via-white to-purple-100/60 border border-purple-200 shadow-sm overflow-hidden">
-              {CLOUD_WORDS_OPEN.map((mot, idx) => (
-                <span
-                  key={mot.text}
-                  className={`cloud-word-purple absolute ${mot.size}`}
-                  style={{
-                    top: mot.top,
-                    left: mot.left,
-                    animationDuration: `${6 + idx * 0.5}s`,
-                    animationDelay: `${idx * 0.3}s`,
-                  }}
-                >
-                  {mot.text}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-3">
-            <p className="text-lg font-semibold text-gray-800">
-              Energie & plaisir
-            </p>
-            <div className="relative w-[220px] h-[220px] md:w-[240px] md:h-[240px] rounded-full bg-gradient-to-br from-orange-50/80 via-white to-orange-100/60 border border-orange-200 shadow-sm overflow-hidden">
-              {CLOUD_WORDS_FUN.map((mot, idx) => (
-                <span
-                  key={mot.text}
-                  className={`cloud-word-orange absolute ${mot.size}`}
-                  style={{
-                    top: mot.top,
-                    left: mot.left,
-                    animationDuration: `${6 + idx * 0.5}s`,
-                    animationDelay: `${idx * 0.3}s`,
-                  }}
-                >
-                  {mot.text}
-                </span>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
-
-        {/* 👉 Ici avant il y avait le grid avec WORD_CLOUD, on l'a supprimé */}
       </div>
     </section>
   );
