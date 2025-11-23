@@ -29,8 +29,15 @@ const splitMedias = (medias: Media[]): [Media[], Media[]] => {
  * ========================================================
  */
 
-const MEDIAS_2024_PRIMARY = MEDIAS_2024; // premiere partie 2023-2024
-const MEDIAS_2024_SECONDARY = MEDIAS_2024_2; // deuxieme partie 2023-2024
+const MEDIAS_2024_ALL = [...MEDIAS_2024, ...MEDIAS_2024_2];
+const MEDIAS_2023_SET = MEDIAS_2024_ALL.filter((m) =>
+  m.tags?.some((t) => t.endsWith("2023"))
+);
+const MEDIAS_2024_SET = MEDIAS_2024_ALL.filter((m) =>
+  m.tags?.some((t) => t.endsWith("2024"))
+);
+const [MEDIAS_2023_PRIMARY, MEDIAS_2023_SECONDARY] = splitMedias(MEDIAS_2023_SET);
+const [MEDIAS_2024_PRIMARY, MEDIAS_2024_SECONDARY] = splitMedias(MEDIAS_2024_SET);
 
 /* =========================================================
    TYPES
@@ -61,7 +68,7 @@ type YearData = {
    DONN?ES
    ========================================================= */
 
-type YearKey = "2025" | "2023-2024";
+type YearKey = "2025" | "2024" | "2023";
 
 const WORD_CLOUD = [
   {
@@ -135,41 +142,36 @@ const DATA: Record<YearKey, YearData> = { // const NOM: TYPE = VALEUR;
       { label: "Membres", valeur: 106 },
       { label: "Soutiens et Partenaires", valeur: 21 },
     ],
-    // Carrousel 1 : tes m?dias ?classiques?
     momentsForts: MEDIAS_2025,
-
-    // Carrousel 2 : AUTRE fichier de m?dias (gala, etc.)
     momentsFortsSecondaire: MEDIAS_2025_2,
-
   },
 
-  "2023-2024": {
+  "2024": {
     hero: {
-      titre: "Notre histoire en 2023/2024",
-      accroche:
-        "Les premieres pierres puis l'acceleration : deux annees pour installer les fondations et elargir notre impact.",
+      titre: "Notre histoire en 2024",
+      accroche: "L'acceleration et l'extension de notre impact sur le territoire.",
     },
-    chiffresFusionnes: [
-      {
-        annee: "2023",
-        chiffres: [
-          { label: "Ateliers", valeur: 15 },
-          { label: "Membres", valeur: 17 },
-          { label: "Soutiens et partenaires", valeur: 5 },
-        ],
-      },
-      {
-        annee: "2024",
-        chiffres: [
-          { label: "Ateliers", valeur: 192 },
-          { label: "Membres", valeur: 95 },
-          { label: "Soutiens et partenaires", valeur: 28 },
-        ],
-      },
+    chiffres: [
+      { label: "Ateliers", valeur: 192 },
+      { label: "Membres", valeur: 95 },
+      { label: "Soutiens et partenaires", valeur: 28 },
     ],
-    momentsForts: MEDIAS_2024_PRIMARY, // premiere partie defini plus haut par ton split
-    momentsFortsSecondaire: MEDIAS_2024_SECONDARY, // je met le tableau de la deuxieme partie que ta defini plus tot
+    momentsForts: MEDIAS_2024_PRIMARY,
+    momentsFortsSecondaire: MEDIAS_2024_SECONDARY,
+  },
 
+  "2023": {
+    hero: {
+      titre: "Notre histoire en 2023",
+      accroche: "Les premieres pierres d'un mouvement en devenir.",
+    },
+    chiffres: [
+      { label: "Ateliers", valeur: 15 },
+      { label: "Membres", valeur: 17 },
+      { label: "Soutiens et partenaires", valeur: 5 },
+    ],
+    momentsForts: MEDIAS_2023_PRIMARY,
+    momentsFortsSecondaire: MEDIAS_2023_SECONDARY,
   },
 
   };
@@ -201,7 +203,7 @@ function useCounter(n: number, duration = 1200) { // pour faire l'animation d'af
 
 
 export default function PageEvenement() {
-  const [year, setYear] = useState<YearKey>("2025"); // creation de la function setYear qui n'accepte que 2025 ou 2023-2024 et qui as mis 2025 par defaut
+  const [year, setYear] = useState<YearKey>("2025"); // creation de la function setYear qui n'accepte que 2025, 2024 ou 2023 et qui as mis 2025 par defaut
   const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque ann?e juste en haut
 
   // 👉 état pour activer / activer le scroll auto
@@ -232,8 +234,10 @@ useEffect(() => {
   const steps: AutoStep[] = [
     { kind: "hero", durationMs: 30_000 }, // 30s sur le HERO
     { kind: "nuage", durationMs: 5_000 }, // 5s nuage
-    { kind: "year-chiffres", year: "2023-2024", durationMs: 5_000 },
-    { kind: "year-images", year: "2023-2024" },
+    { kind: "year-chiffres", year: "2023", durationMs: 5_000 },
+    { kind: "year-images", year: "2023" },
+    { kind: "year-chiffres", year: "2024", durationMs: 5_000 },
+    { kind: "year-images", year: "2024" },
     { kind: "year-chiffres", year: "2025", durationMs: 5_000 },
     { kind: "year-images", year: "2025" },
 
@@ -271,8 +275,7 @@ useEffect(() => {
 
     // ===== ?tapes simples : HERO / NUAGE / SECTIONS TEXTE =====
     if (step.kind === "hero") {
-      // tu avais mis "2023-2024" dans ta version, je garde ?a
-      setYear("2023-2024");
+      setYear("2023");
 
       const el = document.getElementById("section-hero");
       if (el) {
@@ -559,7 +562,7 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
       {/* Switch Ann?e au-dessus des chiffres */}
       <div className="mx-auto max-w-7xl px-6 pb-4 flex justify-center">
         <div className="inline-flex rounded-full border bg-white overflow-hidden shadow">
-          {(["2025", "2023-2024"] as const).map((y) => (
+          {(["2025", "2024", "2023"] as const).map((y) => (
             <button
               key={y}
               onClick={() => setYear(y)}
