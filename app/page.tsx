@@ -599,7 +599,7 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
         />
       )}
 
-      <SectionCollectifFelr />
+      <SectionWhiteSilver />
 
       {/* =========================================================
           LA BIG SECTION POUR OSEZ FELR
@@ -613,7 +613,7 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
         </h2>
 
         <p className="text-lg md:text-xl font-semibold text-slate-900 text-center">
-          Rejoins notre communaut. Prends ta place. Contribue.
+          Rejoins notre communauté. Prends ta place. Contribue.
         </p>
 
         <div className="grid lg:grid-cols-2 gap-10 items-start">
@@ -697,9 +697,11 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
             <p className="text-base md:text-lg font-semibold text-slate-800 text-center">
               Par <span className="font-bold">Patricia BOUCARD</span> – Présidente &amp; Fondatrice
             </p>
+            </div>
           </div>
-      </div>
-    </section>
+      </section>
+
+      <SectionCollectifFelr />
 
         <section
       id="mentions-legales"
@@ -1049,54 +1051,53 @@ function SectionCollectifFelr() {
             </div>
           ))}
         </div>
-        </div>
+      </div>
+    </section>
+  );
+}
 
-        <div className="mx-auto max-w-7xl px-6 pb-14" id="section-membres-soutien">
-          <motion.h3
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.35 }}
-            className="text-4xl md:text-5xl font-serif text-[#E2A429] text-center mb-6"
-          >
-            2025 : Événement White & Silver
-          </motion.h3>
-          <div className="grid lg:grid-cols-2 gap-10 mb-8 text-gray-800 text-left">
-            <div className="space-y-4">
-              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 shadow-sm">
-                <Image
-                  src="/temoignages/felr/celebrationwhite.jpg"
-                  alt="Celebration White & Silver"
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-contain bg-white"
-                  priority
-                />
-              </div>
-            </div>
-            <div className="space-y-4">
-              <p>Une journée White & Silver pour célébrer l'audace féminine</p>
-              <p>Le 25 novembre 2025, FELR consacre une journée White & Silver, un moment lumineux où l'on célèbre l'entrepreneuriat, l'audace et la résilience des femmes entrepreneures de La Réunion.</p>
-              <div className="space-y-2">
-                <p className="font-semibold">Au programme :</p>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li>un espace vibrant dédié aux initiatives féminines locales,</li>
-                  <li>des parcours inspirants mis en lumière,</li>
-                  <li>un regard affirmé sur la puissance de l'entrepreneuriat au féminin,</li>
-                  <li>et une soirée de célébration pour clore l'année dans l'élégance et la cohésion.</li>
-                </ul>
-              </div>
-              <p>Cette journée incarne l'essence même de FELR : révéler, valoriser et faire rayonner les femmes qui transforment notre territoire.</p>
-              <p>Un rendez-vous signature, fort, lumineux et profondément humain à aux couleurs White & Silver.</p>
-            </div>
+function SectionWhiteSilver() {
+  return (
+    <section className="mx-auto max-w-7xl px-6 pb-14" id="section-white-silver">
+      <div className="mb-8 text-center">
+        <h2 className="text-4xl md:text-5xl font-serif text-[#E2A429]">Événement White & Silver</h2>
+      </div>
+      <div className="grid lg:grid-cols-2 gap-10 mb-8 text-gray-800 text-left items-start">
+        <div className="space-y-4">
+          <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 shadow-sm">
+            <Image
+              src="/temoignages/felr/celebrationwhite.jpg"
+              alt="Celebration White & Silver"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-contain bg-white"
+              priority
+            />
           </div>
-          <div className="relative">
-            <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-3">
-              {MEMBRES_SOUTIEN.map((m) => (
-                <CarteTemoignageSoutien key={m.id} m={m} />
-              ))}
-            </div>
+        </div>
+        <div className="space-y-4">
+          <p className="text-lg">Une journée White & Silver pour célébrer l'audace féminine</p>
+          <p>Le 25 novembre 2025, FELR consacre une journée White & Silver, un moment lumineux où l'on célèbre l'entrepreneuriat, l'audace et la résilience des femmes entrepreneures de La Réunion.</p>
+          <div className="space-y-2">
+            <p className="font-semibold">Au programme :</p>
+            <ul className="list-disc pl-5 space-y-1">
+              <li>un espace vibrant dédié aux initiatives féminines locales,</li>
+              <li>des parcours inspirants mis en lumière,</li>
+              <li>un regard affirmé sur la puissance de l'entrepreneuriat au féminin,</li>
+              <li>et une soirée de célébration pour clore l'année dans l'élégance et la cohésion.</li>
+            </ul>
           </div>
+          <p>Cette journée incarne l'essence même de FELR : révéler, valoriser et faire rayonner les femmes qui transforment notre territoire.</p>
+          <p>Un rendez-vous signature, fort, lumineux et profondément humain — aux couleurs White & Silver.</p>
+        </div>
+      </div>
+
+      <div className="relative" id="section-membres-soutien">
+        <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-3">
+          {MEMBRES_SOUTIEN.map((m) => (
+            <CarteTemoignageSoutien key={m.id} m={m} />
+          ))}
+        </div>
       </div>
     </section>
   );
