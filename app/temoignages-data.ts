@@ -31,7 +31,7 @@ export const MOSAIQUE_TEMOIGNAGES: TemoignageMosaiqueItem[] = [
 export const MEMBRES_FELR: TemoignageMembreFelr[] = [
     {
       id: "felr-10",
-      prenom: "FANNY",
+      prenom: "Fanny",
       nom: "K.",
       fonction: "oratrice",
       photo: "/temoignages/felr/FANNY.jpg",
@@ -59,7 +59,7 @@ C’est important pour moi de contribuer à leur croissance, à leur confiance, 
 
   {
     id: "felr-7",
-    prenom: "HÉLÈNE",
+    prenom: "Hélène",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/Hélène.jpg",
@@ -70,7 +70,7 @@ Devenir membre soutien de FELR est devenue une évidence pour moi, un engagement
 
   {
     id: "felr-6",
-    prenom: "GENEVIEVE",
+    prenom: "Geneviève",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/GENEVIEVE.jpg",
@@ -84,7 +84,7 @@ En tant que membre soutien, mon engagement est une manière concrète de contrib
 
   {
     id: "felr-13",
-    prenom: "HENRICK",
+    prenom: "Henrick",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/HENRICK.png",
@@ -104,7 +104,7 @@ Je crois profondément au potentiel des femmes entrepreneures de La Réunion et 
 
   {
     id: "felr-8",
-    prenom: "PHILIPPE",
+    prenom: "Philippe",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/PHILIPPE.jpg",
@@ -122,7 +122,7 @@ Ma micro-entreprise a un an d’existence et j’ai choisi de me spécialiser da
 
   {
     id: "felr-15",
-    prenom: "ABDOUL",
+    prenom: "Abdoul",
     nom: "K.",
     fonction: "orateur",
     photo: "/temoignages/felr/ABDOUL.jpeg",
@@ -140,7 +140,7 @@ L'engagement de membre soutien de l'association je le fais parce que je me rappe
 
   {
     id: "felr-9",
-    prenom: "MICKAELLE",
+    prenom: "Mickaelle",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/MICKAELLE.jpg",
@@ -158,7 +158,7 @@ Ce sont de belles personnes avec des valeurs comme l'entraide, le respect, la si
 
   {
     id: "felr-3",
-    prenom: "NICOLE",
+    prenom: "Nicole",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/NICOLE.jpg",
@@ -188,7 +188,7 @@ o	Je nourris un besoin profond : celui de soutenir, d’inspirer et d’ouvrir l
 
   {
     id: "felr-1",
-    prenom: "ADELINE",
+    prenom: "Adeline",
     nom: "L.",
     fonction: "oratrice",
     photo: "/temoignages/felr/ADELINE.jpg",
@@ -205,7 +205,7 @@ o	Je nourris un besoin profond : celui de soutenir, d’inspirer et d’ouvrir l
 
   {
     id: "felr-5",
-    prenom: "JULIE",
+    prenom: "Julie",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/JULIE.jpg",
@@ -224,7 +224,7 @@ Ce qui me motive : aider les entrepreneuses, en particulie`,
 
   {
     id: "felr-14",
-    prenom: "GISÈLE",
+    prenom: "Gisèle",
     nom: "K.",
     fonction: "Coach bien être",
     photo: "/temoignages/felr/GISELE.jpeg",
@@ -237,7 +237,7 @@ Longue vie à ce réseau qui illumine les femmes et leurs ambitions ! Je suis Gi
 
   {
     id: "felr-4",
-    prenom: "CAROLE",
+    prenom: "Carole",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/CAROLE.jpg",
@@ -249,7 +249,7 @@ Je suis partenaire de ce 2ème  anniversaire, je célèbre deux ans d’audace, 
 
   {
     id: "felr-17",
-    prenom: "STELLA",
+    prenom: "Stella",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/STELLA.jpeg",
@@ -265,7 +265,7 @@ Aujourd'hui, je tremble beaucoup moins avant de parler en public et je suis fiè
 
   {
     id: "felr-2",
-    prenom: "MICHELINE",
+    prenom: "Micheline",
     nom: "R.",
     fonction: "actif",
     photo: "/temoignages/felr/MICHELINE.jpg",
@@ -295,7 +295,7 @@ On y trouve des pairs, des confidences de chefs d’entreprise, des solutions, d
 
   {
     id: "felr-18",
-    prenom: "SANDRA",
+    prenom: "Sandra",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/SANDRA.jpeg",
@@ -309,7 +309,7 @@ Patricia BOUCARD, présidente de l’ Association, fait vivre ce mouvement dans 
 
                 {
     id: "felr-11",
-    prenom: "GRAZIELLA",
+    prenom: "Graziella",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/GRAZIELLA.jpg",
@@ -328,7 +328,7 @@ Un espace où l’on parle vision, audace, résilience… mais aussi doutes, ré
 
                   {
     id: "felr-12",
-    prenom: "NAFISSA",
+    prenom: "Nafissa",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/Nafissa.jpg",
@@ -346,7 +346,7 @@ Alors merci FELR.`,
 
   {
     id: "felr-16",
-    prenom: "GAËLLE",
+    prenom: "Gaëlle",
     nom: "K.",
     fonction: "oratrice",
     photo: "/temoignages/felr/GAELLE.jpeg",
@@ -360,14 +360,13 @@ Et j'aime le sérieux du bureau : tout est clair, organisé et bien cadré.
 
 export const MEMBRES_SOUTIEN: TemoignageMembreSoutien[] = [
   {
-    id: "soutien-1",
-    prenom: "ABDOUL",
-    nom: "Dupont",
-    titrePro: "Directeur",
-    entreprise: "Studio Zenith",
-    photo: "/temoignages/soutien/ABDOUL.jpg",
-    temoignage:
-      "",
+    id: "soutien-4",
+    prenom: "MICHELINE",
+    nom: "Nguyen",
+    titrePro: "Responsable Communication",
+    entreprise: "Oceanik",
+    photo: "/temoignages/soutien/MICHELINE.jpg",
+    temoignage: "",
   },
   {
     id: "soutien-2",
@@ -376,73 +375,52 @@ export const MEMBRES_SOUTIEN: TemoignageMembreSoutien[] = [
     titrePro: "Responsable Communication",
     entreprise: "Oceanik",
     photo: "/temoignages/soutien/CAROLE.jpg",
-    temoignage:
-      "",
+    temoignage: "",
   },
-
-
-    {
-    id: "soutien-3",
-    prenom: "GENEVIEVE",
-    nom: "Nguyen",
-    titrePro: "Responsable Communication",
-    entreprise: "Oceanik",
-    photo: "/temoignages/soutien/GENEVIEVE.jpg",
-    temoignage:
-      "",
-  },
-
-
-      {
-    id: "soutien-4",
-    prenom: "MICHELINE",
-    nom: "Nguyen",
-    titrePro: "Responsable Communication",
-    entreprise: "Oceanik",
-    photo: "/temoignages/soutien/MICHELINE.jpg",
-    temoignage:
-      "",
-  },
-
-
-        {
+  {
     id: "soutien-5",
     prenom: "JULIE ET JULIEN DINOT",
     nom: "Nguyen",
     titrePro: "Responsable Communication",
     entreprise: "Oceanik",
     photo: "/temoignages/soutien/JULIE.jpg",
-    temoignage:
-      "",
+    temoignage: "",
   },
-
-
-          {
+  {
     id: "soutien-6",
     prenom: "HENRICK",
     nom: "Nguyen",
     titrePro: "Responsable Communication",
     entreprise: "Oceanik",
     photo: "/temoignages/soutien/HENRICK.jpg",
-    temoignage:
-      "",
+    temoignage: "",
   },
-
-  
-          {
+  {
+    id: "soutien-3",
+    prenom: "GENEVIEVE",
+    nom: "Nguyen",
+    titrePro: "Responsable Communication",
+    entreprise: "Oceanik",
+    photo: "/temoignages/soutien/GENEVIEVE.jpg",
+    temoignage: "",
+  },
+  {
+    id: "soutien-1",
+    prenom: "ABDOUL",
+    nom: "Dupont",
+    titrePro: "Directeur",
+    entreprise: "Studio Zenith",
+    photo: "/temoignages/soutien/ABDOUL.jpg",
+    temoignage: "",
+  },
+  {
     id: "soutien-7",
-    prenom: "  MAGALIE",
+    prenom: "MAGALIE",
     nom: "Nguyen",
     titrePro: "Responsable Communication",
     entreprise: "Oceanik",
     photo: "/temoignages/soutien/MAGALIE.jpg",
-    temoignage:
-      "",
+    temoignage: "",
   },
-
-
-
-
-
 ];
 

@@ -133,7 +133,7 @@ const DATA: Record<YearKey, YearData> = { // const NOM: TYPE = VALEUR;
     chiffres: [
       { label: "Ateliers", valeur: 179 },
       { label: "Membres", valeur: 106 },
-      { label: "Soutien et Partenaires", valeur: 21 },
+      { label: "Soutiens et Partenaires", valeur: 21 },
     ],
     // Carrousel 1 : tes m?dias ?classiques?
     momentsForts: MEDIAS_2025,
@@ -155,7 +155,7 @@ const DATA: Record<YearKey, YearData> = { // const NOM: TYPE = VALEUR;
         chiffres: [
           { label: "Ateliers", valeur: 15 },
           { label: "Membres", valeur: 17 },
-          { label: "Soutien et partenaire", valeur: 5 },
+          { label: "Soutiens et partenaires", valeur: 5 },
         ],
       },
       {
@@ -163,7 +163,7 @@ const DATA: Record<YearKey, YearData> = { // const NOM: TYPE = VALEUR;
         chiffres: [
           { label: "Ateliers", valeur: 192 },
           { label: "Membres", valeur: 95 },
-          { label: "Soutien et partenaire", valeur: 28 },
+          { label: "Soutiens et partenaires", valeur: 28 },
         ],
       },
     ],
@@ -476,7 +476,7 @@ useEffect(() => {
         onClick={() => setAutoScroll((prev) => !prev)} /*on passe une fonction qui renvoie son inverse */
         className="fixed bottom-6 right-6 z-50 rounded-full bg-black text-white px-4 py-2 text-sm shadow-lg hover:bg-gray-900 active:scale-95 transition"
       >
-        {autoScroll ? "D�sactiver le d?filement auto" : "Activer le d�filement auto"}
+        {autoScroll ? "Désactiver le d?filement auto" : "Activer le défilement auto"}
       </button>
       {/* HERO */}
       <section
@@ -554,7 +554,7 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
 
       <SectionNuageMots />
       <div className="mx-auto max-w-7xl px-6 pb-2 flex justify-center">
-        <h2 className="text-4xl md:text-5xl font-serif leading-tight text-[#E2A429]">Nos chiffres cles</h2>
+        <h2 className="text-4xl md:text-5xl font-serif leading-tight text-[#E2A429]">Nos chiffres clés</h2>
       </div>
       {/* Switch Ann?e au-dessus des chiffres */}
       <div className="mx-auto max-w-7xl px-6 pb-4 flex justify-center">
@@ -743,12 +743,30 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
             <li>
               <span className="font-semibold">Vos droits :</span> accès, rectification, effacement, limitation,
                 opposition, portabilité, retrait du consentement. Pour exercer vos droits ou toute question RGPD :{" "}
-              <a className="text-[#E2A429] font-semibold" href="mailto:contact@felr.re">
-                contact@felr.re
+              <a className="text-[#E2A429] font-semibold" href="mailto:felr.contact@gmail.com">
+                felr.contact@gmail.com
               </a>
                 . Vous pouvez également saisir la CNIL.
             </li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <section className="mx-auto max-w-7xl px-6 pb-16">
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white/80 px-6 py-4 shadow-sm">
+        <p className="text-sm md:text-base text-slate-800">
+          Site conçu et développé par <span className="font-semibold">TigerSoft EI</span>.
+        </p>
+        <div className="relative h-10 w-32">
+          <Image
+            src="/temoignages/felr/tigersoft.PNG"
+            alt="Logo TigerSoft EI"
+            fill
+            sizes="128px"
+            className="object-contain"
+            priority
+          />
         </div>
       </div>
     </section>
@@ -973,7 +991,7 @@ function SectionCollectifFelr() {
           transition={{ duration: 0.35 }}
           className="text-4xl md:text-5xl font-serif text-[#E2A429] text-center mb-10"
         >
-          Temoignage FELR
+          Temoignages FELR
         </motion.h3>
 
         <div className="grid lg:grid-cols-2 gap-10 items-start">
@@ -1041,7 +1059,7 @@ function SectionCollectifFelr() {
             transition={{ duration: 0.35 }}
             className="text-4xl md:text-5xl font-serif text-[#E2A429] text-center mb-6"
           >
-            2025 : événement White & Silver
+            2025 : Événement White & Silver
           </motion.h3>
           <div className="grid lg:grid-cols-2 gap-10 mb-8 text-gray-800 text-left">
             <div className="space-y-4">
