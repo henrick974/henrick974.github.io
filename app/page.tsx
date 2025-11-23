@@ -210,6 +210,7 @@ export default function PageEvenement() {
 
   // ?? quelle image est "en gros plan" pendant le d?filement auto
   const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // cr?? la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
+  const currentStepRef = useRef(0); // m?morise l'?tape auto-scroll pour reprise
   const currentAutoMedia = useMemo(() => {
     const pool = [...data.momentsForts, ...data.momentsFortsSecondaire];
     return pool.find((m) => m.id === currentAutoMediaId) ?? null;
