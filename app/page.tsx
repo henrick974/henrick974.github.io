@@ -169,7 +169,7 @@ export default function PageEvenement() {
   const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque annÃ©e juste en haut
 
   // ðŸ‘‰ Ã©tat pour activer / activer le scroll auto
-  const [autoScroll, setAutoScroll] = useState(true); // crÃ©Ã© la fonction setAutoScroll et le met a false
+  const [autoScroll, setAutoScroll] = useState(true); // crÃ©Ã© la fonction setAutoScroll et le met a true
 
   // ðŸ‘‰ quelle image est "en gros plan" pendant le dÃ©filement auto
   const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // crÃ©Ã© la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
@@ -194,7 +194,7 @@ useEffect(() => {
 
   // 🧭 Plan complet du défilement
   const steps: AutoStep[] = [
-    { kind: "hero", durationMs: 90_000 }, // 1min30 sur le HERO
+    { kind: "hero", durationMs: 30_000 }, // 30s sur le HERO
     { kind: "nuage", durationMs: 5_000 }, // 5s nuage
     { kind: "year-chiffres", year: "2023-2024", durationMs: 5_000 },
     { kind: "year-images", year: "2023-2024" },
@@ -839,6 +839,16 @@ function BandeauMosaiqueCollectif({ images }: { images: TemoignageMosaiqueItem[]
 }
 
 function CarteTemoignageFelr({ m }: { m: TemoignageMembreFelr }) {
+  const [showFull, setShowFull] = useState(false);
+
+  const MAX_CHARS = 260; // ajuste cette valeur pour avoir ~4 lignes
+  const isLong = m.temoignage.length > MAX_CHARS;
+
+  const texteAffiche =
+    showFull || !isLong
+      ? m.temoignage
+      : m.temoignage.slice(0, MAX_CHARS).trimEnd() + "...";
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 12 }}
@@ -850,6 +860,7 @@ function CarteTemoignageFelr({ m }: { m: TemoignageMembreFelr }) {
       <div className="px-4 pt-4 text-center font-semibold text-base text-gray-800">
         {m.prenom}
       </div>
+
       <div className="relative h-56 bg-gray-100">
         <Image
           src={m.photo}
@@ -859,12 +870,26 @@ function CarteTemoignageFelr({ m }: { m: TemoignageMembreFelr }) {
           className="object-contain"
         />
       </div>
+
       <div className="p-4">
-        <p className="text-sm text-gray-600 leading-relaxed mt-2">{m.temoignage}</p>
+        <p className="text-sm text-gray-600 leading-relaxed mt-2">
+          {texteAffiche}
+        </p>
+
+        {isLong && (
+          <button
+            type="button"
+            onClick={() => setShowFull((v) => !v)}
+            className="mt-2 text-xs font-semibold text-rose-600 hover:underline"
+          >
+            {showFull ? "Voir moins" : "Voir plus"}
+          </button>
+        )}
       </div>
     </motion.article>
   );
 }
+
 
 function CarteTemoignageSoutien({ m }: { m: TemoignageMembreSoutien }) {
   return (
