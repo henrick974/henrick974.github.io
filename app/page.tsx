@@ -82,6 +82,8 @@ const WORD_CLOUD = [
     mots: ["Fun"],
   },
 ];
+
+const HEADER_MARQUEE_TEXT = "Bienvenue chez FELR - Femmes Entrepreneures et Leaders de La Reunion";
    /* 2025 & 2024 & 2023 sont des YearData et on les initialises ci-dessous */
 const DATA: Record<YearKey, YearData> = { // const NOM: TYPE = VALEUR;
                                                           // Record<ClÃ©, Valeur> en gros c'est pour dire avant c'est soit 2024 2025 ou 2023 
@@ -430,6 +432,7 @@ useEffect(() => {
    * ============================================
    */
   return (
+    <>
     <main className="min-h-screen bg-gradient-to-b from-[#fff7ed] to-white">
       {/* Bouton toggle défilement auto */}
       <button
@@ -443,6 +446,11 @@ useEffect(() => {
       <section
       id="section-hero" 
       className="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-10">
+        <div className="text-center mb-8">
+          <h1 className="text-4xl md:text-5xl font-serif leading-tight text-[#E2A429]">
+            Au coeur de FELR : la voix de sa fondatrice
+          </h1>
+        </div>
         <div className="grid lg:grid-cols-2 gap-10 items-center">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -467,59 +475,68 @@ useEffect(() => {
             transition={{ duration: 0.6, delay: 0.05 }}
             className="space-y-4 text-gray-800"
           >
-            <h1 className="text-4xl md:text-5xl font-serif leading-tight">Bienvenue chez FELR</h1>
+           
             <p className="text-lg leading-relaxed">
-              En 2023, j'ai cree FELR pour repondre a un besoin reel : offrir aux femmes entrepreneures un espace ou parler vrai,
-              apprendre, s'elever et oser prendre leur place. Un lieu ou l'on grandit, ou l'on se soutient, ou l'on s'ouvre au monde et a soi-meme.
+              En 2023, j’ai créé FELR pour répondre à un besoin réel :
+              offrir aux femmes entrepreneures un espace où parler vrai, apprendre, s’élever et oser prendre leur place.
+              Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au monde et à soi-même.
+
             </p>
             <p className="text-lg leading-relaxed font-semibold">
-              Mais laisse-moi etre transparente : FELR n'est pas fait pour tout le monde.
+              Mais laisse-moi être transparente :
+              FELR n’est pas fait pour tout le monde.
             </p>
             <div className="space-y-2">
-              <p className="text-lg leading-relaxed">FELR s'adresse aux femmes qui ont envie de :</p>
+              <p className="text-lg leading-relaxed">   FELR s’adresse aux femmes qui ont envie de :</p>
               <ul className="list-disc pl-5 space-y-1 text-base">
-                <li>evoluer, meme si cela demande de sortir de leur zone de confort,</li>
-                <li>travailler sur leur posture, leur prise de parole, leur presence,</li>
-                <li>apprendre, tester, experimenter, se challenger,</li>
-                <li>s'engager dans une communaute vivante, bienveillante et exigeante,</li>
-                <li>tisser des liens reels, durables et puissants,</li>
-                <li>devenir, pas a pas, une leader affirmee.</li>
+                <li>évoluer, même si cela demande de sortir de leur zone de confort,</li>
+                <li>travailler sur leur posture, leur prise de parole, leur présence,</li>
+                <li>apprendre, tester, expérimenter, se challenger,</li>
+                <li>s’engager dans une communauté vivante, bienveillante et exigeante,</li>
+                <li>tisser des liens réels, durables et puissants,</li>
+                <li>devenir, pas à pas, une leader affirmée.</li>
               </ul>
             </div>
             <p className="text-lg leading-relaxed">
-              Si tu cherches un simple reseau ou l'on vient "consommer" un evenement et repartir, alors FELR n'est pas l'endroit pour toi.
+              Si tu cherches un simple réseau où l'on vient "consommer" un événement et repartir, alors FELR n'est pas l'endroit pour toi.
               Ici, on avance. On se transforme. On participe. On contribue. On joue collectif.
             </p>
             <p className="text-lg leading-relaxed">
-              En deux ans, FELR est devenu un mouvement reconnu dans l'ecosysteme entrepreneurial feminin de La Reunion.
-              Un espace ou les femmes entrepreneures s'ouvrent, evoluent, osent et incarnent peu a peu leur leadership.
+              En deux ans, FELR est devenu un mouvement reconnu dans l'écosystème entrepreneurial féminin de La éunion.
+              Un espace où les femmes entrepreneures s'ouvrent, évoluent, osent et incarnent peu à peu leur leadership.
             </p>
             <p className="text-lg leading-relaxed">
               Si tu te sens appelee par cette energie, si tu es prete a te developper personnellement et professionnellement,
               si tu veux faire partie d'un collectif qui eleve autant qu'il soutient... Alors bienvenue chez FELR. Bienvenue chez toi.
             </p>
-            <p className="text-base font-semibold">Par Patricia Boucard - Presidente & Fondatrice</p>
+            <p className="text-base font-semibold">Par Patricia BOUCARD - Présidente & Fondatrice</p>
 
-            {/* Switch Année */}
-            <div className="mt-6 inline-flex rounded-full border bg-white overflow-hidden shadow justify-center items-center">
-              {(["2025", "2023-2024"] as const).map((y) => (
-                <button
-                  key={y}
-                  onClick={() => setYear(y)}
-                  className={`px-6 py-2 text-base transition ${
-                    year === y ? "bg-black text-white" : "text-gray-700 hover:bg-gray-100"
-                  }`}
-                  aria-pressed={year === y}
-                >
-                  {y}
-                </button>
-              ))}
-            </div>
           </motion.div>
         </div>
       </section>
 
       <SectionNuageMots />
+      <div className="mx-auto max-w-7xl px-6 pb-2 flex justify-center">
+        <h2 className="text-2xl md:text-3xl font-serif text-[#E2A429]">Nos chiffres cles</h2>
+      </div>
+      {/* Switch Ann�e au-dessus des chiffres */}
+      <div className="mx-auto max-w-7xl px-6 pb-4 flex justify-center">
+        <div className="inline-flex rounded-full border bg-white overflow-hidden shadow">
+          {(["2025", "2023-2024"] as const).map((y) => (
+            <button
+              key={y}
+              onClick={() => setYear(y)}
+              className={`px-6 py-2 text-base transition ${
+                year === y ? "bg-black text-white" : "text-gray-700 hover:bg-gray-100"
+              }`}
+              aria-pressed={year === y}
+            >
+              {y}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* CHIFFRES */}
       <div id="section-chiffres">
         {data.chiffresFusionnes ? (
@@ -613,6 +630,21 @@ useEffect(() => {
       </section>
 
     </main>
+
+    <style jsx global>{`
+      @keyframes marquee {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+      .animate-marquee {
+        animation: marquee 6s linear infinite;
+      }
+    `}</style>
+    </>
   );
 }
 
@@ -681,7 +713,7 @@ function SectionNuageMots() {
     className="bg-gradient-to-r from-amber-100/60 via-white to-rose-100/60 py-10">
       <div className="mx-auto max-w-6xl px-6 space-y-6">
         <div className="text-center">
-          <p className="text-2xl md:text-3xl font-serif text-gray-900">Nuage d&apos;intentions FELR</p>
+          <p className="text-2xl md:text-3xl font-serif text-gray-900">Notre ambition </p>
         </div>
         <div className="grid gap-4 md:grid-cols-2">
           {WORD_CLOUD.map((bloc) => (
@@ -1179,3 +1211,5 @@ function MediaView({ m }: { m: Media }) {
     <video src={m.src} controls autoPlay className="w-full h-auto object-contain bg-black" />
   );
 }
+
+
