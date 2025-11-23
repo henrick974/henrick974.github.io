@@ -475,7 +475,7 @@ useEffect(() => {
         onClick={() => setAutoScroll((prev) => !prev)} /*on passe une fonction qui renvoie son inverse */
         className="fixed bottom-6 right-6 z-50 rounded-full bg-black text-white px-4 py-2 text-sm shadow-lg hover:bg-gray-900 active:scale-95 transition"
       >
-        {autoScroll ? "D?sactiver le d?filement auto" : "Activer le d?filement auto"}
+        {autoScroll ? "Désactiver le d?filement auto" : "Activer le défilement auto"}
       </button>
       {/* HERO */}
       <section
