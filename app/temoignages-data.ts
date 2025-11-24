@@ -339,9 +339,7 @@ Un espace où l’on parle vision, audace, résilience… mais aussi doutes, ré
     fonction: "oratrice",
     photo: "/temoignages/felr/Nafissa.jpg",
     temoignage:
-            `Pourquoi FELR
-
-Je me suis inscrite chez FELR grâce aux recommandations de Marjorie ORANGE. Et je dois dire que ça a été la meilleure décision que j’ai prise depuis mon entree dans l’entreprenariat en 2024.
+            `Je me suis inscrite chez FELR grâce aux recommandations de Marjorie ORANGE. Et je dois dire que ça a été la meilleure décision que j’ai prise depuis mon entree dans l’entreprenariat en 2024.
 
 J’y ai trouvé une sororité, de l’entraide, un accompagnement ciblé, une montée en compétence au travers des ateliers  et un soutien indéfectible. Je suis quelqu’un de très solaire, positive et qui paraît toujours très forte. J’ai eu l’habitude de cacher mes émotions depuis que j’ai 5 ans peut être à cause de mon histoire de vie pas très réjouissante. 
 

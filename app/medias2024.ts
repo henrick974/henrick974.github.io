@@ -2,16 +2,6 @@
 
 const MEDIAS_2024_ALL: Media[] = [
     {
-        "titre":  "VIDEO",
-        "tags":  [
-                     "2023-2024",
-                     "VIDEO"
-                 ],
-        "type":  "video",
-        "src":  "/medias/MEDIAS_2024/Atelier.mp4",
-        "id":  "2024-auto-1"
-    },
-    {
         "titre":  "SEPT2023",
         "tags":  [
                      "2023-2024",
@@ -30,16 +20,6 @@ const MEDIAS_2024_ALL: Media[] = [
         "type":  "image",
         "src":  "/medias/2023/OCT2023/IMG_7192.jpeg",
         "id":  "2024-auto-3"
-    },
-    {
-        "titre":  "JANV2024",
-        "tags":  [
-                     "2023-2024",
-                     "JANV2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/JANV2024/IMG_0524.jpeg",
-        "id":  "2024-auto-4"
     },
     {
         "titre":  "MARS2024",
@@ -412,6 +392,16 @@ const MEDIAS_2024_ALL: Media[] = [
         "id":  "2024-auto-41"
     },
     {
+        "titre":  "VIDEO",
+        "tags":  [
+                     "2023-2024",
+                     "VIDEO"
+                 ],
+        "type":  "video",
+        "src":  "/medias/MEDIAS_2024/Atelier.mp4",
+        "id":  "2024-auto-1"
+    },
+    {
         "titre":  "SEPT2024",
         "tags":  [
                      "2023-2024",
@@ -460,16 +450,6 @@ const MEDIAS_2024_ALL: Media[] = [
         "type":  "image",
         "src":  "/medias/2023/SEPT2024/Capture d’écran 2024-09-18 à 18.28.50.jpg",
         "id":  "2024-auto-46"
-    },
-    {
-        "titre":  "SEPT2024",
-        "tags":  [
-                     "2023-2024",
-                     "SEPT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/SEPT2024/Capture d’écran 2024-09-20 à 14.34.50.jpg",
-        "id":  "2024-auto-47"
     },
     {
         "titre":  "VIDEO",
@@ -590,56 +570,6 @@ const MEDIAS_2024_ALL: Media[] = [
         "type":  "image",
         "src":  "/medias/2023/OCT2024/8B1A5581-Modifier.jpg",
         "id":  "2024-auto-59"
-    },
-    {
-        "titre":  "OCT2024",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2024/Capture d’écran 2024-09-30 à 12.12.56.jpg",
-        "id":  "2024-auto-60"
-    },
-    {
-        "titre":  "OCT2024",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2024/Capture d’écran 2024-09-30 à 12.13.32.jpg",
-        "id":  "2024-auto-61"
-    },
-    {
-        "titre":  "OCT2024",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2024/Capture d’écran 2024-09-30 à 12.15.58.jpg",
-        "id":  "2024-auto-62"
-    },
-    {
-        "titre":  "OCT2024",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2024/Capture d’écran 2024-09-30 à 17.05.07.jpg",
-        "id":  "2024-auto-63"
-    },
-    {
-        "titre":  "OCT2024",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2024/Capture d’écran 2024-09-30 à 19.58.21.jpg",
-        "id":  "2024-auto-64"
     },
     {
         "titre":  "OCT2024",
@@ -851,16 +781,7 @@ const MEDIAS_2024_ALL: Media[] = [
         "src":  "/medias/2023/OCT2024/Gala-44.jpg",
         "id":  "2024-auto-85"
     },
-    {
-        "titre":  "OCT2024",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2024/Gala-5.jpg",
-        "id":  "2024-auto-86"
-    },
+   
     {
         "titre":  "OCT2024",
         "tags":  [
@@ -881,16 +802,7 @@ const MEDIAS_2024_ALL: Media[] = [
         "src":  "/medias/2023/OCT2024/Gala-7.jpg",
         "id":  "2024-auto-88"
     },
-    {
-        "titre":  "OCT2024",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2024/Gala-8.jpg",
-        "id":  "2024-auto-89"
-    },
+    
     {
         "titre":  "OCT2024",
         "tags":  [

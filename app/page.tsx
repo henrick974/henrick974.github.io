@@ -201,6 +201,31 @@ export default function PageEvenement() {
     const pool = [...data.momentsForts, ...data.momentsFortsSecondaire];
     return pool.find((m) => m.id === currentAutoMediaId) ?? null;
   }, [data, currentAutoMediaId]);
+
+  // Lecture auto des vid�os uniquement pendant l'autoscroll
+  useEffect(() => {
+    const videos = Array.from(
+      document.querySelectorAll<HTMLVideoElement>("video[data-autoscroll-video]")
+    );
+
+    videos.forEach((v) => {
+      v.pause();
+      v.currentTime = 0;
+    });
+
+    if (!currentAutoMediaId || !autoScroll) return;
+
+    const currentVideo = document.querySelector<HTMLVideoElement>(
+      `[data-autoscroll-id="${currentAutoMediaId}"] video`
+    );
+
+    if (currentVideo) {
+      currentVideo.currentTime = 0;
+      currentVideo.play().catch(() => {
+        /* ignore autoplay errors */
+      });
+    }
+  }, [currentAutoMediaId, autoScroll]);
 // ?? effet qui fait d?filer, ?tape par ?tape
 useEffect(() => {
   if (!autoScroll) {
@@ -228,7 +253,7 @@ useEffect(() => {
 
     // Scroll lent sur la section Temoignages FELR
     { kind: "anchor", id: "section-temoignage-felr", durationMs: 4_000 },
-    { kind: "temoignages", perItemMs: 3_000 },
+    { kind: "temoignages", perItemMs: 2_000 },
 
     // Puis on passe aux contenus 2025
     { kind: "year-chiffres", year: "2025", durationMs: 5_000 },
@@ -237,7 +262,7 @@ useEffect(() => {
     { kind: "partners", perItemMs: 2200 },
     { kind: "anchor", id: "osez-felr", durationMs: 12_000 },
     { kind: "anchor", id: "section-temoignage-felr", durationMs: 4_000 },
-    { kind: "temoignages", perItemMs: 3_000 },
+    { kind: "temoignages", perItemMs: 2_000 },
   ];
 
   let cancelled = false;
@@ -559,12 +584,12 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
             <div className="space-y-2">
               <p className="text-lg leading-relaxed">   FELR s'adresse aux femmes qui ont envie de :</p>
               <ul className="list-disc pl-5 space-y-1 text-base">
-                <li>évoluer, même si cela demande de sortir de leur zone de confort,</li>
-                <li>travailler sur leur posture, leur prise de parole, leur présence,</li>
-                <li>apprendre, tester, expérimenter, se challenger,</li>
-                <li>s'engager dans une communauté vivante, bienveillante et exigeante,</li>
-                <li>tisser des liens réels, durables et puissants,</li>
-                <li>devenir, pas à pas, une leader affirmée.</li>
+                <li>Évoluer, même si cela demande de sortir de leur zone de confort,</li>
+                <li>Travailler sur leur posture, leur prise de parole, leur présence,</li>
+                <li>Apprendre, tester, expérimenter, se challenger,</li>
+                <li>S'engager dans une communauté vivante, bienveillante et exigeante,</li>
+                <li>Tisser des liens réels, durables et puissants,</li>
+                <li>Devenir, pas à pas, une leader affirmée.</li>
               </ul>
             </div>
             <p className="text-lg leading-relaxed">
@@ -709,7 +734,7 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
                 - Toutes celles et ceux qui contribuent, de près ou de loin, à faire grandir FELR avec bienveillance, engagement et ambition.
               </p>
             </div>
-            <p>FELR est née d'un besoin? Mais FELR grandit grâce à vous.</p>
+            <p>FELR est née d'un besoin ? Mais FELR grandit grâce à vous.</p>
             <p>
               Merci d'incarner, avec moi, une vision d'un leadership féminin plus ouvert, plus humain et plus affirmé.
             </p>
@@ -824,12 +849,12 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
         <p className="text-sm md:text-base text-slate-800">
           Site conçu et développé par <span className="font-semibold">TigerSoft EI</span>.
         </p>
-        <div className="relative h-10 w-32">
+        <div className="relative h-12 w-40">
           <Image
             src="/temoignages/felr/tigersoft.PNG"
             alt="Logo TigerSoft EI"
             fill
-            sizes="128px"
+            sizes="160px"
             className="object-contain"
             priority
           />
@@ -952,26 +977,26 @@ function SectionChiffresFusion({
 function SectionNuageMots() {
   const clouds = [
     {
-      titre: "Elan interieur et posture",
-      mots: ["Depassement de soi", "Prise de parole", "Audace", "Changement", "Responsabilite"],
+      titre: "Élan intérieur et posture",
+      mots: ["épassement de soi", "Prise de parole", "Audace", "Changement", "Responsabilité"],
       colorClass: "cloud-word-gold",
       bg: "from-amber-50/80 via-white to-amber-100/60 border-amber-200",
     },
     {
-      titre: "Croissance & evolution",
-      mots: ["Apprentissage", "Evolution", "Developpement personnel", "Developpement professionnel"],
+      titre: "Croissance & évolution",
+      mots: ["Apprentissage", "Évolution", "développement personnel", "développement professionnel"],
       colorClass: "cloud-word-blue",
       bg: "from-sky-50/80 via-white to-sky-100/60 border-sky-200",
     },
     {
-      titre: "Ouverture & relation a l'autre",
-      mots: ["S'ouvrir", "Ouverture aux autres", "Connexion", "Entraide", "Partage", "Partenariat", "Reseau"],
+      titre: "Ouverture & relation à l'autre",
+      mots: ["S'ouvrir", "Ouverture aux autres", "Connexion", "Entraide", "Partage", "Partenariat", "réseau"],
       colorClass: "cloud-word-purple",
       bg: "from-purple-50/80 via-white to-purple-100/60 border-purple-200",
     },
     {
-      titre: "Energie & plaisir",
-      mots: ["Fun", "Engagement", "Rencontres", "Moments partages", "Joie simple", "Convivialite", "Legerete", "Sourires", "Presence naturelle"],
+      titre: "Énergie & plaisir",
+      mots: ["Fun", "Engagement", "Rencontres", "Moments partagés", "Joie simple", "Convivialité", "Légèreté", "Sourires", "Présence naturelle"],
       colorClass: "cloud-word-orange",
       bg: "from-orange-50/80 via-white to-orange-100/60 border-orange-200",
     },
@@ -1046,7 +1071,7 @@ function SectionCollectifFelr() {
           transition={{ duration: 0.35 }}
           className="text-4xl md:text-5xl font-serif text-[#E2A429] text-center mb-10"
         >
-          Temoignages FELR
+          Témoignages FELR
         </motion.h3>
 
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1086,10 +1111,10 @@ function SectionWhiteSilver() {
           <div className="space-y-2">
             <p className="font-semibold">Au programme :</p>
             <ul className="list-disc pl-5 space-y-1">
-              <li>un espace vibrant dédié aux initiatives féminines locales,</li>
-              <li>des parcours inspirants mis en lumière,</li>
-              <li>un regard affirmé sur la puissance de l'entrepreneuriat au féminin,</li>
-              <li>et une soirée de célébration pour clore l'année dans l'élégance et la cohésion.</li>
+              <li>Un space vibrant dédié aux initiatives féminines locales,</li>
+              <li>Des parcours inspirants mis en lumière,</li>
+              <li>Un regard affirmé sur la puissance de l'entrepreneuriat au féminin,</li>
+              <li>Et une soirée de célébration pour clore l'année dans l'élégance et la cohésion.</li>
             </ul>
           </div>
           <p>Cette journée incarne l'essence même de FELR : révéler, valoriser et faire rayonner les femmes qui transforment notre territoire.</p>
@@ -1523,7 +1548,8 @@ function MediaPreview({
       ) : (
         <video
           src={m.src}
-          autoPlay
+          data-autoscroll-video="true"
+          autoPlay={false}
           muted={false}
           playsInline
           preload="metadata"
