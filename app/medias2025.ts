@@ -271,16 +271,7 @@ const MEDIAS_2025_ALL: Media[] = [
         "type":  "image",
         "src":  "/medias/2025/AVRIL/Capture%20d%E2%80%99%C3%A9cran%202025-04-24%20%C3%A0%2013.29.54.jpg"
     },
-    {
-        "id":  "2025-auto-28",
-        "titre":  "2025 AVRIL",
-        "tags":  [
-                     "2025",
-                     "2025 AVRIL"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/AVRIL/Capture%20d%E2%80%99%C3%A9cran%202025-04-24%20%C3%A0%2013.30.29.jpg"
-    },
+
     {
         "id":  "2025-auto-29",
         "titre":  "2025 AVRIL",
