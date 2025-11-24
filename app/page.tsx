@@ -1524,9 +1524,10 @@ function MediaPreview({
         <video
           src={m.src}
           autoPlay
-          muted
+          muted={false}
           playsInline
           preload="metadata"
+          controls
           className="absolute inset-0 w-full h-full object-contain bg-black"
           onMouseEnter={(e) => (e.currentTarget as HTMLVideoElement).play()}
           onMouseLeave={(e) => {
