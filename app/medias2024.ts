@@ -84,6 +84,8 @@ const MEDIAS_2024_ALL: Media[] = [
   {"titre":"OCT2024","tags":["2023-2024","OCT2024"],"id":"2024-auto-81","type":"image","src":"/medias/2023/OCT2024/Gala-39.jpg"},
   {"titre":"OCT2024","tags":["2023-2024","OCT2024"],"id":"2024-auto-82","type":"image","src":"/medias/2023/OCT2024/Gala-4.jpg"},
   {"titre":"OCT2024","tags":["2023-2024","OCT2024"],"id":"2024-auto-83","type":"image","src":"/medias/2023/OCT2024/Gala-44.jpg"},
+
+  {"titre":"OCT2024","tags":["2023-2024","OCT2024"],"id":"2024-auto-93","type":"video","src":"/medias/MEDIAS_2024/Gala_training.mp4"},
   
 
 
@@ -113,6 +115,6 @@ export const MEDIAS_2024_TIMELINE = [
   {"mois":"AOUT2024","mediaId":"2024-auto-33"},
   {"mois":"SEPT2024","mediaId":"2024-auto-41"},
   {"mois":"OCT2024","mediaId":"2024-auto-50"},
-  {"mois":"NOV2024","mediaId":"2024-auto-93"},
+  {"mois":"OCT2024","mediaId":"2024-auto-93"},
 ];
 

@@ -214,7 +214,8 @@ useEffect(() => {
     | { kind: "year-chiffres"; year: YearKey; durationMs: number }
     | { kind: "year-images"; year: YearKey }
     | { kind: "anchor"; id: string; durationMs: number }
-    | { kind: "temoignages"; perItemMs: number };
+    | { kind: "temoignages"; perItemMs: number }
+    | { kind: "partners"; perItemMs: number };
 
   // ?? Plan complet du d?filement
   const steps: AutoStep[] = [
@@ -222,17 +223,21 @@ useEffect(() => {
     { kind: "nuage", durationMs: 5_000 }, // 5s nuage
     { kind: "year-chiffres", year: "2024-2023", durationMs: 5_000 },
     { kind: "year-images", year: "2024-2023" },
+    { kind: "partners", perItemMs: 2200 },
+    { kind: "anchor", id: "osez-felr", durationMs: 12_000 },
+
+    // Scroll lent sur la section Temoignages FELR
+    { kind: "anchor", id: "section-temoignage-felr", durationMs: 4_000 },
+    { kind: "temoignages", perItemMs: 3_000 },
+
+    // Puis on passe aux contenus 2025
     { kind: "year-chiffres", year: "2025", durationMs: 5_000 },
     { kind: "year-images", year: "2025" },
-
-    // 1 min sur le paragraphe "Temoignage FELR"
-    { kind: "anchor", id: "section-temoignage-felr", durationMs: 60_000 },
-
-    // puis chaque t?moignage FELR 10s
-    { kind: "temoignages", perItemMs: 10_000 },
-
-    { kind: "anchor", id: "section-membres-soutien", durationMs: 20_000 },
-    { kind: "anchor", id: "osez-felr", durationMs: 10_000 },
+    // White & Silver + partenaires, puis Osez + temoignages avant de boucler
+    { kind: "partners", perItemMs: 2200 },
+    { kind: "anchor", id: "osez-felr", durationMs: 12_000 },
+    { kind: "anchor", id: "section-temoignage-felr", durationMs: 4_000 },
+    { kind: "temoignages", perItemMs: 3_000 },
   ];
 
   let cancelled = false;
@@ -358,6 +363,44 @@ useEffect(() => {
       return;
     }
 
+    // ===== etape speciale : PARTENAIRES (section White & Silver) =====
+    if (step.kind === "partners") {
+      setYear("2025");
+      const anchorEl = document.getElementById("section-white-silver");
+      if (anchorEl) {
+        anchorEl.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+      }
+
+      const cards = Array.from(
+        document.querySelectorAll<HTMLElement>("[data-partner-card]")
+      );
+
+      if (!cards.length) {
+        runStep(nextStepIndex);
+        return;
+      }
+
+      let idx = 0;
+      const goToNextPartner = () => {
+        if (cancelled || !autoScroll) return;
+        const el = cards[idx];
+        if (!el) {
+          timeoutId = window.setTimeout(() => runStep(nextStepIndex), step.perItemMs);
+          return;
+        }
+        el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+        idx += 1;
+        if (idx >= cards.length) {
+          timeoutId = window.setTimeout(() => runStep(nextStepIndex), step.perItemMs);
+        } else {
+          timeoutId = window.setTimeout(goToNextPartner, step.perItemMs);
+        }
+      };
+
+      timeoutId = window.setTimeout(goToNextPartner, 600);
+      return;
+    }
+
     // ===== ?tapes par ann?e : CHIFFRES / IMAGES =====
     // Ici, on sait que step = "year-chiffres" ou "year-images"
     setYear(step.year);
@@ -405,6 +448,8 @@ useEffect(() => {
           }
 
           const id = el.dataset.autoscrollId ?? null;
+          const mediaType = el.dataset.mediaType ?? "image";
+          const delay = mediaType === "video" ? 9000 : 2200; // laisse le temps � la vid�o de jouer
           setCurrentAutoMediaId(id); // celle-l? est en "gros plan"
 
           el.scrollIntoView({
@@ -419,9 +464,9 @@ useEffect(() => {
             timeoutId = window.setTimeout(() => {
               setCurrentAutoMediaId(null);
               runStep(nextStepIndex);
-            }, 2000);
+            }, delay);
           } else {
-            timeoutId = window.setTimeout(goToNextImage, 2200); // vitesse actuelle des photos
+            timeoutId = window.setTimeout(goToNextImage, delay); // vitesse actuelle des photos / vid�os
           }
         };
 
@@ -1054,8 +1099,10 @@ function SectionWhiteSilver() {
 
       <div className="relative" id="section-membres-soutien">
         <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-3">
-          {MEMBRES_SOUTIEN.map((m) => (
-            <CarteTemoignageSoutien key={m.id} m={m} />
+          {MEMBRES_SOUTIEN.map((m, idx) => (
+            <div key={m.id} data-partner-card={`partner-${idx}`}>
+              <CarteTemoignageSoutien m={m} />
+            </div>
           ))}
         </div>
       </div>
@@ -1222,6 +1269,7 @@ function SectionMomentsForts({
               <article
                 key={m.id}
                 data-autoscroll-id={m.id}
+                data-media-type={m.type}
                 className={`
                   snap-start shrink-0 w-[92%] md:w-[60%] lg:w-[46%]
                   rounded-2xl overflow-hidden border bg-white shadow-sm
@@ -1357,6 +1405,7 @@ function SectionGalerie({
           <motion.article
             key={m.id}
             data-autoscroll-id={m.id}
+            data-media-type={m.type}
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -1474,6 +1523,7 @@ function MediaPreview({
       ) : (
         <video
           src={m.src}
+          autoPlay
           muted
           playsInline
           preload="metadata"
