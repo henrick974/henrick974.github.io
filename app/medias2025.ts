@@ -12,15 +12,16 @@ const MEDIAS_2025_ALL: Media[] = [
         "src":  "/medias/2025/JANV/892fbdc8-3c2f-4b09-991d-822cb1b31f27.jpg"
     },
     {
-        "id":  "2025-auto-2",
-        "titre":  "2025 JANV",
+        "id":  "2025-video-1",
+        "titre":  "VIDEO",
         "tags":  [
                      "2025",
-                     "2025 JANV"
+                     "VIDEO"
                  ],
-        "type":  "image",
-        "src":  "/medias/2025/JANV/Capture%20d%E2%80%99%C3%A9cran%202025-01-16%20%C3%A0%2018.12.09.jpg"
+        "type":  "video",
+        "src":  "/medias/MEDIAS_2024/SLAM1.mp4"
     },
+
     {
         "id":  "2025-auto-3",
         "titre":  "2025 FEV",
@@ -152,25 +153,16 @@ const MEDIAS_2025_ALL: Media[] = [
         "src":  "/medias/2025/MARS/IMG_4674%202.JPG"
     },
     {
-        "id":  "2025-auto-16",
-        "titre":  "2025 MARS",
+        "id":  "2025-video-2",
+        "titre":  "VIDEO",
         "tags":  [
                      "2025",
-                     "2025 MARS"
+                     "VIDEO"
                  ],
-        "type":  "image",
-        "src":  "/medias/2025/MARS/IMG_4820.JPG"
+        "type":  "video",
+        "src":  "/medias/MEDIAS_2024/SLAM2.mp4"
     },
-    {
-        "id":  "2025-auto-17",
-        "titre":  "2025 MARS",
-        "tags":  [
-                     "2025",
-                     "2025 MARS"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/MARS/IMG_4831.JPG"
-    },
+
     {
         "id":  "2025-auto-18",
         "titre":  "2025 MARS",
@@ -191,26 +183,8 @@ const MEDIAS_2025_ALL: Media[] = [
         "type":  "image",
         "src":  "/medias/2025/MARS/photo%203.jpg"
     },
-    {
-        "id":  "2025-auto-20",
-        "titre":  "2025 MARS",
-        "tags":  [
-                     "2025",
-                     "2025 MARS"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/MARS/photo%204%202.jpg"
-    },
-    {
-        "id":  "2025-auto-21",
-        "titre":  "2025 MARS",
-        "tags":  [
-                     "2025",
-                     "2025 MARS"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/MARS/photo%204.jpg"
-    },
+
+
     {
         "id":  "2025-auto-22",
         "titre":  "2025 AVRIL",
@@ -231,46 +205,8 @@ const MEDIAS_2025_ALL: Media[] = [
         "type":  "image",
         "src":  "/medias/2025/AVRIL/Capture%20d%E2%80%99%C3%A9cran%202025-04-10%20%C3%A0%2017.08.25.jpg"
     },
-    {
-        "id":  "2025-auto-24",
-        "titre":  "2025 AVRIL",
-        "tags":  [
-                     "2025",
-                     "2025 AVRIL"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/AVRIL/Capture%20d%E2%80%99%C3%A9cran%202025-04-16%20%C3%A0%2018.11.51.jpg"
-    },
-    {
-        "id":  "2025-auto-25",
-        "titre":  "2025 AVRIL",
-        "tags":  [
-                     "2025",
-                     "2025 AVRIL"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/AVRIL/Capture%20d%E2%80%99%C3%A9cran%202025-04-23%20%C3%A0%2020.16.58.jpg"
-    },
-    {
-        "id":  "2025-auto-26",
-        "titre":  "2025 AVRIL",
-        "tags":  [
-                     "2025",
-                     "2025 AVRIL"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/AVRIL/Capture%20d%E2%80%99%C3%A9cran%202025-04-24%20%C3%A0%2013.24.54.jpg"
-    },
-    {
-        "id":  "2025-auto-27",
-        "titre":  "2025 AVRIL",
-        "tags":  [
-                     "2025",
-                     "2025 AVRIL"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/AVRIL/Capture%20d%E2%80%99%C3%A9cran%202025-04-24%20%C3%A0%2013.29.54.jpg"
-    },
+
+
 
     {
         "id":  "2025-auto-29",
@@ -292,16 +228,7 @@ const MEDIAS_2025_ALL: Media[] = [
         "type":  "image",
         "src":  "/medias/2025/AVRIL/Graziella%203.jpg"
     },
-    {
-        "id":  "2025-auto-31",
-        "titre":  "2025 AVRIL",
-        "tags":  [
-                     "2025",
-                     "2025 AVRIL"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/AVRIL/IMG_5778.jpg"
-    },
+
     {
         "id":  "2025-auto-32",
         "titre":  "2025 AVRIL",
@@ -322,16 +249,7 @@ const MEDIAS_2025_ALL: Media[] = [
         "type":  "image",
         "src":  "/medias/2025/MAI/Capture%20d%E2%80%99%C3%A9cran%202025-05-05%20%C3%A0%2018.08.03.jpg"
     },
-    {
-        "id":  "2025-auto-34",
-        "titre":  "2025 MAI",
-        "tags":  [
-                     "2025",
-                     "2025 MAI"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/MAI/Capture%20d%E2%80%99%C3%A9cran%202025-05-06%20%C3%A0%2014.07.30.jpg"
-    },
+
     {
         "id":  "2025-auto-35",
         "titre":  "2025 MAI",
@@ -423,26 +341,6 @@ const MEDIAS_2025_ALL: Media[] = [
         "src":  "/medias/2025/JUIN/Capture%20d%E2%80%99%C3%A9cran%202025-06-24%20%C3%A0%2016.07.21.jpg"
     },
     {
-        "id":  "2025-auto-44",
-        "titre":  "2025 JUIN",
-        "tags":  [
-                     "2025",
-                     "2025 JUIN"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/JUIN/Capture%20d%E2%80%99%C3%A9cran%202025-06-24%20%C3%A0%2016.08.19.jpg"
-    },
-    {
-        "id":  "2025-auto-45",
-        "titre":  "2025 JUIN",
-        "tags":  [
-                     "2025",
-                     "2025 JUIN"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/JUIN/Capture%20d%E2%80%99%C3%A9cran%202025-06-24%20%C3%A0%2017.59.18.jpg"
-    },
-    {
         "id":  "2025-auto-46",
         "titre":  "2025 JUIN",
         "tags":  [
@@ -451,16 +349,6 @@ const MEDIAS_2025_ALL: Media[] = [
                  ],
         "type":  "image",
         "src":  "/medias/2025/JUIN/Capture%20d%E2%80%99%C3%A9cran%202025-06-25%20%C3%A0%2018.31.53.jpg"
-    },
-    {
-        "id":  "2025-auto-47",
-        "titre":  "2025 AOUT",
-        "tags":  [
-                     "2025",
-                     "2025 AOUT"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/AOUT/Capture%20d%E2%80%99%C3%A9cran%202025-08-21%20%C3%A0%2019.32.53.jpg"
     },
     {
         "id":  "2025-auto-48",
@@ -531,16 +419,6 @@ const MEDIAS_2025_ALL: Media[] = [
                  ],
         "type":  "image",
         "src":  "/medias/2025/SEPTEMBRE/IMG_2806.JPG"
-    },
-    {
-        "id":  "2025-auto-55",
-        "titre":  "2025 SEPTEMBRE",
-        "tags":  [
-                     "2025",
-                     "2025 SEPTEMBRE"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/SEPTEMBRE/IMG_3059.JPG"
     },
     {
         "id":  "2025-auto-56",
@@ -701,6 +579,16 @@ const MEDIAS_2025_ALL: Media[] = [
                  ],
         "type":  "image",
         "src":  "/medias/2025/OCTOBRE/IMG_4010.JPG"
+    },
+    {
+        "id":  "2025-video-3",
+        "titre":  "VIDEO",
+        "tags":  [
+                     "2025",
+                     "VIDEO"
+                 ],
+        "type":  "video",
+        "src":  "/medias/MEDIAS_2024/SLAM3.mp4"
     },
     {
         "id":  "2025-auto-72",
@@ -980,3 +868,4 @@ export const MEDIAS_2025_TIMELINE = [
         "mediaId":  "2025-auto-89"
     }
 ];
+

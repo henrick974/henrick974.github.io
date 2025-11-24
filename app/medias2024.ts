@@ -1,6 +1,8 @@
 ﻿import type { Media } from './page';
 
 const MEDIAS_2024_ALL: Media[] = [
+
+
     {
         "titre":  "SEPT2023",
         "tags":  [
@@ -11,36 +13,8 @@ const MEDIAS_2024_ALL: Media[] = [
         "src":  "/medias/2023/SEPT2023/3.jpeg",
         "id":  "2024-auto-2"
     },
-    {
-        "titre":  "OCT2023",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2023"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2023/IMG_7192.jpeg",
-        "id":  "2024-auto-3"
-    },
-    {
-        "titre":  "MARS2024",
-        "tags":  [
-                     "2023-2024",
-                     "MARS2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/MARS2024/20240320_181836 copie.jpg",
-        "id":  "2024-auto-5"
-    },
-    {
-        "titre":  "MARS2024",
-        "tags":  [
-                     "2023-2024",
-                     "MARS2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/MARS2024/IMG_0013.jpeg",
-        "id":  "2024-auto-6"
-    },
+
+
     {
         "titre":  "MARS2024",
         "tags":  [
@@ -181,26 +155,7 @@ const MEDIAS_2024_ALL: Media[] = [
         "src":  "/medias/2023/MARS2024/IMG_9328.jpeg",
         "id":  "2024-auto-20"
     },
-    {
-        "titre":  "MARS2024",
-        "tags":  [
-                     "2023-2024",
-                     "MARS2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/MARS2024/IMG_9349.jpeg",
-        "id":  "2024-auto-21"
-    },
-    {
-        "titre":  "AVRIL2024",
-        "tags":  [
-                     "2023-2024",
-                     "AVRIL2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/AVRIL2024/Capture d’écran 2024-04-03 à 13.38.40.jpg",
-        "id":  "2024-auto-22"
-    },
+   
     {
         "titre":  "AVRIL2024",
         "tags":  [
@@ -211,16 +166,7 @@ const MEDIAS_2024_ALL: Media[] = [
         "src":  "/medias/2023/AVRIL2024/IMG_4585.jpeg",
         "id":  "2024-auto-23"
     },
-    {
-        "titre":  "AVRIL2024",
-        "tags":  [
-                     "2023-2024",
-                     "AVRIL2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/AVRIL2024/IMG_4586.jpeg",
-        "id":  "2024-auto-24"
-    },
+
     {
         "titre":  "MAI2024",
         "tags":  [
@@ -231,16 +177,7 @@ const MEDIAS_2024_ALL: Media[] = [
         "src":  "/medias/2023/MAI2024/662d0530-9620-4fd7-bef7-bc4659090bad.JPG",
         "id":  "2024-auto-25"
     },
-    {
-        "titre":  "MAI2024",
-        "tags":  [
-                     "2023-2024",
-                     "MAI2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/MAI2024/BOUC Annabelle.JPG",
-        "id":  "2024-auto-26"
-    },
+
     {
         "titre":  "MAI2024",
         "tags":  [
@@ -311,26 +248,8 @@ const MEDIAS_2024_ALL: Media[] = [
         "src":  "/medias/2023/JUIN2024/Capture d’écran 2024-07-04 à 20.11.36.jpg",
         "id":  "2024-auto-33"
     },
-    {
-        "titre":  "AOUT2024",
-        "tags":  [
-                     "2023-2024",
-                     "AOUT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/AOUT2024/Capture d’écran 2024-08-01 à 20.04.40.jpg",
-        "id":  "2024-auto-34"
-    },
-    {
-        "titre":  "AOUT2024",
-        "tags":  [
-                     "2023-2024",
-                     "AOUT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/AOUT2024/Capture d’écran 2024-08-07 à 18.47.52.jpg",
-        "id":  "2024-auto-35"
-    },
+
+
     {
         "titre":  "AOUT2024",
         "tags":  [
@@ -351,16 +270,7 @@ const MEDIAS_2024_ALL: Media[] = [
         "src":  "/medias/2023/AOUT2024/Capture d’écran 2024-08-12 à 19.57.51.png",
         "id":  "2024-auto-37"
     },
-    {
-        "titre":  "AOUT2024",
-        "tags":  [
-                     "2023-2024",
-                     "AOUT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/AOUT2024/Capture d’écran 2024-08-21 à 14.20.38.jpg",
-        "id":  "2024-auto-38"
-    },
+
     {
         "titre":  "AOUT2024",
         "tags":  [
@@ -421,16 +331,7 @@ const MEDIAS_2024_ALL: Media[] = [
         "src":  "/medias/2023/SEPT2024/Capture d’écran 2024-09-02 à 18.06.33.jpg",
         "id":  "2024-auto-43"
     },
-    {
-        "titre":  "SEPT2024",
-        "tags":  [
-                     "2023-2024",
-                     "SEPT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/SEPT2024/Capture d’écran 2024-09-11 à 18.44.25.jpg",
-        "id":  "2024-auto-44"
-    },
+
     {
         "titre":  "SEPT2024",
         "tags":  [
@@ -450,16 +351,6 @@ const MEDIAS_2024_ALL: Media[] = [
         "type":  "image",
         "src":  "/medias/2023/SEPT2024/Capture d’écran 2024-09-18 à 18.28.50.jpg",
         "id":  "2024-auto-46"
-    },
-    {
-        "titre":  "VIDEO",
-        "tags":  [
-                     "2023-2024",
-                     "VIDEO"
-                 ],
-        "type":  "video",
-        "src":  "/medias/MEDIAS_2024/SLAM.mp4",
-        "id":  "2024-auto-48"
     },
     {
         "titre":  "SEPT2024",
@@ -591,26 +482,8 @@ const MEDIAS_2024_ALL: Media[] = [
         "src":  "/medias/2023/OCT2024/Gala-10.jpg",
         "id":  "2024-auto-66"
     },
-    {
-        "titre":  "OCT2024",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2024/Gala-11.jpg",
-        "id":  "2024-auto-67"
-    },
-    {
-        "titre":  "OCT2024",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2024/Gala-12.jpg",
-        "id":  "2024-auto-68"
-    },
+
+
     {
         "titre":  "OCT2024",
         "tags":  [
@@ -641,16 +514,7 @@ const MEDIAS_2024_ALL: Media[] = [
         "src":  "/medias/2023/OCT2024/Gala-128.jpg",
         "id":  "2024-auto-71"
     },
-    {
-        "titre":  "OCT2024",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2024/Gala-13.jpg",
-        "id":  "2024-auto-72"
-    },
+
     {
         "titre":  "OCT2024",
         "tags":  [
@@ -741,16 +605,7 @@ const MEDIAS_2024_ALL: Media[] = [
         "src":  "/medias/2023/OCT2024/Gala-18.jpg",
         "id":  "2024-auto-81"
     },
-    {
-        "titre":  "OCT2024",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2024/Gala-3.jpg",
-        "id":  "2024-auto-82"
-    },
+
     {
         "titre":  "OCT2024",
         "tags":  [
@@ -782,16 +637,7 @@ const MEDIAS_2024_ALL: Media[] = [
         "id":  "2024-auto-85"
     },
    
-    {
-        "titre":  "OCT2024",
-        "tags":  [
-                     "2023-2024",
-                     "OCT2024"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2023/OCT2024/Gala-6.jpg",
-        "id":  "2024-auto-87"
-    },
+
     {
         "titre":  "OCT2024",
         "tags":  [

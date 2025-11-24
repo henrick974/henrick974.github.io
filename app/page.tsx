@@ -1297,7 +1297,7 @@ function SectionMomentsForts({
                 data-media-type={m.type}
                 className={`
                   snap-start shrink-0 w-[92%] md:w-[60%] lg:w-[46%]
-                  rounded-2xl overflow-hidden border bg-white shadow-sm
+                  rounded-2xl overflow-hidden border bg-white shadow-sm relative
                   transition-transform duration-300
                   ${isActive ? "scale-[1.03] shadow-xl ring-2 ring-rose-200" : ""}
                 `}
@@ -1316,6 +1316,9 @@ function SectionMomentsForts({
                 >
                   <MediaPreview m={m} ratio="aspect-[4/3]" hoverZoom />
                 </motion.div>
+                <div className="absolute bottom-2 right-2 rounded bg-white/80 px-2 py-0.5 text-[10px] font-semibold text-gray-500 shadow-sm">
+                  #{m.id}
+                </div>
                 {m.texte && (
                   <div className="p-4">
                     <p className="text-sm text-gray-600 mt-1">{m.texte}</p>
@@ -1549,12 +1552,17 @@ function MediaPreview({
         <video
           src={m.src}
           data-autoscroll-video="true"
-          autoPlay={false}
-          muted={false}
+          autoPlay
+          muted
           playsInline
           preload="metadata"
           controls
           className="absolute inset-0 w-full h-full object-contain bg-black"
+          onLoadedMetadata={(e) => {
+            const v = e.currentTarget as HTMLVideoElement;
+            v.currentTime = 0;
+            v.play().catch(() => {});
+          }}
           onMouseEnter={(e) => (e.currentTarget as HTMLVideoElement).play()}
           onMouseLeave={(e) => {
             const v = e.currentTarget as HTMLVideoElement;
