@@ -192,8 +192,8 @@ export default function PageEvenement() {
   const [year, setYear] = useState<YearKey>("2025"); // creation de la function setYear qui n'accepte que 2025 ou 2024-2023 et qui as mis 2025 par defaut
   const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque ann?e juste en haut
 
-  // 👉 état pour activer / activer le scroll auto
-  const [autoScroll, setAutoScroll] = useState(true); // créé la fonction setAutoScroll et le met a false
+  // ?? �tat pour activer / activer le scroll auto
+  const [autoScroll, setAutoScroll] = useState(true); // cr�� la fonction setAutoScroll et le met a false
 
   // ?? quelle image est "en gros plan" pendant le d?filement auto
   const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // cr?? la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
@@ -464,7 +464,7 @@ useEffect(() => {
         onClick={() => setAutoScroll((prev) => !prev)} /*on passe une fonction qui renvoie son inverse */
         className="fixed bottom-6 right-6 z-50 rounded-full bg-black text-white px-4 py-2 text-sm shadow-lg hover:bg-gray-900 active:scale-95 transition"
       >
-        {autoScroll ? "Désactiver le d?filement auto" : "Activer le défilement auto"}
+        {autoScroll ? "Désactiver le défilement auto" : "Activer le défilement auto"}
       </button>
       {/* HERO */}
       <section
@@ -512,12 +512,12 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
               FELR n'est pas fait pour tout le monde.
             </p>
             <div className="space-y-2">
-              <p className="text-lg leading-relaxed">   FELR s’adresse aux femmes qui ont envie de :</p>
+              <p className="text-lg leading-relaxed">   FELR s'adresse aux femmes qui ont envie de :</p>
               <ul className="list-disc pl-5 space-y-1 text-base">
                 <li>évoluer, même si cela demande de sortir de leur zone de confort,</li>
                 <li>travailler sur leur posture, leur prise de parole, leur présence,</li>
                 <li>apprendre, tester, expérimenter, se challenger,</li>
-                <li>s’engager dans une communauté vivante, bienveillante et exigeante,</li>
+                <li>s'engager dans une communauté vivante, bienveillante et exigeante,</li>
                 <li>tisser des liens réels, durables et puissants,</li>
                 <li>devenir, pas à pas, une leader affirmée.</li>
               </ul>
@@ -738,46 +738,37 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
         <h2 className="text-3xl md:text-4xl font-serif text-[#E2A429] mb-6">
           Mentions légales & RGPD
         </h2>
-        <div className="space-y-4 text-base leading-relaxed">
-          <p>
-            Le site présente l'activité de l'association Femmes Entrepreneures et Leaders de La Réunion (FELR).
-            Les informations ci-dessous résument les points essentiels du traitement des données personnelles (RGPD).
-          </p>
-          <ul className="list-disc pl-5 space-y-2">
-            <li>
-              <span className="font-semibold">Responsable de traitement :</span>{" "}
-              FEMMES ENTREPRENEURES ET LEADERS DE LA REUNION (FELR).
-            </li>
-            <li>
-              <span className="font-semibold">Finalités :</span> gestion des demandes de contact/inscription,
-              organisation des événements, envoi d'informations liées à FELR, statistiques de visite du site.
-            </li>
-            <li>
-              <span className="font-semibold">Données traitées :</span> identité et coordonnées (nom, prénom,
-                email, téléphone, société), contenu des messages, données de navigation/mesure d'audience.
-            </li>
-            <li>
-              <span className="font-semibold">Bases légales :</span> consentement (formulaires, newsletters) et
-                intérêt légitime (sécurité du site, statistiques).
-            </li>
-            <li>
-              <span className="font-semibold">Destinataires :</span> équipe FELR et prestataires techniques
-                (hébergement / maintenance) uniquement pour les besoins du service.
-            </li>
-            <li>
-              <span className="font-semibold">Durée de conservation :</span> données de contact jusqu'à 3 ans
-                après le dernier échange ; journaux techniques jusqu'à 12 mois ; cookies de mesure d'audience
-                jusqu'à 13 mois.
-            </li>
-            <li>
-              <span className="font-semibold">Vos droits :</span> accès, rectification, effacement, limitation,
-                opposition, portabilité, retrait du consentement. Pour exercer vos droits ou toute question RGPD :{" "}
-              <a className="text-[#E2A429] font-semibold" href="mailto:felr.contact@gmail.com">
-                felr.contact@gmail.com
-              </a>
-                . Vous pouvez également saisir la CNIL.
-            </li>
-          </ul>
+        <div className="grid gap-8 md:grid-cols-2 items-center">
+          <div className="rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm space-y-3">
+            <h3 className="text-xl font-semibold text-slate-900">Telecharger le document</h3>
+            <p className="text-base leading-relaxed text-slate-700">
+              Retrouve l'integralite des Mentions legales & RGPD dans un fichier dedie.
+            </p>
+            <a
+              href="/mentions-legales-rgpd.pdf"
+              download
+              className="inline-flex items-center gap-2 rounded-full bg-black px-4 py-2 text-sm font-semibold text-white shadow hover:bg-gray-900 transition"
+            >
+              Telecharger le PDF
+            </a>
+          </div>
+
+          <Link
+            href="https://www.facebook.com/groups/366121959389854"
+            target="_blank"
+            rel="noreferrer"
+            className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1877F2] text-white shadow">
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 fill-current">
+                <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-2.9h2v-2.2c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2v2h2.3l-.4 2.9h-1.9v7A10 10 0 0 0 22 12Z" />
+              </svg>
+            </div>
+            <div className="space-y-1">
+              <p className="text-lg font-semibold text-slate-900">Suivre notre Actualité</p>
+              
+            </div>
+          </Link>
         </div>
       </div>
     </section>
@@ -1028,7 +1019,7 @@ function SectionWhiteSilver() {
   return (
     <section className="mx-auto max-w-7xl px-6 pb-14" id="section-white-silver">
       <div className="mb-8 text-center">
-        <h2 className="text-4xl md:text-5xl font-serif text-[#E2A429]">Événement White & Silver</h2>
+        <h2 className="text-4xl md:text-5xl font-serif text-[#E2A429]">événement White & Silver</h2>
       </div>
       <div className="grid lg:grid-cols-2 gap-10 mb-8 text-gray-800 text-left items-start">
         <div className="space-y-4">
@@ -1056,7 +1047,7 @@ function SectionWhiteSilver() {
             </ul>
           </div>
           <p>Cette journée incarne l'essence même de FELR : révéler, valoriser et faire rayonner les femmes qui transforment notre territoire.</p>
-          <p>Un rendez-vous signature, fort, lumineux et profondément humain — aux couleurs White & Silver.</p>
+          <p>Un rendez-vous signature, fort, lumineux et profondément humain à aux couleurs White & Silver.</p>
         </div>
       </div>
 
@@ -1108,6 +1099,12 @@ function CarteTemoignageFelr({ m }: { m: TemoignageMembreFelr }) {
 
   const MAX_CHARS = 260; // ajuste cette valeur pour avoir ~4 lignes
   const isLong = m.temoignage.length > MAX_CHARS;
+  const renderWithBreaks = (text: string) =>
+    text
+      .split(/\n|<br\s*\/?>/i)
+      .flatMap((part, idx, arr) =>
+        idx < arr.length - 1 ? [part, <br key={`br-${idx}`} />] : [part]
+      );
 
   const texteAffiche =
     showFull || !isLong
@@ -1138,8 +1135,8 @@ function CarteTemoignageFelr({ m }: { m: TemoignageMembreFelr }) {
       </div>
 
       <div className="p-4">
-        <p className="text-sm text-gray-600 leading-relaxed mt-2">
-          {texteAffiche}
+        <p className="text-sm text-gray-600 leading-relaxed mt-2 text-justify">
+          {renderWithBreaks(texteAffiche)}
         </p>
 
         {isLong && (
@@ -1509,6 +1506,10 @@ function MediaView({ m }: { m: Media }) {
     <video src={m.src} controls autoPlay className="w-full h-auto object-contain bg-black" />
   );
 }
+
+
+
+
 
 
 
