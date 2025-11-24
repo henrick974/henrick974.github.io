@@ -742,14 +742,15 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
           <div className="rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm space-y-3">
             <h3 className="text-xl font-semibold text-slate-900">Telecharger le document</h3>
             <p className="text-base leading-relaxed text-slate-700">
-              Retrouve l'integralite des Mentions legales & RGPD dans un fichier dedie.
+              Retrouve l’intégralité des Mentions legales & RGPD dans un fichier dédié.
             </p>
             <a
               href="/mentions-legales-rgpd.pdf"
               download
               className="inline-flex items-center gap-2 rounded-full bg-black px-4 py-2 text-sm font-semibold text-white shadow hover:bg-gray-900 transition"
             >
-              Telecharger le PDF
+              Télécharger le document
+
             </a>
           </div>
 
@@ -1019,7 +1020,7 @@ function SectionWhiteSilver() {
   return (
     <section className="mx-auto max-w-7xl px-6 pb-14" id="section-white-silver">
       <div className="mb-8 text-center">
-        <h2 className="text-4xl md:text-5xl font-serif text-[#E2A429]">événement White & Silver</h2>
+        <h2 className="text-4xl md:text-5xl font-serif text-[#E2A429]">2025 : Événement White & Silver</h2>
       </div>
       <div className="grid lg:grid-cols-2 gap-10 mb-8 text-gray-800 text-left items-start">
         <div className="space-y-4">
