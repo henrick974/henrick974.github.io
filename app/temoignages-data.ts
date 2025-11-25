@@ -111,7 +111,6 @@ En rejoignant l’association en tant que membre soutien, mon objectif est de co
     photo: "/temoignages/felr/PHILIPPE.jpg",
     temoignage:
             `Mon arrivée chez FELR ?
-
 Elle s’est faite de façon naturelle. Gisèle, mon épouse, était déjà dans l’association, et comme je venais de partir à la retraite, je me suis dit : pourquoi pas ? Notre réseau en métropole est similaire. 
 
 J’ai été conquis dès mon premier atelier : j’ai ressenti une véritable résonance, les mêmes valeurs, la même bienveillance, le même état d’esprit, l’entraide… et une vision énorme, comme une évidence.

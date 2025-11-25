@@ -244,7 +244,7 @@ useEffect(() => {
 
   // ?? Plan complet du d?filement
   const steps: AutoStep[] = [
-    { kind: "hero", durationMs: 30_000 }, // 30s sur le HERO
+    { kind: "hero", durationMs: 10_000 }, // 10s sur le HERO
     { kind: "nuage", durationMs: 5_000 }, // 5s nuage
     { kind: "year-chiffres", year: "2024-2023", durationMs: 5_000 },
     { kind: "year-images", year: "2024-2023" },
