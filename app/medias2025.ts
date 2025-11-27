@@ -942,16 +942,6 @@ const MEDIAS_2025_ALL: Media[] = [
         "src":  "/medias/2025/NOVEMBRE/3b69b2dc-f96d-4b61-a6af-d5b5d4482bf1.jpg"
     },
     {
-        "id":  "2025-auto-92",
-        "titre":  "2025 NOVEMBRE",
-        "tags":  [
-                     "2025",
-                     "2025 NOVEMBRE"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/NOVEMBRE/IMG_4686.jpg"
-    },
-    {
         "id":  "2025-auto-93",
         "titre":  "2025 NOVEMBRE",
         "tags":  [
@@ -1173,9 +1163,16 @@ const MEDIAS_2025_ALL: Media[] = [
     }
 ];
 
-// Alternance pour repartir equitablement
-export const MEDIAS_2025: Media[] = MEDIAS_2025_ALL.filter((_, idx) => idx % 2 === 0);
-export const MEDIAS_2025_2: Media[] = MEDIAS_2025_ALL.filter((_, idx) => idx % 2 === 1);
+// Alternance pour repartir equitablement (ids 2025-auto-45, 2025-auto-46, 2025-auto-55 et 2025-auto-57 exclus)
+const MEDIAS_2025_ALL_CLEAN = MEDIAS_2025_ALL.filter(
+  (m) =>
+    m.id !== "2025-auto-45" &&
+    m.id !== "2025-auto-46" &&
+    m.id !== "2025-auto-55" &&
+    m.id !== "2025-auto-57"
+);
+export const MEDIAS_2025: Media[] = MEDIAS_2025_ALL_CLEAN.filter((_, idx) => idx % 2 === 0);
+export const MEDIAS_2025_2: Media[] = MEDIAS_2025_ALL_CLEAN.filter((_, idx) => idx % 2 === 1);
 
 export const MEDIAS_2025_TIMELINE = [
     {
