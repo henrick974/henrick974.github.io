@@ -1,26 +1,19 @@
-﻿"use client"; // c?t? client que c'est execueter les trucs
+﻿"use client";
 
 import Link from "next/link";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { MEDIAS_2024, MEDIAS_2024_2 } from "./medias2024"; // adapte le chemin si ta page n'est pas dans le m?me dossier
+import { motion } from "framer-motion";
+import { MEDIAS_2024, MEDIAS_2024_2 } from "./medias2024";
 
-import { MEDIAS_2025, MEDIAS_2025_2 } from "./medias2025"; // adapte le chemin si ta page n'est pas dans le m?me dossier
-import {
-  MEMBRES_FELR,
-  MOSAIQUE_TEMOIGNAGES,
-  TemoignageMembreFelr,
-  TemoignageMosaiqueItem,
-} from "./temoignages-data";
+import { MEDIAS_2025, MEDIAS_2025_2 } from "./medias2025";
 
-import { SectionWhiteSilver } from "@/src/components/SectionWhiteSilver"; // a enlever
 
 // Media[] c'est un tableau de Media
 // et sa renvoi 2 tableau dcp
 const splitMedias = (medias: Media[]): [Media[], Media[]] => {
-  if (medias.length <= 1) return [medias, []]; // si la taille et de 1 y a lui meme et un tableau vide 
-  const middle = Math.ceil(medias.length / 2); // on cherche le milieu .ceil sa arrondi arrondi au dessus 
+  if (medias.length <= 1) return [medias, []]; // si la taille et de 1 y a lui meme et un tableau vide
+  const middle = Math.ceil(medias.length / 2); // on cherche le milieu .ceil sa arrondi arrondi au dessus
   return [medias.slice(0, middle), medias.slice(middle)]; // on met du debut au milieu dans un array et le reste ds l'autre array slice(start, end) || start(start)
 };
 
@@ -30,13 +23,9 @@ const splitMedias = (medias: Media[]): [Media[], Media[]] => {
  */
 
 const MEDIAS_2024_ALL = [...MEDIAS_2024, ...MEDIAS_2024_2];
-const MEDIAS_2023_SET = MEDIAS_2024_ALL.filter((m) =>
-  m.tags?.some((t) => t.endsWith("2023"))
-);
 const MEDIAS_2024_SET = MEDIAS_2024_ALL.filter((m) =>
   m.tags?.some((t) => t.endsWith("2024"))
 );
-const [MEDIAS_2023_PRIMARY, MEDIAS_2023_SECONDARY] = splitMedias(MEDIAS_2023_SET);
 const [MEDIAS_2024_PRIMARY, MEDIAS_2024_SECONDARY] = splitMedias(MEDIAS_2024_SET);
 
 /* =========================================================
@@ -70,63 +59,25 @@ type YearData = {
 
 type YearKey = "2025" | "2024-2023";
 
-const WORD_CLOUD = [
-  {
-    titre: "Elan interieur et posture",
-    mots: ["Depassement de soi", "Prise de parole", "Audace", "Changement", "Responsabilite"],
-  },
-  {
-    titre: "Ouverture et relation a l'autre",
-    mots: ["S'ouvrir", "Ouverture aux autres", "Connexion", "Entraide", "Partage", "Partenariat", "Reseau"],
-  },
-  {
-    titre: "Croissance et evolution",
-    mots: ["Apprentissage", "Evolution", "Developpement personnel", "Developpement professionnel"],
-  },
-  {
-    titre: "Energie et plaisir",
-    mots: ["Fun"],
-  },
-];
-
-const CLOUD_POSITIONS = [
-  { top: "18%", left: "26%" },
-  { top: "30%", left: "42%" },
-  { top: "44%", left: "24%" },
-  { top: "50%", left: "60%" },
-  { top: "64%", left: "32%" },
-  { top: "70%", left: "48%" },
-  { top: "78%", left: "28%" },
-  { top: "36%", left: "64%" },
-  { top: "56%", left: "40%" },
-];
-
-const spreadWords = (words: string[]) =>
-  words.map((text, i) => {
-    const pos = CLOUD_POSITIONS[i % CLOUD_POSITIONS.length];
-    return { text, ...pos };
-  });
-
-const HEADER_MARQUEE_TEXT = "Bienvenue chez FELR - Femmes Entrepreneures et Leaders de La Reunion";
    /* 2025 & 2024 & 2023 sont des YearData et on les initialises ci-dessous */
 const DATA: Record<YearKey, YearData> = { // const NOM: TYPE = VALEUR;
-                                                          // Record<Cl?, Valeur> en gros c'est pour dire avant c'est soit 2024 2025 ou 2023 
+                                                          // Record<Cl?, Valeur> en gros c'est pour dire avant c'est soit 2024 2025 ou 2023
                                                           // et sa valeur sera toujours un YearsData
   "2025": {
     hero: {
       titre: "Notre Histoire en 2025",
       accroche:
-        "Atelier, C?r?monies, conf?rences, rencontres publiques, soir?es de prestige : Une association rythm?e par des ?v?nements marquants.",
+        "Atelier, Cérémonies, conférences, rencontres publiques, soirées de prestige : Une association rythmée par des événements marquants.",
     },
     chiffres: [
       { label: "Ateliers", valeur: 179 },
       { label: "Membres", valeur: 106 },
       { label: "Soutiens et Partenaires", valeur: 21 },
     ],
-    // Carrousel 1 : tes m?dias ?classiques?
+    // Carrousel 1 : tes médias classiques
     momentsForts: MEDIAS_2025,
 
-    // Carrousel 2 : AUTRE fichier de m?dias (gala, etc.)
+    // Carrousel 2 : AUTRE fichier de médias (gala, etc.)
     momentsFortsSecondaire: MEDIAS_2025_2,
 
   },
@@ -196,13 +147,9 @@ export default function PageEvenement() {
   const [autoScroll, setAutoScroll] = useState(false); // créé la fonction setAutoScroll et le met a false
 
   // ?? quelle image est "en gros plan" pendant le d?filement auto
-  const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // cr?? la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
-  const currentAutoMedia = useMemo(() => {
-    const pool = [...data.momentsForts, ...data.momentsFortsSecondaire];
-    return pool.find((m) => m.id === currentAutoMediaId) ?? null;
-  }, [data, currentAutoMediaId]);
+  const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // créé la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
 
-  // Lecture auto des vid�os uniquement pendant l'autoscroll
+  // Lecture auto des vidéos uniquement pendant l'autoscroll
   useEffect(() => {
     const videos = Array.from(
       document.querySelectorAll<HTMLVideoElement>("video[data-autoscroll-video]")
@@ -426,11 +373,11 @@ useEffect(() => {
       return;
     }
 
-    // ===== ?tapes par ann?e : CHIFFRES / IMAGES =====
+    // ===== étapes par année : CHIFFRES / IMAGES =====
     // Ici, on sait que step = "year-chiffres" ou "year-images"
     setYear(step.year);
 
-    // petit d?lai pour laisser React changer d'ann?e
+    // petit délai pour laisser React changer d'année
     timeoutId = window.setTimeout(() => {
       if (cancelled || !autoScroll) return;
 
@@ -527,7 +474,7 @@ useEffect(() => {
    */
   return (
     <>
-    <main className="min-h-screen bg-gradient-to-b from-[#fff7ed] to-white">
+    <main className="min-h-screen bg-linear-to-b from-[#fff7ed] to-white">
       {/* Bouton toggle d?filement auto */}
       <button
         type="button"
@@ -550,7 +497,7 @@ useEffect(() => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="relative w-full aspect-[4/5] overflow-hidden rounded-3xl bg-white shadow-md"
+            className="relative w-full aspect-4/5 overflow-hidden rounded-3xl bg-white shadow-md"
           >
             <Image
               src="/PATRICIA.jpg"
@@ -672,7 +619,6 @@ Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au mond
         />
       )}
 
-      <SectionCollectifFelr />
 
         <section
       id="mentions-legales"
@@ -892,7 +838,7 @@ function SectionNuageMots() {
     words.map((text, i) => ({ text, ...positions[i % positions.length] }));
 
   return (
-    <section id="section-nuage-mots" className="bg-gradient-to-r from-amber-100/60 via-white to-rose-100/60 py-10">
+    <section id="section-nuage-mots" className="bg-linear-to-r from-amber-100/60 via-white to-rose-100/60 py-10">
       <div className="mx-auto max-w-6xl px-6 space-y-6">
         <div className="text-center">
           <p className="text-4xl md:text-5xl font-serif leading-tight text-[#E2A429]">Notre ambition</p>
@@ -904,11 +850,11 @@ function SectionNuageMots() {
             return (
               <div key={c.titre} className="flex flex-col items-center gap-3">
                 <p className="text-lg font-semibold text-gray-800 text-center">{c.titre}</p>
-                <div className={`relative w-[260px] h-[260px] md:w-[300px] md:h-[300px] rounded-full bg-gradient-to-br ${c.bg} border shadow-sm overflow-hidden`}>
+                <div className={`relative w-[260px] h-[260px] md:w-[300px] md:h-[300px] rounded-full bg-linear-to-br ${c.bg} border shadow-sm overflow-hidden`}>
                   {items.map((mot, idx) => (
                     <span
                       key={`${c.titre}-${mot.text}-${idx}`}
-                      className={`${c.colorClass} absolute text-xs md:text-sm font-semibold text-center max-w-[70%] leading-tight break-words`}
+                      className={`${c.colorClass} absolute text-xs md:text-sm font-semibold text-center max-w-[70%] leading-tight wrap-break-word`}
                       style={{
                         top: mot.top,
                         left: mot.left,
@@ -931,123 +877,6 @@ function SectionNuageMots() {
         </div>
       </div>
     </section>
-  );
-}
-
-function SectionCollectifFelr() {
-  return (
-    <section className="mt-10 border-t border-gray-200 bg-white/50">
-      <div className="mx-auto max-w-7xl px-6 pb-14">
-        <motion.h3
-          initial={{ opacity: 0, y: 8 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.35 }}
-          className="text-4xl md:text-5xl font-serif text-[#E2A429] text-center mb-10"
-        >
-          Témoignages FELR
-        </motion.h3>
-
-        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {MEMBRES_FELR.map((m, index) => (
-            <div key={m.id} data-temoignage-id={`temoignage-felr-${index}`}>
-              <CarteTemoignageFelr m={m} />
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function BandeauMosaiqueCollectif({ images }: { images: TemoignageMosaiqueItem[] }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.4 }}
-      className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3"
-    >
-      {images.map((img, i) => (
-        <motion.div
-          key={img.src}
-          initial={{ opacity: 0, y: 10, scale: 0.98 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.35, delay: i * 0.05 }}
-          className="relative aspect-square overflow-hidden rounded-2xl border bg-white group"
-        >
-          <Image
-            src={img.src}
-            alt={img.alt}
-            fill
-            sizes="(max-width:1024px) 33vw, 16vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 ring-0 ring-transparent group-hover:ring-2 group-hover:ring-black/10 rounded-2xl transition" />
-        </motion.div>
-      ))}
-    </motion.div>
-  );
-}
-
-function CarteTemoignageFelr({ m }: { m: TemoignageMembreFelr }) {
-  const [showFull, setShowFull] = useState(false);
-
-  const MAX_CHARS = 260; // ajuste cette valeur pour avoir ~4 lignes
-  const isLong = m.temoignage.length > MAX_CHARS;
-  const renderWithBreaks = (text: string) =>
-    text
-      .split(/\n|<br\s*\/?>/i)
-      .flatMap((part, idx, arr) =>
-        idx < arr.length - 1 ? [part, <br key={`br-${idx}`} />] : [part]
-      );
-
-  const texteAffiche =
-    showFull || !isLong
-      ? m.temoignage
-      : m.temoignage.slice(0, MAX_CHARS).trimEnd() + "...";
-
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.35 }}
-      className="rounded-2xl overflow-hidden border bg-white shadow-sm"
-    >
-      <div className="px-4 pt-4 text-center font-semibold text-base text-gray-800">
-        {m.prenom}
-      </div>
-
-      <div className="relative h-56 bg-white">
-        <Image
-          src={m.photo}
-          alt={`${m.prenom} ${m.nom ?? ""}`}
-          fill
-          sizes="(max-width: 1024px) 100vw, 33vw"
-          className="object-contain"
-                  priority
-                />
-      </div>
-
-      <div className="p-4">
-        <p className="text-sm text-gray-600 leading-relaxed mt-2 text-justify">
-          {renderWithBreaks(texteAffiche)}
-        </p>
-
-        {isLong && (
-          <button
-            type="button"
-            onClick={() => setShowFull((v) => !v)}
-            className="mt-2 text-xs font-semibold text-rose-600 hover:underline"
-          >
-            {showFull ? "Voir moins" : "Voir plus"}
-          </button>
-        )}
-      </div>
-    </motion.article>
   );
 }
 
@@ -1153,178 +982,6 @@ function SectionMomentsForts({
   );
 }
 
-
-function SectionGalerie({
-  items,
-  currentAutoMediaId,
-  }: {
-    items: Media[];
-    currentAutoMediaId: string | null;
-  }) {
-  const [lightbox, setLightbox] = useState<Media | null>(null);
-  const [type, setType] = useState<"all" | "image" | "video">("all");
-
-  const tags = useMemo(() => {
-    const s = new Set<string>();
-    items.forEach((i) => i.tags?.forEach((t) => s.add(t)));
-    return Array.from(s).sort();
-  }, [items]);
-
-  const [tag, setTag] = useState<string | null>(null);
-
-  const filtered = items.filter((i) => {
-    const okType = type === "all" ? true : i.type === type;
-    const okTag = tag ? i.tags?.includes(tag) : true;
-    return okType && okTag;
-  });
-
-  return (
-    <section className="mx-auto max-w-7xl px-6 py-14">
-      <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-        <h2 className="text-3xl md:text-4xl font-serif">Galerie</h2>
-
-        {/* Filtres */}
-        <div className="flex flex-wrap items-center gap-2">
-          {["all", "image", "video"].map((t) => (
-            <button
-              key={t}
-              onClick={() => setType(t as any)}
-              className={`rounded-full border px-4 py-1.5 text-sm ${
-                type === t ? "bg-black text-white" : "bg-white hover:bg-gray-50"
-              }`}
-            >
-              {t === "all" ? "Tous" : t === "image" ? "Photos" : "Vid?os"}
-            </button>
-          ))}
-          <div className="w-px h-6 bg-gray-200 mx-1" />
-          <button
-            onClick={() => setTag(null)}
-            className={`rounded-full border px-3 py-1.5 text-sm ${
-              tag === null ? "bg-black text-white" : "bg-white hover:bg-gray-50"
-            }`}
-          >
-            Tous les tags
-          </button>
-          {tags.map((t) => (
-            <button
-              key={t}
-              onClick={() => setTag(t)}
-              className={`rounded-full border px-3 py-1.5 text-sm ${
-                tag === t ? "bg-black text-white" : "bg-white hover:bg-gray-50"
-              }`}
-            >
-              #{t}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Masonry */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.35 }}
-        className="columns-1 sm:columns-1 lg:columns-2 gap-8 space-y-8"
-      >
-      {filtered.map((m) => {
-        const isActive = currentAutoMediaId === m.id;
-
-        return (
-          <motion.article
-            key={m.id}
-            data-autoscroll-id={m.id}
-            data-media-type={m.type}
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.35 }}
-            className={`
-              break-inside-avoid rounded-2xl overflow-hidden border bg-white shadow-sm group
-              transition-transform duration-300
-              ${isActive ? "scale-[1.03] shadow-xl ring-2 ring-rose-200" : ""}
-            `}
-          >
-            <button
-              onClick={() => setLightbox(m)}
-              className="block w-full text-left"
-            >
-              <motion.div
-                className="relative"
-                animate={
-                  isActive
-                    ? { scale: [1, 1.06, 1] }
-                    : { scale: 1 }
-                }
-                transition={
-                  isActive
-                    ? { duration: 0.7, ease: "easeInOut" }
-                    : { duration: 0.3 }
-                }
-              >
-                <MediaPreview m={m} ratio="aspect-[4/3]" />
-              </motion.div>
-
-              {m.titre || m.texte ? (
-                <div className="p-4">
-                  {m.titre && <h3 className="font-semibold">{m.titre}</h3>}
-                  {m.texte && (
-                    <p className="text-sm text-gray-600 mt-1">{m.texte}</p>
-                  )}
-                </div>
-              ) : null}
-            </button>
-          </motion.article>
-        );
-      })}
-
-      </motion.div>
-
-      {/* Lightbox */}
-      <AnimatePresence>
-        {lightbox && (
-          <motion.div
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setLightbox(null)}
-          >
-            <motion.div
-              className="w-full max-w-5xl"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 20, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="relative w-full overflow-hidden rounded-2xl bg-black">
-                <MediaView m={lightbox} />
-                <button
-                  onClick={() => setLightbox(null)}
-                  className="absolute top-3 right-3 rounded-full bg-white/90 px-3 py-1 text-sm font-medium shadow hover:bg-white"
-                >
-                  Fermer
-                </button>
-              </div>
-
-              {(lightbox.titre || lightbox.texte) && (
-                <div className="mt-4 rounded-xl bg-white p-5 shadow">
-                  {lightbox.titre && (
-                    <h3 className="text-xl font-semibold mb-1">{lightbox.titre}</h3>
-                  )}
-                  {lightbox.texte && (
-                    <p className="text-gray-700 leading-relaxed">{lightbox.texte}</p>
-                  )}
-                </div>
-              )}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </section>
-  );
-}
-
 /* =========================================================
    RENDUS MEDIA
    ========================================================= */
@@ -1373,23 +1030,5 @@ function MediaPreview({
         />
       )}
     </div>
-  );
-}
-
-function MediaView({ m }: { m: Media }) {
-  if (m.type === "image") {
-    return (
-      <Image
-        src={m.src}
-        alt={m.alt ?? m.titre ?? "image"}
-        width={2000}
-        height={1500}
-        className="w-full h-auto object-contain bg-black"
-        priority
-      />
-    );
-  }
-  return (
-    <video src={m.src} controls autoPlay className="w-full h-auto object-contain bg-black" />
   );
 }
