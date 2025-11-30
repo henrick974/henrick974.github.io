@@ -8,6 +8,7 @@ import { MEDIAS_2024, MEDIAS_2024_2 } from "./medias2024";
 
 import { MEDIAS_2025, MEDIAS_2025_2 } from "./medias2025";
 
+import { HeroFondatrice } from "@/src/components/HeroFondatrice";
 
 // Media[] c'est un tableau de Media
 // et sa renvoi 2 tableau dcp
@@ -173,102 +174,51 @@ export default function PageEvenement() {
       });
     }
   }, [currentAutoMediaId, autoScroll]);
-// ?? effet qui fait d?filer, ?tape par ?tape
+//  effet qui fait défiler, étape par étape
 useEffect(() => {
   if (!autoScroll) {
     setCurrentAutoMediaId(null);
     return;
   }
 
+  // Se Sont les types
   type AutoStep =
-    | { kind: "hero"; durationMs: number }
-    | { kind: "nuage"; durationMs: number }
     | { kind: "year-chiffres"; year: YearKey; durationMs: number }
     | { kind: "year-images"; year: YearKey }
-    | { kind: "anchor"; id: string; durationMs: number }
-    | { kind: "temoignages"; perItemMs: number }
-    | { kind: "partners"; perItemMs: number };
+    | { kind: "anchor"; id: string; durationMs: number }; // c'est l'action par default
 
-  // ?? Plan complet du d?filement
+  //  Plan complet du défilement
   const steps: AutoStep[] = [
-    { kind: "hero", durationMs: 10_000 }, // 10s sur le HERO
-    { kind: "nuage", durationMs: 5_000 }, // 5s nuage
+    { kind: "anchor", id: "section-hero", durationMs: 10_000 },
+    { kind: "anchor", id: "section-nuage-mots", durationMs: 5_000 },
     { kind: "year-chiffres", year: "2024-2023", durationMs: 5_000 },
     { kind: "year-images", year: "2024-2023" },
-    { kind: "partners", perItemMs: 2200 },
-    { kind: "anchor", id: "osez-felr", durationMs: 12_000 },
-
-    // Scroll lent sur la section Temoignages FELR
-    { kind: "anchor", id: "section-temoignage-felr", durationMs: 4_000 },
-    { kind: "temoignages", perItemMs: 2_000 },
-
-    // Puis on passe aux contenus 2025
     { kind: "year-chiffres", year: "2025", durationMs: 5_000 },
     { kind: "year-images", year: "2025" },
-    // White & Silver + partenaires, puis Osez + temoignages avant de boucler
-    { kind: "partners", perItemMs: 2200 },
-    { kind: "anchor", id: "osez-felr", durationMs: 12_000 },
-    { kind: "anchor", id: "section-temoignage-felr", durationMs: 4_000 },
-    { kind: "temoignages", perItemMs: 2_000 },
   ];
 
   let cancelled = false;
-  let timeoutId: number | null = null;
+  let timeoutId: number | null = null; // contient l'Id du timer de l'image actuel
 
   const runStep = (stepIndex: number) => {
     if (cancelled || !autoScroll) return;
 
     const step = steps[stepIndex];
+    // si jamais on dépasse, on repart du début
     if (!step) {
-      // si jamais on d?passe, on repart du d?but
       runStep(0);
       return;
     }
 
-    // on reset le "highlight" d'image ? chaque nouvelle ?tape
+    // on reset le "highlight" d'image à chaque nouvelle étape parce que pas besoin de zoom quand on est sur le titre par exemple
     setCurrentAutoMediaId(null);
 
+    // si l'ID est null c'est que y a rien qui vient apres genre il vas plus executer la fonction qui passe au suivant
     if (timeoutId !== null) {
       window.clearTimeout(timeoutId);
     }
 
-    const nextStepIndex = (stepIndex + 1) % steps.length;
-
-    // ===== ?tapes simples : HERO / NUAGE / SECTIONS TEXTE =====
-    if (step.kind === "hero") {
-      // tu avais mis "2023-2024" dans ta version, je garde ?a
-      setYear("2024-2023");
-
-      const el = document.getElementById("section-hero");
-      if (el) {
-        el.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-          inline: "nearest",
-        });
-      }
-
-      timeoutId = window.setTimeout(() => {
-        runStep(nextStepIndex);
-      }, step.durationMs);
-      return;
-    }
-
-    if (step.kind === "nuage") {
-      const el = document.getElementById("section-nuage-mots");
-      if (el) {
-        el.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-          inline: "nearest",
-        });
-      }
-
-      timeoutId = window.setTimeout(() => {
-        runStep(nextStepIndex);
-      }, step.durationMs);
-      return;
-    }
+    const nextStepIndex = (stepIndex + 1) % steps.length; // pour ne pas out range l'array steps
 
     if (step.kind === "anchor") {
       const el = document.getElementById(step.id);
@@ -284,98 +234,9 @@ useEffect(() => {
         runStep(nextStepIndex);
       }, step.durationMs);
       return;
+    } else {
+      setYear(step.year); // si c'est pas un anchor c'est forcement un year-image ou year-chiffre
     }
-
-    // ===== ?tape sp?ciale : T?MOIGNAGES (1 par 1) =====
-    if (step.kind === "temoignages") {
-      const cards = Array.from(
-        document.querySelectorAll<HTMLElement>("[data-temoignage-id]")
-      );
-
-      if (!cards.length) {
-        // si jamais aucune carte trouv?e, on saute l??tape
-        runStep(nextStepIndex);
-        return;
-      }
-
-      let idx = 0;
-
-      const goToNextTemoignage = () => {
-        if (cancelled || !autoScroll) return;
-
-        const el = cards[idx];
-        if (!el) {
-          timeoutId = window.setTimeout(() => {
-            runStep(nextStepIndex);
-          }, step.perItemMs);
-          return;
-        }
-
-        el.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-          inline: "nearest",
-        });
-
-        idx += 1;
-
-        if (idx >= cards.length) {
-          // dernier t?moignage ? on passe ? l??tape suivante
-          timeoutId = window.setTimeout(() => {
-            runStep(nextStepIndex);
-          }, step.perItemMs);
-        } else {
-          // sinon on continue
-          timeoutId = window.setTimeout(goToNextTemoignage, step.perItemMs);
-        }
-      };
-
-      // on commence ? d?filer les cartes apr?s un premier d?lai
-      timeoutId = window.setTimeout(goToNextTemoignage, step.perItemMs);
-      return;
-    }
-
-    // ===== etape speciale : PARTENAIRES (section White & Silver) =====
-    if (step.kind === "partners") {
-      setYear("2025");
-      const anchorEl = document.getElementById("section-white-silver");
-      if (anchorEl) {
-        anchorEl.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-      }
-
-      const cards = Array.from(
-        document.querySelectorAll<HTMLElement>("[data-partner-card]")
-      );
-
-      if (!cards.length) {
-        runStep(nextStepIndex);
-        return;
-      }
-
-      let idx = 0;
-      const goToNextPartner = () => {
-        if (cancelled || !autoScroll) return;
-        const el = cards[idx];
-        if (!el) {
-          timeoutId = window.setTimeout(() => runStep(nextStepIndex), step.perItemMs);
-          return;
-        }
-        el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
-        idx += 1;
-        if (idx >= cards.length) {
-          timeoutId = window.setTimeout(() => runStep(nextStepIndex), step.perItemMs);
-        } else {
-          timeoutId = window.setTimeout(goToNextPartner, step.perItemMs);
-        }
-      };
-
-      timeoutId = window.setTimeout(goToNextPartner, 600);
-      return;
-    }
-
-    // ===== étapes par année : CHIFFRES / IMAGES =====
-    // Ici, on sait que step = "year-chiffres" ou "year-images"
-    setYear(step.year);
 
     // petit délai pour laisser React changer d'année
     timeoutId = window.setTimeout(() => {
@@ -421,8 +282,8 @@ useEffect(() => {
 
           const id = el.dataset.autoscrollId ?? null;
           const mediaType = el.dataset.mediaType ?? "image";
-          const delay = mediaType === "video" ? 9000 : 2200; // laisse le temps � la vid�o de jouer
-          setCurrentAutoMediaId(id); // celle-l? est en "gros plan"
+          const delay = mediaType === "video" ? 9000 : 2200; // laisse le temps à la vidéo de jouer
+          setCurrentAutoMediaId(id); // celle-là est en "gros plan"
 
           el.scrollIntoView({
             behavior: "smooth",
@@ -438,17 +299,17 @@ useEffect(() => {
               runStep(nextStepIndex);
             }, delay);
           } else {
-            timeoutId = window.setTimeout(goToNextImage, delay); // vitesse actuelle des photos / vid�os
+            timeoutId = window.setTimeout(goToNextImage, delay); // vitesse actuelle des photos / vidéos
           }
         };
 
-        // petit d?lai avant la 1?? image
+        // petit délai avant la 1'image
         timeoutId = window.setTimeout(goToNextImage, 400);
       }
     }, 300);
   };
 
-  // on d?marre au d?but du plan
+  // on d?marre au début du plan
   runStep(0);
 
   // stop si l'utilisateur touche ? la page
@@ -475,7 +336,7 @@ useEffect(() => {
   return (
     <>
     <main className="min-h-screen bg-linear-to-b from-[#fff7ed] to-white">
-      {/* Bouton toggle d?filement auto */}
+      {/* Bouton toggle défilement auto */}
       <button
         type="button"
         onClick={() => setAutoScroll((prev) => !prev)} /*on passe une fonction qui renvoie son inverse */
@@ -483,78 +344,9 @@ useEffect(() => {
       >
         {autoScroll ? "Désactiver le défilement auto" : "Activer le défilement auto"}
       </button>
+
       {/* HERO */}
-      <section
-      id="section-hero"
-      className="mx-auto max-w-7xl px-6 pt-16 md:pt-20 pb-10">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-serif leading-tight text-[#E2A429]">
-            Au coeur de FELR : la voix de sa fondatrice
-          </h1>
-        </div>
-        <div className="grid lg:grid-cols-2 gap-10 items-center">
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="relative w-full aspect-4/5 overflow-hidden rounded-3xl bg-white shadow-md"
-          >
-            <Image
-              src="/PATRICIA.jpg"
-              alt="FELR"
-              fill
-              className="object-contain p-6"
-              sizes="(max-width: 1024px) 100vw, 45vw"
-              priority
-            />
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="space-y-4 text-gray-800"
-          >
-
-            <p className="text-lg leading-relaxed">
-              En 2023, j'ai créé FELR pour répondre à un besoin réel :
-offrir aux femmes entrepreneures un espace où parler vrai, apprendre, s’élever et oser prendre leur place.
-Un lieu où l’on grandit, où l’on se soutient, où l’on s’ouvre au monde et à soi-même.
-
-
-            </p>
-            <p className="text-lg leading-relaxed font-semibold">
-              Mais laisse-moi être transparente :
-              FELR n'est pas fait pour tout le monde.
-            </p>
-            <div className="space-y-2">
-              <p className="text-lg leading-relaxed">   FELR s'adresse aux femmes qui ont envie de :</p>
-              <ul className="list-disc pl-5 space-y-1 text-base">
-                <li>Évoluer, même si cela demande de sortir de leur zone de confort,</li>
-                <li>Travailler sur leur posture, leur prise de parole, leur présence,</li>
-                <li>Apprendre, tester, expérimenter, se challenger,</li>
-                <li>S'engager dans une communauté vivante, bienveillante et exigeante,</li>
-                <li>Tisser des liens réels, durables et puissants,</li>
-                <li>Devenir, pas à pas, une leader affirmée.</li>
-              </ul>
-            </div>
-            <p className="text-lg leading-relaxed">
-              Si tu cherches un simple réseau où l'on vient "consommer" un événement et repartir, alors FELR n'est pas l'endroit pour toi.
-              Ici, on avance. On se transforme. On participe. On contribue. On joue collectif.
-            </p>
-            <p className="text-lg leading-relaxed">
-              En deux ans, FELR est devenu un mouvement reconnu dans l'écosystème entrepreneurial féminin de La Réunion.
-              Un espace où les femmes entrepreneures s'ouvrent, évoluent, osent et incarnent peu à peu leur leadership.
-            </p>
-            <p className="text-lg leading-relaxed">
-              Si tu te sens appelée par cette énergie, si tu es prête à te développer personnellement et professionnellement,
-              si tu veux faire partie d'un collectif qui élève autant qu'il soutient... Alors bienvenue chez FELR. Bienvenue chez toi.
-            </p>
-            <p className="text-base font-semibold">Par Patricia BOUCARD - Présidente & Fondatrice</p>
-
-          </motion.div>
-        </div>
-      </section>
+      <HeroFondatrice />
 
       <SectionNuageMots />
       <div className="mx-auto max-w-7xl px-6 pb-2 flex justify-center">
