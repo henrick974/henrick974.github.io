@@ -4,7 +4,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-const LINKS: { href: string; label: string }[] = [];
+const LINKS: { href: string; label: string }[] = [
+  { href: "/", label: "Notre Histoire"},
+  { href: "/collectif-felr", label: "Collectif FELR"},
+  { href: "/osez-felr", label: "osez FELR"},
+];
 
 export function Header() {
   const pathname = usePathname();
@@ -12,13 +16,6 @@ export function Header() {
   return (
     <header className="relative w-full flex items-center justify-between py-4 overflow-hidden">
       {/* Logo à gauche */}
-      {/* Bandeau dynamique au premier plan */}
-      <div className="pointer-events-none absolute inset-0 z-20 flex items-center">
-        <div className="animate-marquee whitespace-nowrap px-4 py-1 text-3xl sm:text-4xl font-semibold text-black drop-shadow">
-          Bienvenue chez FELR - Femmes Entrepreneures et Leaders de La Reunion
-        </div>
-      </div>
-
       <Link href="/" className="flex items-center gap-3">
         <Image
           src="/felr_logo.png"   // car il est dans /public
