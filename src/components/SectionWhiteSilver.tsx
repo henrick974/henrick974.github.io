@@ -8,13 +8,13 @@ import {
 
 export function SectionWhiteSilver() {
   return (
-    <section className="mx-auto max-w-7xl px-6 pb-14" id="section-white-silver">
+    <section className="mx-auto max-w-7xl p-6 pb-14" id="section-white-silver">
       <div className="mb-8 text-center">
         <h2 className="text-4xl md:text-5xl font-serif text-[#E2A429]">2025 : Événement White & Silver</h2>
       </div>
       <div className="grid lg:grid-cols-2 gap-10 mb-8 text-gray-800 text-left items-start">
         <div className="space-y-4">
-          <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-gray-100 shadow-sm">
+          <div className="relative w-full aspect-4/3 rounded-2xl overflow-hidden bg-gray-100 shadow-sm">
             <Image
               src="/temoignages/felr/celebrationwhite.jpg"
               alt="Celebration White & Silver"

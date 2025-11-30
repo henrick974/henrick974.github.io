@@ -72,7 +72,7 @@ function CarteTemoignageFelr({ m }: { m: TemoignageMembreFelr }) {
 
 export function SectionCollectifFelr() {
   return (
-    <section className="mt-10 border-t border-gray-200 bg-white/50">
+    <section className="mt-10 border-t border-gray-200 bg-white/50 py-6">
       <div className="mx-auto max-w-7xl px-6 pb-14">
         <motion.h3
           initial={{ opacity: 0, y: 8 }}
