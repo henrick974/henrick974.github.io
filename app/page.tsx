@@ -9,6 +9,13 @@ import { MEDIAS_2024, MEDIAS_2024_2 } from "./medias2024";
 import { MEDIAS_2025, MEDIAS_2025_2 } from "./medias2025";
 
 import { HeroFondatrice } from "@/src/components/HeroFondatrice";
+import { MediaPreview, type Media } from "@/src/components/evenement/media";
+import {
+  SectionChiffres,
+  SectionChiffresFusion,
+} from "@/src/components/evenement/SectionChiffres";
+
+
 
 // Media[] c'est un tableau de Media
 // et sa renvoi 2 tableau dcp
@@ -32,15 +39,6 @@ const [MEDIAS_2024_PRIMARY, MEDIAS_2024_SECONDARY] = splitMedias(MEDIAS_2024_SET
 /* =========================================================
    TYPES
    ========================================================= */
-export type Media = {
-  id: string;
-  type: "image" | "video";
-  src: string;
-  alt?: string;
-  titre?: string;
-  texte?: string;
-  tags?: string[];
-};
 
 type YearData = {
   hero: { titre: string; accroche: string };
@@ -51,14 +49,17 @@ type YearData = {
 
 };
 
+type YearKey = "2025" | "2024-2023";
 
-
+  // Se Sont les types
+  type AutoStep =
+    | { kind: "year-chiffres"; year: YearKey; durationMs: number }
+    | { kind: "year-images"; year: YearKey }
+    | { kind: "anchor"; id: string; durationMs: number }; // c'est l'action par default
 
 /* =========================================================
-   DONN?ES
+   DONNéES
    ========================================================= */
-
-type YearKey = "2025" | "2024-2023";
 
    /* 2025 & 2024 & 2023 sont des YearData et on les initialises ci-dessous */
 const DATA: Record<YearKey, YearData> = { // const NOM: TYPE = VALEUR;
@@ -115,27 +116,6 @@ const DATA: Record<YearKey, YearData> = { // const NOM: TYPE = VALEUR;
   };
 
 /* =========================================================
-   OUTILS
-   ========================================================= */
-const easeOut = (x: number) => 1 - Math.pow(1 - x, 3);
-
-function useCounter(n: number, duration = 1200) { // pour faire l'animation d'affichage des nombres
-  const [v, setV] = useState(0);
-  useEffect(() => {
-    let raf = 0;
-    const t0 = performance.now();
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - t0) / duration);
-      setV(Math.floor(n * easeOut(p)));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [n, duration]);
-  return v;
-}
-
-/* =========================================================
    PAGE
    ========================================================= */
 
@@ -180,12 +160,6 @@ useEffect(() => {
     setCurrentAutoMediaId(null);
     return;
   }
-
-  // Se Sont les types
-  type AutoStep =
-    | { kind: "year-chiffres"; year: YearKey; durationMs: number }
-    | { kind: "year-images"; year: YearKey }
-    | { kind: "anchor"; id: string; durationMs: number }; // c'est l'action par default
 
   //  Plan complet du défilement
   const steps: AutoStep[] = [
@@ -309,7 +283,7 @@ useEffect(() => {
     }, 300);
   };
 
-  // on d?marre au début du plan
+  // on démarre au début du plan
   runStep(0);
 
   // stop si l'utilisateur touche ? la page
@@ -352,7 +326,7 @@ useEffect(() => {
       <div className="mx-auto max-w-7xl px-6 pb-2 flex justify-center">
         <h2 className="text-4xl md:text-5xl font-serif leading-tight text-[#E2A429]">Nos chiffres clés</h2>
       </div>
-      {/* Switch Ann?e au-dessus des chiffres */}
+      {/* Switch Année au-dessus des chiffres */}
       <div className="mx-auto max-w-7xl px-6 pb-4 flex justify-center">
         <div className="inline-flex rounded-full border bg-white overflow-hidden shadow">
           {(["2025", "2024-2023"] as const).map((y) => (
@@ -531,60 +505,6 @@ useEffect(() => {
 /* =========================================================
    SECTIONS
    ========================================================= */
-function SectionChiffres({ data }: { data: { label: string; valeur: number }[] }) {
-  return (
-    <section className="mx-auto max-w-7xl px-6 pb-6">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        {data.map((c) => (
-          <motion.div
-            key={c.label}
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.35 }}
-            className="rounded-2xl border bg-white p-6 text-center shadow-sm"
-          >
-            <div className="text-4xl md:text-5xl font-semibold">{useCounter(c.valeur)}</div>
-            <div className="mt-2 text-gray-600">{c.label}</div>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function SectionChiffresFusion({
-  blocs,
-}: {
-  blocs: { annee: string; chiffres: { label: string; valeur: number }[] }[];
-}) {
-  return (
-    <section className="mx-auto max-w-7xl px-6 pb-6 space-y-6">
-      {blocs.map((bloc) => (
-        <div key={bloc.annee} className="space-y-3">
-          <div className="text-center text-lg font-semibold text-gray-700">
-            {bloc.annee}
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {bloc.chiffres.map((c) => (
-              <motion.div
-                key={`${bloc.annee}-${c.label}`}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.35 }}
-                className="rounded-2xl border bg-white p-6 text-center shadow-sm"
-              >
-                <div className="text-4xl md:text-5xl font-semibold">{useCounter(c.valeur)}</div>
-                <div className="mt-2 text-gray-600">{c.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </section>
-  );
-}
 
 function SectionNuageMots() {
   const clouds = [
@@ -771,56 +691,5 @@ function SectionMomentsForts({
         </div>
       </div>
     </section>
-  );
-}
-
-/* =========================================================
-   RENDUS MEDIA
-   ========================================================= */
-function MediaPreview({
-  m,
-  ratio = "aspect-[4/3]",
-  hoverZoom = false,
-}: {
-  m: Media;
-  ratio?: string;
-  hoverZoom?: boolean;
-}) {
-  return (
-    <div className={`relative ${ratio} bg-gray-100`}>
-      {m.type === "image" ? (
-        <Image
-          src={m.src}
-          alt={m.alt ?? m.titre ?? "image"}
-          fill
-          sizes="(max-width: 1024px) 100vw, 33vw"
-          className={`object-contain ${
-            hoverZoom ? "transition-transform duration-300 group-hover:scale-[1.02]" : ""
-          }`}
-        />
-      ) : (
-        <video
-          src={m.src}
-          data-autoscroll-video="true"
-          autoPlay
-          muted
-          playsInline
-          preload="metadata"
-          controls
-          className="absolute inset-0 w-full h-full object-contain bg-black"
-          onLoadedMetadata={(e) => {
-            const v = e.currentTarget as HTMLVideoElement;
-            v.currentTime = 0;
-            v.play().catch(() => {});
-          }}
-          onMouseEnter={(e) => (e.currentTarget as HTMLVideoElement).play()}
-          onMouseLeave={(e) => {
-            const v = e.currentTarget as HTMLVideoElement;
-            v.pause();
-            v.currentTime = 0;
-          }}
-        />
-      )}
-    </div>
   );
 }

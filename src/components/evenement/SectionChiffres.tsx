@@ -28,6 +28,12 @@ function useCounter(n: number, duration = 1200) {
    SECTIONS CHIFFRES
    ========================================================= */
 
+function AnimatedNumber({ value }: { value: number }) {
+  const v = useCounter(value);
+  return <>{v}</>;
+}
+
+
 export function SectionChiffres({ data }: { data: { label: string; valeur: number }[] }) {
   return (
     <section className="mx-auto max-w-7xl px-6 pb-6">
@@ -41,7 +47,9 @@ export function SectionChiffres({ data }: { data: { label: string; valeur: numbe
             transition={{ duration: 0.35 }}
             className="rounded-2xl border bg-white p-6 text-center shadow-sm"
           >
-            <div className="text-4xl md:text-5xl font-semibold">{useCounter(c.valeur)}</div>
+            <div className="text-4xl md:text-5xl font-semibold">
+              <AnimatedNumber value={c.valeur} />
+            </div>
             <div className="mt-2 text-gray-600">{c.label}</div>
           </motion.div>
         ))}
@@ -72,7 +80,9 @@ export function SectionChiffresFusion({
                 transition={{ duration: 0.35 }}
                 className="rounded-2xl border bg-white p-6 text-center shadow-sm"
               >
-                <div className="text-4xl md:text-5xl font-semibold">{useCounter(c.valeur)}</div>
+                <div className="text-4xl md:text-5xl font-semibold">
+                  <AnimatedNumber value={c.valeur} />
+                </div>
                 <div className="mt-2 text-gray-600">{c.label}</div>
               </motion.div>
             ))}

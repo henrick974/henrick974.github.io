@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-// Type partagé
+// Type partagé pour toutes les années / carrousels
 export type Media = {
   id: string;
   type: "image" | "video";
@@ -13,18 +13,17 @@ export type Media = {
   tags?: string[];
 };
 
-/* =========================================================
-   RENDUS MEDIA
-   ========================================================= */
+type MediaPreviewProps = {
+  m: Media;
+  ratio?: string;
+  hoverZoom?: boolean;
+};
+
 export function MediaPreview({
   m,
   ratio = "aspect-[4/3]",
   hoverZoom = false,
-}: {
-  m: Media;
-  ratio?: string;
-  hoverZoom?: boolean;
-}) {
+}: MediaPreviewProps) {
   return (
     <div className={`relative ${ratio} bg-gray-100`}>
       {m.type === "image" ? (
@@ -42,35 +41,26 @@ export function MediaPreview({
       ) : (
         <video
           src={m.src}
-          className="w-full h-full object-cover"
+          data-autoscroll-video="true"
           autoPlay
           muted
-          loop
+          playsInline
+          preload="metadata"
+          controls
+          className="absolute inset-0 w-full h-full object-contain bg-black"
+          onLoadedMetadata={(e) => {
+            const v = e.currentTarget as HTMLVideoElement;
+            v.currentTime = 0;
+            v.play().catch(() => {});
+          }}
+          onMouseEnter={(e) => (e.currentTarget as HTMLVideoElement).play()}
+          onMouseLeave={(e) => {
+            const v = e.currentTarget as HTMLVideoElement;
+            v.pause();
+            v.currentTime = 0;
+          }}
         />
       )}
     </div>
-  );
-}
-
-export function MediaView({ m }: { m: Media }) {
-  if (m.type === "image") {
-    return (
-      <Image
-        src={m.src}
-        alt={m.alt ?? m.titre ?? "image"}
-        width={2000}
-        height={1500}
-        className="w-full h-auto object-contain bg-black"
-        priority
-      />
-    );
-  }
-  return (
-    <video
-      src={m.src}
-      controls
-      autoPlay
-      className="w-full h-auto object-contain bg-black"
-    />
   );
 }
