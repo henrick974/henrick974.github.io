@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import {
   MEMBRES_FELR,
   TemoignageMembreFelr,
-} from "@/../../app/temoignages-data";
+} from "../../app/temoignages-data";
 
 import Image from "next/image";
 

@@ -1,5 +1,5 @@
 // medias2025.ts
-import type { Media } from "./page";
+import type { Media } from "../src/components/evenement/media";
 
 export const MEDIAS_2025_2: Media[] = [
   {

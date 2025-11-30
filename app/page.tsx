@@ -124,10 +124,10 @@ export default function PageEvenement() {
   const [year, setYear] = useState<YearKey>("2025"); // creation de la function setYear qui n'accepte que 2025 ou 2024-2023 et qui as mis 2025 par defaut
   const data = DATA[year]; // recupere le contenue qu'on as initialiser dans chaque ann?e juste en haut
 
-  // ?? �tat pour activer / activer le scroll auto
+  //  état pour activer / activer le scroll auto
   const [autoScroll, setAutoScroll] = useState(false); // créé la fonction setAutoScroll et le met a false
 
-  // ?? quelle image est "en gros plan" pendant le d?filement auto
+  //  quelle image est "en gros plan" pendant le défilement auto
   const [currentAutoMediaId, setCurrentAutoMediaId] = useState<string | null>(null); // créé la fonction setCurrentAutoMediaId sa prend une str mais c'est null par defaut
 
   // Lecture auto des vidéos uniquement pendant l'autoscroll

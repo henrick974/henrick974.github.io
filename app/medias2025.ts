@@ -1,4 +1,4 @@
-﻿import type { Media } from './page';
+﻿import type { Media } from '../src/components/evenement/media';
 
 const MEDIAS_2025_ALL: Media[] = [
     {

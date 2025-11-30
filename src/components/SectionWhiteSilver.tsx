@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import {
   MEMBRES_SOUTIEN,
   TemoignageMembreSoutien,
-} from "@/../../app/temoignages-data";
+} from "../../app/temoignages-data";
 
 export function SectionWhiteSilver() {
   return (
