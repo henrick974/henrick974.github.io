@@ -1,19 +1,18 @@
 ﻿"use client";
 
-import Link from "next/link";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
+import React, { useCallback, useEffect, useState } from "react";
 import { MEDIAS_2024, MEDIAS_2024_2 } from "./medias2024";
 
 import { MEDIAS_2025, MEDIAS_2025_2 } from "./medias2025";
 
 import { HeroFondatrice } from "@/src/components/HeroFondatrice";
-import { MediaPreview, type Media } from "@/src/components/evenement/media";
+import type { Media } from "@/src/components/evenement/media";
 import {
   SectionChiffres,
   SectionChiffresFusion,
 } from "@/src/components/evenement/SectionChiffres";
+import { SectionMomentsForts } from "@/src/components/evenement/SectionMomentsForts";
+import { MentionsLegalesSection } from "@/src/components/MentionsLegalesSection";
 import { SectionNuageMots } from "@/src/components/SectionNuageMots";
 
 
@@ -399,223 +398,9 @@ useEffect(() => {
       )}
 
 
-        <section
-      id="mentions-legales"
-      className="mx-auto max-w-7xl px-6 py-14 text-slate-900"
-    >
-      <div className="rounded-3xl border border-slate-200 bg-white/70 p-8 shadow-sm">
-        <h2 className="text-3xl md:text-4xl font-serif text-[#E2A429] mb-6">
-          Mentions légales & RGPD
-        </h2>
-        <div className="grid gap-8 md:grid-cols-2 items-center">
-          <div className="rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm space-y-3">
-            <h3 className="text-xl font-semibold text-slate-900">Telecharger le document</h3>
-            <p className="text-base leading-relaxed text-slate-700">
-              Retrouve l’intégralité des Mentions legales & RGPD dans un fichier dédié.
-            </p>
-            <a
-              href="/mentions-legales-rgpd.pdf"
-              download
-              className="inline-flex items-center gap-2 rounded-full bg-black px-4 py-2 text-sm font-semibold text-white shadow hover:bg-gray-900 transition"
-            >
-              Télécharger le document
-
-            </a>
-          </div>
-
-          <Link
-            href="https://www.facebook.com/groups/366121959389854"
-            target="_blank"
-            rel="noreferrer"
-            className="group flex items-center gap-4 rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-          >
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1877F2] text-white shadow">
-              <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 fill-current">
-                <path d="M22 12a10 10 0 1 0-11.5 9.9v-7h-2v-2.9h2v-2.2c0-2 1.2-3.1 3-3.1.9 0 1.8.1 1.8.1v2h-1c-1 0-1.3.6-1.3 1.2v2h2.3l-.4 2.9h-1.9v7A10 10 0 0 0 22 12Z" />
-              </svg>
-            </div>
-            <div className="space-y-1">
-              <p className="text-lg font-semibold text-slate-900">Suivre notre Actualité</p>
-
-            </div>
-          </Link>
-        </div>
-      </div>
-    </section>
-
-    <section className="mx-auto max-w-7xl px-6 pb-16">
-      <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white/80 px-6 py-4 shadow-sm">
-        <p className="text-sm md:text-base text-slate-800">
-          Site conçu et développé par <span className="font-semibold">TigerSoft EI</span>.
-        </p>
-        <div className="relative h-12 w-40">
-          <Image
-            src="/temoignages/felr/tigersoft.PNG"
-            alt="Logo TigerSoft EI"
-            fill
-            sizes="160px"
-            className="object-contain"
-            priority
-          />
-        </div>
-      </div>
-    </section>
+        <MentionsLegalesSection />
 
   </main>
-
-  <style jsx global>{`
-    @keyframes marquee {
-        0% {
-          transform: translateX(100%);
-        }
-        100% {
-          transform: translateX(-100%);
-        }
-      }
-      .animate-marquee {
-        animation: marquee 12s linear infinite;
-      }
-      @keyframes floatWords {
-        0% { transform: translate(0, 0); }
-        20% { transform: translate(10px, -12px); }
-        45% { transform: translate(-12px, 10px); }
-        70% { transform: translate(14px, 6px); }
-        100% { transform: translate(0, 0); }
-      }
-      .cloud-word {
-        color: #2ECC71;
-        animation: floatWords 6s ease-in-out infinite alternate;
-      }
-      .cloud-word-gold {
-        color: #2ECC71;
-        animation: floatWords 7s ease-in-out infinite alternate;
-        transform: translate(-50%, -50%);
-        white-space: nowrap;
-      }
-      .cloud-word-blue {
-        color: #3498DB;
-        animation: floatWords 7s ease-in-out infinite alternate;
-        transform: translate(-50%, -50%);
-        white-space: nowrap;
-      }
-      .cloud-word-orange {
-        color: #e67e22;
-        animation: floatWords 7s ease-in-out infinite alternate;
-        transform: translate(-50%, -50%);
-        white-space: nowrap;
-      }
-      .cloud-word-purple {
-        color: #9B59B6;
-        animation: floatWords 7s ease-in-out infinite alternate;
-        transform: translate(-50%, -50%);
-        white-space: nowrap;
-      }
-    `}</style>
     </>
-  );
-}
-
-/* =========================================================
-   SECTIONS
-   ========================================================= */
-function SectionMomentsForts({
-  items,
-  titre,
-  currentAutoMediaId,
-  headerAddon,
-}: {
-  items: Media[];
-  titre: string;
-  currentAutoMediaId: string | null;
-  headerAddon?: React.ReactNode;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-
-  const scrollBy = (dir: number) => {
-    const el = ref.current;
-    if (!el) return;
-    el.scrollBy({
-      left: dir * (el.clientWidth * 0.8),
-      behavior: "smooth",
-    });
-  };
-
-  return (
-    <section className="mx-auto max-w-7xl px-6 py-14">
-      <h2 className="text-4xl md:text-5xl font-serif leading-tight text-[#E2A429] mb-6 text-center">
-        {titre}
-      </h2>
-
-      {headerAddon ? (
-        <div className="mb-6 flex justify-center">{headerAddon}</div>
-      ) : null}
-
-      <div className="relative">
-        <div
-          ref={ref}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-2"
-        >
-          {items.map((m) => {
-            const isActive = currentAutoMediaId === m.id;
-
-            return (
-              <article
-                key={m.id}
-                data-autoscroll-id={m.id}
-                data-media-type={m.type}
-                className={`
-                  snap-start shrink-0 w-[92%] md:w-[60%] lg:w-[46%]
-                  rounded-2xl overflow-hidden border bg-white shadow-sm relative
-                  transition-transform duration-300
-                  ${isActive ? "scale-[1.03] shadow-xl ring-2 ring-rose-200" : ""}
-                `}
-              >
-                <motion.div
-                  animate={
-                    isActive
-                      ? { scale: [1, 1.06, 1] }
-                      : { scale: 1 }
-                  }
-                  transition={
-                    isActive
-                      ? { duration: 0.7, ease: "easeInOut" }
-                      : { duration: 0.3 }
-                  }
-                >
-                  <MediaPreview m={m} ratio="aspect-[4/3]" hoverZoom />
-                </motion.div>
-                <div className="absolute bottom-2 right-2 rounded bg-white/80 px-2 py-0.5 text-[10px] font-semibold text-gray-500 shadow-sm">
-                  #{m.id}
-                </div>
-                {m.texte && (
-                  <div className="p-4">
-                    <p className="text-sm text-gray-600 mt-1">{m.texte}</p>
-                  </div>
-                )}
-              </article>
-            );
-          })}
-
-        </div>
-
-        {/* fléches navigation */}
-        <div className="hidden md:block">
-          <button
-            onClick={() => scrollBy(-1)}
-            className="absolute -left-3 top-1/2 -translate-y-1/2 rounded-full bg-white border shadow px-3 py-2"
-            aria-label="Pr?c?dent"
-          >
-            {"<"}
-          </button>
-          <button
-            onClick={() => scrollBy(1)}
-            className="absolute -right-3 top-1/2 -translate-y-1/2 rounded-full bg-white border shadow px-3 py-2"
-            aria-label="Suivant"
-          >
-            {">"}
-          </button>
-        </div>
-      </div>
-    </section>
   );
 }
