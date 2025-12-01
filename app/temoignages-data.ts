@@ -132,19 +132,19 @@ Ma micro-entreprise a un an d’existence et j’ai choisi de me spécialiser da
     photo: "/temoignages/felr/ABDOUL.jpeg",
     temoignage:
             ` Je me retrouve chez FELR sur les bons conseils de Carine Merlo Rivière, membre salarié qui a eu la clairvoyance de me dire que ce serait intéressant de me connecter avec Patricia Boucard et FELR son association. 
-            
+
             Au vu des conseils que j'ai pu apporter à Carine sur le marketing digital et sur des compétences transversales comme l'audace la prise de parole face caméra, elle m'a dit que ce serait super que j'en fasse profiter au membre de l'association. 
- 
+
 Et moi ça tombait bien j'avais croisé déjà en vrai Patricia à un évènement sur le marketing digital d'ailleurs et j'avais peut-être anticipé en prenant son numéro de téléphone occasion des opportunités pourraient apparaître plus tard entre nous d’eux. 
 
 Pas une pas deux j'ai appelé Patricia juste après cet échange avec Carine. Et c'était un match! Patricia m'a invité à son événement et depuis je suis membre soutien sur la thématique Marketing-Digital-Video.
 
 Ce qui fait sens pour moi c'est déjà de suivre mon intuition de travailler avec des personnes qui partagent les mêmes valeurs que moi et même ambitions que moi et d'être avec des personnes qui ont confiance en moi et qui aiment bien aussi avoir des moments fun.
- 
+
 L'engagement de membre soutien de l'association je le fais parce que je me rappelle en 2014 quand j'ai lancé ma première activité d'entrepreneur dans la photographie j'étais seul, pas accompagné en dehors du domaine administratif et c'était clairement la hess parce que je n'avais pas les bonnes clés, je n'avais pas des gens qui me partager leur expérience pour gagner du temps et de la maturité et j'aurais adoré à l'époque que des personnes comme ça soient sur mon chemin. 
 
 Durant les premiers mois de l'activité je n'avais clairement pas le budget pour m'offrir des mentorings ou des coachings, mais parfois, et c'est le cas chez Felr, on peut s'entourer sans avoir des milles et des cents.
- 
+
  `,
   },
 
@@ -183,7 +183,7 @@ La vision de FELR me parle parce qu’elle place les femmes au cœur du dévelop
 
 La mission de FELR fait sens pour moi car elle créé un espace ou les entrepreneures peuvent
 - Se soutenir mutuellement
-- Développer leurs compétences, 
+- Développer leurs compétences,
 - Oser davantage
 - Prendre leur place en tant que leaders
 
@@ -205,15 +205,15 @@ J’ai choisi de m’engager parce que je souhaitais mettre mon expérience de c
     fonction: "oratrice",
     photo: "/temoignages/felr/ADELINE.jpg",
     temoignage:
-      `J'ai choisi de m'engager dans FELR quand j'ai decouvert cette association il y a 1 an et demi. J'ai ete enthousiaste 
-      par son but de promouvoir l'empowerment des femmes sur le territoire reunionnais, avec sa vision positive, 
-      le dynamisme de son equipe et la qualite du reseau. 
-      
+      `J'ai choisi de m'engager dans FELR quand j'ai decouvert cette association il y a 1 an et demi. J'ai ete enthousiaste
+      par son but de promouvoir l'empowerment des femmes sur le territoire reunionnais, avec sa vision positive,
+      le dynamisme de son equipe et la qualite du reseau.
+
       FELR, en adequation avec ses valeurs, me permet de mettre en oeuvre mes competences sociales et relationnelles ainsi que mon experience d'entrepreneure au profit des femmes leaders et entrepreneures. 
-      
+
       En tant que membre soutien, j'accompagne les femmes pour se realiser grace a leurs specificites, lever les blocages, se reconnecter a leur corps et avancer avec douceur. 
-      
-      J'apporte du sacre dans les petites choses du quotidien, de l'ame-agit et de la legerete pour egayer les obstacles, 
+
+      J'apporte du sacre dans les petites choses du quotidien, de l'ame-agit et de la legerete pour egayer les obstacles,
       en mettant mon expertise de guidance intuitive au service de leur epanouissement.`,
   },
 
@@ -256,7 +256,7 @@ Longue vie à ce réseau qui illumine les femmes et leurs ambitions ! Je suis Gi
     temoignage:
             `J’ai rejoint Femmes, Entrepreneures & Leaders pour faire rayonner la force du collectif féminin et une nouvelle façon d’entreprendre, plus respectueuse du vivant.
 Je suis partenaire de ce 2ème  anniversaire, je célèbre deux ans d’audace, de sororité et d’inspiration au service du territoire. 
-            
+
 Je suis Carole Bordes, fondatrice d’Agil Vapeur Solutions, engagée pour une propreté écologique, humaine et consciente à La Réunion.
 
 `,
@@ -361,7 +361,7 @@ Alors merci FELR.`,
     photo: "/temoignages/felr/GAELLE.jpeg",
     temoignage:
             `Membre FELR depuis janvier 2025, j'aime les ateliers mensuels en visio : de quoi apprendre, progresser, découvrir les expertises des autres membres, mais aussi partager mon propre travail et expertises.
-            
+
 J’aime l’énergie des rencontres en présentiel : des moments de connexion humaine directe et chaleureuse avec les autres membres.
 Et j'aime le sérieux du bureau : tout est clair, organisé et bien cadré.
  `,
