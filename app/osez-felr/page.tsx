@@ -1,6 +1,7 @@
 // app/ta-route/page.tsx (là où est déjà ton fichier)
-import Link from "next/link";
 import Image from "next/image";
+import { MentionsLegalesSection } from "@/src/components/MentionsLegalesSection";
+import { SectionEngagementCTA } from "@/src/components/SectionEngagementCTA";
 // LINK vers le formulaire de base
 
 //const SPHINX_URL =
@@ -80,52 +81,9 @@ export default function Osez() {
           </div>
           </div>
 
-        <div className="flex flex-wrap justify-center gap-4">
-          <Link
-            href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-2025/FELR.htm?V9=DevenirMembre"
-            className="group flex-1 min-w-[220px] max-w-xs flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-          >
-            <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
-              Devenir membre
-            </span>
-            <p className="text-sm text-slate-700 leading-relaxed">
-              Intègre une communauté qui t'élève, te soutient et t'aide à développer ton leadership.
-            </p>
-          </Link>
-
-          <Link
-            href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-2025/FELR.htm?V9=DevenirPartenaire"
-            className="group flex-1 min-w-[220px] max-w-xs flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-          >
-            <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
-              Devenir partenaire
-            </span>
-            <p className="text-sm text-slate-700 leading-relaxed">
-              Contribue à révéler la leader intérieure de chaque femme entrepreneure.
-            </p>
-          </Link>
-
-          <Link
-            href="https://s2.sphinxonline.net/SurveyServer/s/OptiSurvey/FELR-2025/FELR.htm?V9=DevenirB%C3%A9n%C3%A9vole"
-            className="group flex-1 min-w-[220px] max-w-xs flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white px-5 py-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-          >
-            <span className="text-base font-semibold text-[#E2A429] group-hover:underline">
-              Devenir bénévole
-            </span>
-            <p className="text-sm text-slate-700 leading-relaxed">
-              Apporte ton énergie, ton talent et participe activement à l'évolution d'un mouvement qui a du sens.
-            </p>
-          </Link>
-        </div>
-
-        <p className="text-center text-base text-slate-800">
-          Pour nous contacter :{" "}
-          <a className="text-[#E2A429] font-semibold" href="mailto:felr.contact@gmail.com">
-            felr.contact@gmail.com
-          </a>
-        </p>
+        <SectionEngagementCTA />
       </div>
+      <MentionsLegalesSection />
     </main>
   );
 }
-

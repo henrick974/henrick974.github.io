@@ -195,16 +195,6 @@ const MEDIAS_2024_ALL: Media[] = [
                      "MAI2024"
                  ],
         "type":  "image",
-        "src":  "/medias/2023/MAI2024/Capture d’écran 2024-05-23 à 23.38.44.jpg",
-        "id":  "2024-auto-28"
-    },
-    {
-        "titre":  "MAI2024",
-        "tags":  [
-                     "2023-2024",
-                     "MAI2024"
-                 ],
-        "type":  "image",
         "src":  "/medias/2023/MAI2024/IMG_1766.JPG",
         "id":  "2024-auto-29"
     },
@@ -771,4 +761,3 @@ export const MEDIAS_2024_TIMELINE = [
         "mediaId":  "2024-auto-95"
     }
 ];
-

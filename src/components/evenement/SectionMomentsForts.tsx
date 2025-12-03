@@ -71,9 +71,6 @@ export function SectionMomentsForts({
                 >
                   <MediaPreview m={m} ratio="aspect-[4/3]" hoverZoom />
                 </motion.div>
-                <div className="absolute bottom-2 right-2 rounded bg-white/80 px-2 py-0.5 text-[10px] font-semibold text-gray-500 shadow-sm">
-                  #{m.id}
-                </div>
                 {m.texte && (
                   <div className="p-4">
                     <p className="text-sm text-gray-600 mt-1">{m.texte}</p>

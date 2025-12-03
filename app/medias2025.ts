@@ -282,16 +282,6 @@ const MEDIAS_2025_ALL: Media[] = [
         "src":  "/medias/2025/AVRIL/Capture d’écran 2025-04-24 à 13.24.54.jpg"
     },
     {
-        "id":  "2025-auto-27",
-        "titre":  "2025 AVRIL",
-        "tags":  [
-                     "2025",
-                     "2025 AVRIL"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/AVRIL/Capture d’écran 2025-04-24 à 13.29.54.jpg"
-    },
-    {
         "id":  "2025-auto-28",
         "titre":  "2025 AVRIL",
         "tags":  [
@@ -502,16 +492,6 @@ const MEDIAS_2025_ALL: Media[] = [
         "src":  "/medias/2025/SEPTEMBRE/43d035d4-4d59-41fe-a14e-46f2bcb383c7.JPG"
     },
     {
-        "id":  "2025-auto-49",
-        "titre":  "2025 SEPTEMBRE",
-        "tags":  [
-                     "2025",
-                     "2025 SEPTEMBRE"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/SEPTEMBRE/Capture d’écran 2025-09-05 à 18.13.00.jpg"
-    },
-    {
         "id":  "2025-auto-50",
         "titre":  "2025 SEPTEMBRE",
         "tags":  [
@@ -642,16 +622,6 @@ const MEDIAS_2025_ALL: Media[] = [
         "src":  "/medias/2025/OCTOBRE/IMG_3703.jpg"
     },
     {
-        "id":  "2025-auto-63",
-        "titre":  "2025 OCTOBRE",
-        "tags":  [
-                     "2025",
-                     "2025 OCTOBRE"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/OCTOBRE/IMG_3718.jpg"
-    },
-    {
         "id":  "2025-auto-64",
         "titre":  "2025 OCTOBRE",
         "tags":  [
@@ -780,16 +750,6 @@ const MEDIAS_2025_ALL: Media[] = [
                  ],
         "type":  "image",
         "src":  "/medias/2025/OCTOBRE/IMG_4154.jpg"
-    },
-    {
-        "id":  "2025-auto-76",
-        "titre":  "2025 OCTOBRE",
-        "tags":  [
-                     "2025",
-                     "2025 OCTOBRE"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/OCTOBRE/IMG_4164.jpg"
     },
     {
         "id":  "2025-auto-77",
@@ -1072,16 +1032,6 @@ const MEDIAS_2025_ALL: Media[] = [
         "src":  "/medias/2025/DECEMBRE/WhatsApp Image 2025-11-24 à 17.10.31_e59a5e65.jpg"
     },
     {
-        "id":  "2025-auto-106",
-        "titre":  "2025 DECEMBRE",
-        "tags":  [
-                     "2025",
-                     "2025 DECEMBRE"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/DECEMBRE/WhatsApp Image 2025-11-24 à 17.10.46_32368b6f.jpg"
-    },
-    {
         "id":  "2025-auto-107",
         "titre":  "2025 DECEMBRE",
         "tags":  [
@@ -1100,16 +1050,6 @@ const MEDIAS_2025_ALL: Media[] = [
                  ],
         "type":  "image",
         "src":  "/medias/2025/DECEMBRE/WhatsApp Image 2025-11-24 à 17.12.39_62594708.jpg"
-    },
-    {
-        "id":  "2025-auto-109",
-        "titre":  "2025 DECEMBRE",
-        "tags":  [
-                     "2025",
-                     "2025 DECEMBRE"
-                 ],
-        "type":  "image",
-        "src":  "/medias/2025/DECEMBRE/WhatsApp Image 2025-11-24 à 17.12.43_b5a45caf.jpg"
     },
     {
         "id":  "2025-auto-110",
@@ -1220,4 +1160,3 @@ export const MEDIAS_2025_TIMELINE = [
         "mediaId":  "2025-auto-95"
     }
 ];
-

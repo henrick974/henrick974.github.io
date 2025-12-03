@@ -13,6 +13,7 @@ import {
 } from "@/src/components/evenement/SectionChiffres";
 import { SectionMomentsForts } from "@/src/components/evenement/SectionMomentsForts";
 import { MentionsLegalesSection } from "@/src/components/MentionsLegalesSection";
+import { SectionEngagementCTA } from "@/src/components/SectionEngagementCTA";
 import { SectionNuageMots } from "@/src/components/SectionNuageMots";
 
 
@@ -397,8 +398,9 @@ useEffect(() => {
         />
       )}
 
+      <SectionEngagementCTA className="py-10" />
 
-        <MentionsLegalesSection />
+      <MentionsLegalesSection />
 
   </main>
     </>
