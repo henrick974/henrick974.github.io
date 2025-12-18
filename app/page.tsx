@@ -297,7 +297,7 @@ useEffect(() => {
     }, 300);
   };
 
-  // on démarre au début du plan
+  // on démarre au début du plans
   runStep(0);
 
   // stop si l'utilisateur touche ? la page
