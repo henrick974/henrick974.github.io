@@ -36,12 +36,12 @@ export function MentionsLegalesSection() {
               Design, intégration et accompagnement technique.
             </p>
           </div>
-          <div className="relative h-12 w-40">
+          <div className="relative h-16 w-56">
             <Image
               src="/temoignages/felr/tigersoft.PNG"
               alt="Logo TigerSoft EI"
               fill
-              sizes="160px"
+              sizes="300px"
               className="object-contain"
               priority
             />

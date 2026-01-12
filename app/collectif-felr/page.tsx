@@ -12,21 +12,22 @@ export default function Collectif() {
         <p className="text-center text-base font-semibold text-slate-800">
           Vidéos réalisées par Abdoul LOKHAT pour FELR
         </p>
-        <div className="space-y-8">
+        <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory">
           {[
             { src: "/Videolongue3.mp4", label: "Vidéolongue 3" },
             { src: "/VIDlongue2.mp4", label: "Vidéolongue 2" },
             { src: "/Videolongue.mp4", label: "Vidéolongue 1" },
+            { src: "/Videolongue4.mp4", label: "Vidéolongue 4" }
           ].map((video) => (
             <div
               key={video.src}
-              className="overflow-hidden rounded-3xl border border-slate-200 bg-black shadow"
+              className="min-w-[280px] md:min-w-[360px] overflow-hidden rounded-3xl border border-slate-200 bg-black shadow snap-start"
             >
               <video
                 src={video.src}
                 controls
                 preload="metadata"
-                className="w-full h-full"
+                className="w-full h-auto"
                 aria-label={`${video.label} - Vidéos réalisées par Abdoul LOKHAT pour FELR`}
               />
             </div>
