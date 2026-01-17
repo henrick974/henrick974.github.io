@@ -1,0 +1,8 @@
+push vers vercel :
+
+git add .
+git commit -m "Travail FINAL"
+git push githubpages main    
+
+pull le projet depuis Samuel : 
+git pull --rebase origin main

@@ -14,10 +14,11 @@ export default function Collectif() {
         </p>
         <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory">
           {[
-            { src: "/Videolongue3.mp4", label: "Vidéolongue 3" },
+            
             { src: "/VIDlongue2.mp4", label: "Vidéolongue 2" },
             { src: "/Videolongue.mp4", label: "Vidéolongue 1" },
-            { src: "/Videolongue4.mp4", label: "Vidéolongue 4" }
+            { src: "/Videolongue4.mp4", label: "Vidéolongue 4" },
+            { src: "/Videolongue3.mp4", label: "Vidéolongue 3" }
           ].map((video) => (
             <div
               key={video.src}
